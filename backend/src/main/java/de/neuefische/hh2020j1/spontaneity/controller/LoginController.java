@@ -1,5 +1,6 @@
 package de.neuefische.hh2020j1.spontaneity.controller;
 import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
+import de.neuefische.hh2020j1.spontaneity.security.JwtUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,15 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("auth/login")
 
 public class LoginController {
 
+    private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
 
-    public LoginController(AuthenticationManager authenticationManager) {
+    public LoginController(JwtUtils jwtUtils, AuthenticationManager authenticationManager) {
+        this.jwtUtils = jwtUtils;
         this.authenticationManager = authenticationManager;
     }
 
@@ -30,7 +36,7 @@ public class LoginController {
         } catch (AuthenticationException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "bad credentials");
         }
-        return "token";
+        return jwtUtils.generateJwtToken(loginDto.getUsername(), new HashMap<>());
     }
 
 
