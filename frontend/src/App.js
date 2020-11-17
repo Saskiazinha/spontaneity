@@ -1,10 +1,18 @@
-import React from 'react';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import LoginPage from "./loginPage/LoginPage";
+import PostsToday from "./postsPages/PostsToday";
 
 function App() {
   return (
-    <div>
-      <div>Welcome</div>
-    </div>
+    <Switch>
+      <Route path="/login">
+        <LoginPage />
+      </Route>
+      <Route path="/home">
+        <PostsToday />
+      </Route>
+    </Switch>
   );
 }
 
