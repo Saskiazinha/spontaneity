@@ -40,6 +40,10 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "semi": true,
+    "singleQUote": false,
+    "tabWidth": 2,
+    "useTabs": false
   }
 }
