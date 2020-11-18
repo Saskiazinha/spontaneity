@@ -8,7 +8,7 @@ export default function UserContextProvider({ children }) {
   const [userData, setUserData] = useState();
 
   function postLogin(loginData) {
-    axios
+    return axios
       .post("/auth/login", loginData)
       .then((response) => setToken(response.data));
   }
