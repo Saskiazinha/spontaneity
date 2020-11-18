@@ -13,7 +13,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.TestPropertySource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -39,7 +38,6 @@ public class SignUpControllerTest {
         SpontaneityUser fiene= new SpontaneityUser("Fiene",password);
         userDao.save(fiene);
     }
-
     private String getSignUpUrl(){
         return "https://localhost:"+port+"auth/signup";
     }
