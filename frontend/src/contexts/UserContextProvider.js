@@ -8,21 +8,32 @@ export default function UserContextProvider({ children }) {
   const [userData, setUserData] = useState();
 
   function postLogin(loginData) {
-    axios.post("/auth/login", loginData).then((response) => setToken);
+    axios
+      .post("/auth/login", loginData)
+      .then((response) => setToken(response.data));
   }
 
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        if (decoded.exp > new Date().getTime() / 1000) {
+          setUserData(decoded);
+          localStorage.setItem("ACCESS_TOKEN", token);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [token]);
+
   const tokenIsValid = () => {
-    const decoded = jwtDecode(token);
-    return token && decoded.exp > new Date().getTime() / 1000;
+    return token && userData?.exp > new Date().getTime() / 1000;
   };
 
-  useEffect(() => {
-    if (tokenIsValid()) {
-      const decoded = jwtDecode(token);
-      setUserData(decoded);
-      localStorage.setItem("ACCESS_TOKEN", token);
-    }
-  });
-
-  return <UserContext.Provider>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ token, tokenIsValid, postLogin, userData }}>
+      {children}
+    </UserContext.Provider>
+  );
 }

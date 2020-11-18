@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import UserContext from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 export default function LoginPage() {
   const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const { postLogin } = useContext(UserContext);
+  const [error, setError] = useState("");
+  const history = useHistory();
   return (
     <>
       {/*Placeholder Header Component*/}
@@ -23,6 +28,7 @@ export default function LoginPage() {
             type="password"
           />
         </label>
+        {error ?? <p>{error}</p>}
         <button>Login</button>
       </form>
     </>
@@ -33,5 +39,8 @@ export default function LoginPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    postLogin(loginData)
+      .then(() => history.push("/home"))
+      .catch(() => setError("Unknown username or password."));
   }
 }
