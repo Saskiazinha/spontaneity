@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.Optional;
 
@@ -20,18 +22,18 @@ public class SignUpServiceTest {
     final SignUpService signUpService= new SignUpService(userDao);
 
     @Test
-    @DisplayName("The \"signUp\" method with a new user should return HttpStatus.OK")
+    @DisplayName("The \"signUp\" method with a new user should not throw exception")
     void signUpTest() {
         //Given
         when(userDao.findById("Fiene")).thenReturn(Optional.empty());
         SpontaneityUser fiene= new SpontaneityUser("Fiene","1234");
-        ResponseEntity expectedResponse=new ResponseEntity(HttpStatus.OK);
 
         // When
-        ResponseEntity response= signUpService.signUp(fiene);
-
-        // Then
-        assertThat(response, is(expectedResponse));
+        try{
+            signUpService.signUp(fiene);
+        } catch (HttpStatusCodeException e){
+            System.out.println("This shoud never appear");
+        }
     }
 
     @Test
@@ -40,13 +42,13 @@ public class SignUpServiceTest {
         //Given
         SpontaneityUser fiene= new SpontaneityUser("Fiene","1234");
         when(userDao.findById("Fiene")).thenReturn(Optional.of(fiene));
-        ResponseEntity expectedResponse=new ResponseEntity(HttpStatus.FORBIDDEN);
 
         // When
-        ResponseEntity response= signUpService.signUp(fiene);
-
-        // Then
-        assertThat(response, is(expectedResponse));
+        try{
+            signUpService.signUp(fiene);
+        } catch (HttpStatusCodeException e){
+            assertThat(e.getStatusCode(),is(HttpStatus.FORBIDDEN));
+        }
     }
 
 }

@@ -2,7 +2,7 @@ package de.neuefische.hh2020j1.spontaneity.controller;
 
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import de.neuefische.hh2020j1.spontaneity.service.SignUpService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +14,14 @@ public class SignUpController {
 
     private final SignUpService signUpService;
 
+    @Autowired
     public SignUpController(SignUpService signUpService) {
         this.signUpService = signUpService;
     }
 
     @PostMapping
-    public ResponseEntity signUp (@RequestBody SpontaneityUser spontaneityUser){
-       return signUpService.signUp(spontaneityUser);
+    public void signUp (@RequestBody SpontaneityUser spontaneityUser){
+        signUpService.signUp(spontaneityUser);
     }
 
 }

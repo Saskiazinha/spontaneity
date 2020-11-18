@@ -4,7 +4,9 @@ import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.Optional;
 
@@ -17,12 +19,14 @@ public class SignUpService {
         this.userDao = userDao;
     }
 
-    public ResponseEntity signUp(SpontaneityUser spontaneityUser){
+    public void signUp(SpontaneityUser spontaneityUser){
         Optional<SpontaneityUser>user=userDao.findById(spontaneityUser.getUsername());
         if(user.isPresent()){
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            throw new HttpStatusCodeException(HttpStatus.FORBIDDEN) {
+            };
         }
-        userDao.save(spontaneityUser);
-        return new ResponseEntity(HttpStatus.OK);
+        String hashPassword= new BCryptPasswordEncoder().encode(spontaneityUser.getPassword());
+        SpontaneityUser spontaneityUserWithHashPW= new SpontaneityUser(spontaneityUser.getUsername(), hashPassword);
+        userDao.save(spontaneityUserWithHashPW);
     }
 }
