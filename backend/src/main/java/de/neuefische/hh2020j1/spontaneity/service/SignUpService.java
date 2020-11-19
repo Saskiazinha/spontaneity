@@ -20,7 +20,7 @@ public class SignUpService {
         this.userDao = userDao;
     }
 
-    public Optional <SpontaneityUser> signUp(SpontaneityUser spontaneityUser){
+    public Optional <String> signUp(SpontaneityUser spontaneityUser){
         Optional<SpontaneityUser>user=userDao.findById(spontaneityUser.getUsername());
         if(user.isPresent()){
             return Optional.empty();
@@ -28,7 +28,7 @@ public class SignUpService {
         String hashPassword= new BCryptPasswordEncoder().encode(spontaneityUser.getPassword());
         SpontaneityUser spontaneityUserWithHashPW= new SpontaneityUser(spontaneityUser.getUsername(), hashPassword);
         userDao.save(spontaneityUserWithHashPW);
-        return Optional.of(spontaneityUser);
+        return Optional.of(spontaneityUser.getUsername());
     }
 
     public boolean validatePassword(String password) {

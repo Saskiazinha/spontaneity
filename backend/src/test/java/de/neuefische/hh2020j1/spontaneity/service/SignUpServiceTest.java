@@ -26,10 +26,10 @@ public class SignUpServiceTest {
         SpontaneityUser fiene= new SpontaneityUser("Fiene","1234");
 
         // When
-       Optional<SpontaneityUser> user= signUpService.signUp(fiene);
+       Optional<String> user= signUpService.signUp(fiene);
 
        // Then
-        assertThat(user.get(), is(fiene));
+        assertThat(user.get(), is(fiene.getUsername()));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SignUpServiceTest {
         when(userDao.findById("Fiene")).thenReturn(Optional.of(fiene));
 
         // When
-        Optional<SpontaneityUser> user = signUpService.signUp(fiene);
+        Optional<String> user = signUpService.signUp(fiene);
 
         // Then
         assertThat(user, is(Optional.empty()));

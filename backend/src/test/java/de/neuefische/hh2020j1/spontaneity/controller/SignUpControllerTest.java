@@ -51,11 +51,11 @@ public class SignUpControllerTest {
         SpontaneityUser newUser= new SpontaneityUser("NewUser","aZ2345g");
 
         //When
-        ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
+        ResponseEntity <String> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),String.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(newUser));
+        assertThat(response.getBody(),is(newUser.getUsername()));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class SignUpControllerTest {
         SpontaneityUser newUser= new SpontaneityUser("Fiene","1234ZabC");
 
         //When
-        ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
+        ResponseEntity <String> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),String.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.BAD_REQUEST));
@@ -78,7 +78,7 @@ public class SignUpControllerTest {
         SpontaneityUser newUser= new SpontaneityUser("New User","1234");
 
         //When
-        ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
+        ResponseEntity <String> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),String.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.FORBIDDEN));

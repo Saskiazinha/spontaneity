@@ -24,15 +24,15 @@ public class SignUpController {
     }
 
     @PostMapping
-    public SpontaneityUser signUp (@RequestBody SpontaneityUser spontaneityUser){
-        Optional<SpontaneityUser>user=signUpService.signUp(spontaneityUser);
-        if (user.isEmpty()){
+    public String signUp (@RequestBody SpontaneityUser spontaneityUser){
+        Optional<String>username=signUpService.signUp(spontaneityUser);
+        if (username.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already excists");
         }
         if (!signUpService.validatePassword(spontaneityUser.getPassword())){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password not valid"){
             };
         }
-        return user.get();
+        return username.get();
     }
 }
