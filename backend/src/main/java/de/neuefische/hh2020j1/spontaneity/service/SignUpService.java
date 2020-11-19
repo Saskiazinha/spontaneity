@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -19,14 +20,14 @@ public class SignUpService {
         this.userDao = userDao;
     }
 
-    public void signUp(SpontaneityUser spontaneityUser){
+    public Optional <SpontaneityUser> signUp(SpontaneityUser spontaneityUser){
         Optional<SpontaneityUser>user=userDao.findById(spontaneityUser.getUsername());
         if(user.isPresent()){
-            throw new HttpStatusCodeException(HttpStatus.FORBIDDEN) {
-            };
+            return Optional.empty();
         }
         String hashPassword= new BCryptPasswordEncoder().encode(spontaneityUser.getPassword());
         SpontaneityUser spontaneityUserWithHashPW= new SpontaneityUser(spontaneityUser.getUsername(), hashPassword);
         userDao.save(spontaneityUserWithHashPW);
+        return Optional.of(spontaneityUser);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.client.HttpServerErrorException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -40,7 +41,7 @@ public class SignUpControllerTest {
         userDao.save(fiene);
     }
     private String getSignUpUrl(){
-        return "https://localhost:"+port+"auth/signup";
+        return "http://localhost:"+port+"auth/signup";
     }
 
     @Test
@@ -50,10 +51,24 @@ public class SignUpControllerTest {
         SpontaneityUser newUser= new SpontaneityUser("NewUser","5678");
 
         //When
-        ResponseEntity <Void> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),Void.class);
+        ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
+        assertThat(response.getBody(),is(newUser));
+    }
+
+    @Test
+    public void signUpWithAlreadyExistingUserTest(){
+        //Given
+        String url=getSignUpUrl();
+        SpontaneityUser newUser= new SpontaneityUser("Fiene","1234");
+
+        //When
+        ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.FORBIDDEN));
     }
 
 

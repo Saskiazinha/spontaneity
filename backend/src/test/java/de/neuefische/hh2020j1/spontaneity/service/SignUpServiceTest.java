@@ -22,33 +22,31 @@ public class SignUpServiceTest {
     final SignUpService signUpService= new SignUpService(userDao);
 
     @Test
-    @DisplayName("The \"signUp\" method with a new user should not throw exception")
+    @DisplayName("The \"signUp\" method with a new user should return new user")
     void signUpTest() {
         //Given
         when(userDao.findById("Fiene")).thenReturn(Optional.empty());
         SpontaneityUser fiene= new SpontaneityUser("Fiene","1234");
 
         // When
-        try{
-            signUpService.signUp(fiene);
-        } catch (HttpStatusCodeException e){
-            System.out.println("This shoud never appear");
-        }
+       Optional<SpontaneityUser> user= signUpService.signUp(fiene);
+
+       // Then
+        assertThat(user.get(), is(fiene));
     }
 
     @Test
     @DisplayName("The \"signUp\" method with an already excisting user should return HttpStatus.FORBIDDEN")
     void signUpWithExistingUserDetailsTest() {
         //Given
-        SpontaneityUser fiene= new SpontaneityUser("Fiene","1234");
+        SpontaneityUser fiene = new SpontaneityUser("Fiene", "1234");
         when(userDao.findById("Fiene")).thenReturn(Optional.of(fiene));
 
         // When
-        try{
-            signUpService.signUp(fiene);
-        } catch (HttpStatusCodeException e){
-            assertThat(e.getStatusCode(),is(HttpStatus.FORBIDDEN));
-        }
+        Optional<SpontaneityUser> user = signUpService.signUp(fiene);
+
+        // Then
+        assertThat(user, is(Optional.empty()));
     }
 
 }
