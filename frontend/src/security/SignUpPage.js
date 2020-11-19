@@ -36,7 +36,7 @@ export default function SignUpPage() {
             onChange={(event) => setPassword2(event.target.value)}
           />
         </label>
-        <button>Sign Up</button>
+        <button type="submit">Sign Up</button>
         {error ?? <p>{error}</p>}
       </form>
     </div>
@@ -44,23 +44,37 @@ export default function SignUpPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (password1 !== password2) {
-      setError("Passwords are not matching");
+    try {
+      checkIfPwsMatch();
+      checkPwLength();
+    } catch (e) {
+      console.log(e);
     }
+  }
+
+  function clearForm() {
     setPassword1("");
     setPassword2("");
     setUsername("");
-    setSignUpData({ ...signUpData, password: password1 });
-
-    // validatePassword(signUpData.password);
   }
 
-  // function validatePassword(password) {}
+  function checkIfPwsMatch() {
+    if (password1 !== password2) {
+      setError("Passwords are not matching");
+      clearForm();
+      throw new Error("Passwords are not matching");
+    }
+    clearForm();
+    setSignUpData({ username: username, password: password1 });
+    console.log(signUpData.password);
+  }
 
-  // function validatePasswordLength(password) {
-  //   if (password.length < 6) {
-  //     throw new Error("Password must contain at least 6 characters");
-  //     // setError(Error);
-  //   }
-  // }
+  function checkPwLength() {
+    if (signUpData.password.length < 6) {
+      setError("Password must be a minimum of 6 characters");
+      clearForm();
+      throw new Error("Password must be a minimum of 6 characters");
+    }
+    clearForm();
+  }
 }
