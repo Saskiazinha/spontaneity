@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginPage from "./loginPage/LoginPage";
 import PostsToday from "./postsPages/PostsToday";
 import UserContextProvider from "./contexts/UserContextProvider";
+import ProtectedRoute from "./routing/ProtectedRoute";
 
 function App() {
   return (
@@ -11,9 +12,9 @@ function App() {
         <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path="/home">
+        <ProtectedRoute path={["/", "/home"]}>
           <PostsToday />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </UserContextProvider>
   );
