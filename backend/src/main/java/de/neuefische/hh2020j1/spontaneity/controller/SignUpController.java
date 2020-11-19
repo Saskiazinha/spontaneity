@@ -27,10 +27,10 @@ public class SignUpController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already excists") {
             };
         }
-        if (!signUpService.validatePassword(spontaneityUser.getPassword())){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password not valid"){
-            };
-        }
+//        if (!signUpService.validatePassword(spontaneityUser.getPassword())){
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password not valid"){
+//            };
+//        }
         return signUpService.signUp(spontaneityUser).get();
     }
 }
