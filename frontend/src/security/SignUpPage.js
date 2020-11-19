@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import UserContext from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 export default function SignUpPage() {
-  const [signUpData, setSignUpData] = useState({ username: "", password: "" });
+  // const [signUpData, setSignUpData] = useState({ username: "", password: "" });
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
+  const [errorBackend, setErrorBackend] = useState(0);
+  const { postSignUp } = useContext(UserContext);
+  const history = useHistory();
 
   return (
     <div>
@@ -38,6 +43,8 @@ export default function SignUpPage() {
         </label>
         <button type="submit">Sign Up</button>
         {error ?? <p>{error}</p>}
+        {errorBackend === 400 ?? <p>User already exists</p>}
+        {errorBackend === 403 ?? <p> Password not valid</p>}
       </form>
     </div>
   );
@@ -50,8 +57,11 @@ export default function SignUpPage() {
       checkIfPwContainsNumbers();
       checkIfPwContainsSmallLetters();
       checkIfPwContainsUppercaseLetters();
-
-      setSignUpData({ username: username, password: password1 });
+      let signUpData = { username: username, password: password1 };
+      // setSignUpData({ username: username, password: password1 });
+      postSignUp(signUpData)
+        .then(() => history.push("/login"))
+        .catch((error) => setErrorBackend(error.response.status));
     } catch (e) {
       console.log(e);
     }

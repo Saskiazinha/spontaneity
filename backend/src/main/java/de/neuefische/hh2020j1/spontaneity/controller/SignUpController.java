@@ -27,7 +27,7 @@ public class SignUpController {
     public String signUp (@RequestBody SpontaneityUser spontaneityUser){
         Optional<String>username=signUpService.signUp(spontaneityUser);
         if (username.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already excists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
         }
         if (!signUpService.validatePassword(spontaneityUser.getPassword())){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password not valid"){
