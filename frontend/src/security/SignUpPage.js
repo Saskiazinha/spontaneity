@@ -47,6 +47,9 @@ export default function SignUpPage() {
     try {
       checkIfPwsMatch();
       checkPwLength();
+      checkIfPwContainsNumbers();
+      checkIfPwContainsSmallLetters();
+      checkIfPwContainsUppercaseLetters();
     } catch (e) {
       console.log(e);
     }
@@ -66,15 +69,30 @@ export default function SignUpPage() {
     }
     clearForm();
     setSignUpData({ username: username, password: password1 });
-    console.log(signUpData.password);
   }
 
   function checkPwLength() {
-    if (signUpData.password.length < 6) {
-      setError("Password must be a minimum of 6 characters");
-      clearForm();
-      throw new Error("Password must be a minimum of 6 characters");
+    if (password1.length < 6) {
+      setError("Password must be a minimum of 6 characters.");
+      throw new Error("Password must be a minimum of 6 characters.");
     }
-    clearForm();
+  }
+  function checkIfPwContainsNumbers() {
+    if (!/\d/.test(password1)) {
+      setError("Password must contain at least one digit.");
+      throw new Error("Password must contain at least one digit.");
+    }
+  }
+  function checkIfPwContainsSmallLetters() {
+    if (!/[a-z]/.test(password1)) {
+      setError("Password must contain at least one lowercase letter.");
+      throw new Error("Password must contain at least one lowercase letter.");
+    }
+  }
+  function checkIfPwContainsUppercaseLetters() {
+    if (!/[A-Z]/.test(password1)) {
+      setError("Password must contain at least one uppercase letter.");
+      throw new Error("Password must contain at least one uppercase letter.");
+    }
   }
 }
