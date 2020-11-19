@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -25,7 +24,11 @@ public class SignUpController {
     @PostMapping
     public SpontaneityUser signUp (@RequestBody SpontaneityUser spontaneityUser){
         if (signUpService.signUp(spontaneityUser).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already excists") {
+            };
+        }
+        if (!signUpService.validatePassword(spontaneityUser.getPassword())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password not valid"){
             };
         }
         return signUpService.signUp(spontaneityUser).get();

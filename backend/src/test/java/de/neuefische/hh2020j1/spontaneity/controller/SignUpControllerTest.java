@@ -36,7 +36,7 @@ public class SignUpControllerTest {
     @BeforeEach
     public void setupDb(){
         userDao.deleteAll();
-        String password= new BCryptPasswordEncoder().encode("1234");
+        String password= new BCryptPasswordEncoder().encode("aA3456");
         SpontaneityUser fiene= new SpontaneityUser("Fiene",password);
         userDao.save(fiene);
     }
@@ -48,7 +48,7 @@ public class SignUpControllerTest {
     public void signUpWithNewUserTest(){
         //Given
         String url=getSignUpUrl();
-        SpontaneityUser newUser= new SpontaneityUser("NewUser","5678");
+        SpontaneityUser newUser= new SpontaneityUser("NewUser","aZ2345g");
 
         //When
         ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
@@ -62,13 +62,13 @@ public class SignUpControllerTest {
     public void signUpWithAlreadyExistingUserTest(){
         //Given
         String url=getSignUpUrl();
-        SpontaneityUser newUser= new SpontaneityUser("Fiene","1234");
+        SpontaneityUser newUser= new SpontaneityUser("Fiene","1234ZabC");
 
         //When
         ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
 
         //Then
-        assertThat(response.getStatusCode(),is(HttpStatus.FORBIDDEN));
+        assertThat(response.getStatusCode(),is(HttpStatus.BAD_REQUEST));
     }
 
 
