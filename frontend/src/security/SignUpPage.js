@@ -50,6 +50,8 @@ export default function SignUpPage() {
       checkIfPwContainsNumbers();
       checkIfPwContainsSmallLetters();
       checkIfPwContainsUppercaseLetters();
+
+      setSignUpData({ username: username, password: password1 });
     } catch (e) {
       console.log(e);
     }
@@ -68,7 +70,6 @@ export default function SignUpPage() {
       throw new Error("Passwords are not matching");
     }
     clearForm();
-    setSignUpData({ username: username, password: password1 });
   }
 
   function checkPwLength() {
