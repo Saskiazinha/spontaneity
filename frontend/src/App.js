@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import LoginPage from "./security/LoginPage";
 import PostsToday from "./postsPages/PostsToday";
 import UserContextProvider from "./contexts/UserContextProvider";
@@ -13,12 +13,15 @@ function App() {
         <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path="signup">
+        <Route path="/signup">
           <SignUpPage />
         </Route>
-        <ProtectedRoute path={["/", "/home"]}>
+        <ProtectedRoute path="/home">
           <PostsToday />
         </ProtectedRoute>
+        <Route path="/">
+          <Redirect to="/home" />
+        </Route>
       </Switch>
     </UserContextProvider>
   );
