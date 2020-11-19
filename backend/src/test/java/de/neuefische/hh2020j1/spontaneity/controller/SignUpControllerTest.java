@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.HttpServerErrorException;
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -36,7 +38,7 @@ public class SignUpControllerTest {
     @BeforeEach
     public void setupDb(){
         userDao.deleteAll();
-        String password= new BCryptPasswordEncoder().encode("aA3456");
+        String password= new BCryptPasswordEncoder().encode("1234ZabC");
         SpontaneityUser fiene= new SpontaneityUser("Fiene",password);
         userDao.save(fiene);
     }
@@ -45,7 +47,7 @@ public class SignUpControllerTest {
     }
 
     @Test
-    public void signUpWithNewUserTest(){
+    public void signUpWithNewUserTestAndValidPassword(){
         //Given
         String url=getSignUpUrl();
         SpontaneityUser newUser= new SpontaneityUser("NewUser","aZ2345g");
@@ -69,6 +71,19 @@ public class SignUpControllerTest {
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.BAD_REQUEST));
+    }
+
+    @Test
+    public void signUpWithNewUserButInvalidPassword(){
+        //Given
+        String url=getSignUpUrl();
+        SpontaneityUser newUser= new SpontaneityUser("New User","1234");
+
+        //When
+        ResponseEntity <SpontaneityUser> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),SpontaneityUser.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.FORBIDDEN));
     }
 
 
