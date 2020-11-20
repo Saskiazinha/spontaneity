@@ -47,7 +47,7 @@ export default function SignUpPage() {
         {errorBackend === 403 && <p> Password is not valid</p>}
         <p>
           Please note that your password must be a minimum of 6 characters and
-          contain lowercase letters, uppercase letters, as well as numbers.
+          contain lowercase and uppercase letters, as well as numbers.
         </p>
       </form>
     </div>
