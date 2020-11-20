@@ -7,7 +7,7 @@ export default function SignUpPage() {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const [error, setError] = useState("");
+  const [errorFrontend, setErrorFrontend] = useState("");
   const [errorBackend, setErrorBackend] = useState(0);
   const { postSignUp } = useContext(UserContext);
   const history = useHistory();
@@ -28,7 +28,7 @@ export default function SignUpPage() {
           <input
             name={"password1"}
             value={password1}
-            // type={"password"}
+            type={"password"}
             onChange={(event) => setPassword1(event.target.value)}
           />
         </label>
@@ -37,15 +37,18 @@ export default function SignUpPage() {
           <input
             name={"password2"}
             value={password2}
-            // type={"password"}
+            type={"password"}
             onChange={(event) => setPassword2(event.target.value)}
           />
         </label>
         <button type="submit">Sign Up</button>
-        {error ?? <p>{error}</p>}
+        {errorFrontend ?? <p>{errorFrontend}</p>}
         {errorBackend === 400 && <p>User already exists</p>}
         {errorBackend === 403 && <p> Password is not valid</p>}
-        {errorBackend === 403 && <p>You are signed up now. Please log in.</p>}
+        <p>
+          Please note that your password must be a minimum of 6 characters and
+          contain lowercase letters, uppercase letters, as well as numbers.
+        </p>
       </form>
     </div>
   );
@@ -60,6 +63,7 @@ export default function SignUpPage() {
       checkIfPwContainsUppercaseLetters();
       let signUpData = { username: username, password: password1 };
       // setSignUpData({ username: username, password: password1 });
+
       postSignUp(signUpData)
         .then(() => history.push("/login"))
         .catch((error) => setErrorBackend(error.response.status));
@@ -76,7 +80,7 @@ export default function SignUpPage() {
 
   function checkIfPwsMatch() {
     if (password1 !== password2) {
-      setError("Passwords are not matching");
+      setErrorFrontend("Passwords are not matching");
       clearForm();
       throw new Error("Passwords are not matching");
     }
@@ -85,25 +89,25 @@ export default function SignUpPage() {
 
   function checkPwLength() {
     if (password1.length < 6) {
-      setError("Password must be a minimum of 6 characters.");
+      setErrorFrontend("Password must be a minimum of 6 characters.");
       throw new Error("Password must be a minimum of 6 characters.");
     }
   }
   function checkIfPwContainsNumbers() {
     if (!/\d/.test(password1)) {
-      setError("Password must contain at least one digit.");
+      setErrorFrontend("Password must contain at least one digit.");
       throw new Error("Password must contain at least one digit.");
     }
   }
   function checkIfPwContainsSmallLetters() {
     if (!/[a-z]/.test(password1)) {
-      setError("Password must contain at least one lowercase letter.");
+      setErrorFrontend("Password must contain at least one lowercase letter.");
       throw new Error("Password must contain at least one lowercase letter.");
     }
   }
   function checkIfPwContainsUppercaseLetters() {
     if (!/[A-Z]/.test(password1)) {
-      setError("Password must contain at least one uppercase letter.");
+      setErrorFrontend("Password must contain at least one uppercase letter.");
       throw new Error("Password must contain at least one uppercase letter.");
     }
   }

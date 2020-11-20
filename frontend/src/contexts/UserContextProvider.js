@@ -6,7 +6,6 @@ import axios from "axios";
 export default function UserContextProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
   const [userData, setUserData] = useState("");
-  const [signedUpUser, setSignedUpUser] = useState("");
 
   function postLogin(loginData) {
     return axios
@@ -35,7 +34,7 @@ export default function UserContextProvider({ children }) {
   function postSignUp(signUpData) {
     return axios
       .post("/auth/signup", signUpData)
-      .then((response) => setSignedUpUser(response.data));
+      .then((response) => response.data);
   }
 
   return (
@@ -46,7 +45,6 @@ export default function UserContextProvider({ children }) {
         postLogin,
         userData,
         postSignUp,
-        signedUpUser,
       }}
     >
       {children}
