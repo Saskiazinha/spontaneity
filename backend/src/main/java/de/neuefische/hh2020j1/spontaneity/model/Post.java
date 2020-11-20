@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public class Post {
     @Id
     private String id;
     private String creator;
-    private Date date;
+    private LocalDate date;
     private LocalTime startPoint;
     private LocalTime endPoint;
     private String location;
