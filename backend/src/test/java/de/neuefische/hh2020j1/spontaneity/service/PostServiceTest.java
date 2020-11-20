@@ -7,8 +7,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import java.util.List;
 import static org.mockito.Mockito.*;
+
 
 class PostServiceTest {
 
@@ -16,10 +19,17 @@ class PostServiceTest {
     private final MongoTemplate mongoTemplate=mock(MongoTemplate.class);
     private final PostService postService=new PostService(postDao, mongoTemplate);
 
-    @Test
-    @DisplayName("The \"getIdeasSortedByTime\" method should return posts in the order of their startPoint")
-    void getIdeasSortedByTime(){
-        Query querySortByTime = new Query();
-        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
-    }
+//    @Test
+//    @DisplayName("The \"getIdeasSortedByTime\" method should return posts in the order of their startPoint")
+//    void getIdeasSortedByTime(){
+//        //Given
+//        Query querySortByTime = new Query();
+//        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
+//
+//        //When
+//        List<Post> allPosts= postService.getIdeasSortedByTime();
+//
+//        //Then
+//        assertThat(allPosts,is(PostSeeder.getStockPostsSorted()));
+//    }
 }

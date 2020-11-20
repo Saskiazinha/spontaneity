@@ -22,7 +22,7 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getIdeas(){
-        return postService.getIdeas();
+    public List<Post> getIdeasSorted(){
+        return postService.getIdeasSortedByTime();
     }
 }
