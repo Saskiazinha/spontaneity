@@ -43,7 +43,7 @@ export default function SignUpPage() {
         </label>
         <button type="submit">Sign Up</button>
         {errorFrontend ?? <p>{errorFrontend}</p>}
-        {errorBackend === 400 && <p>User already exists</p>}
+        {errorBackend === 400 && <p>Username already exists</p>}
         {errorBackend === 403 && <p> Password is not valid</p>}
         <p>
           Please note that your password must be a minimum of 6 characters and
