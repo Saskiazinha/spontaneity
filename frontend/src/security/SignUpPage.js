@@ -3,7 +3,6 @@ import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 
 export default function SignUpPage() {
-  // const [signUpData, setSignUpData] = useState({ username: "", password: "" });
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -62,7 +61,6 @@ export default function SignUpPage() {
       checkIfPwContainsSmallLetters();
       checkIfPwContainsUppercaseLetters();
       let signUpData = { username: username, password: password1 };
-      // setSignUpData({ username: username, password: password1 });
 
       postSignUp(signUpData)
         .then(() => history.push("/login"))
