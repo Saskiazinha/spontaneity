@@ -43,8 +43,9 @@ export default function SignUpPage() {
         </label>
         <button type="submit">Sign Up</button>
         {error ?? <p>{error}</p>}
-        {errorBackend === 400 ?? <p>User already exists</p>}
-        {errorBackend === 403 ?? <p> Password not valid</p>}
+        {errorBackend === 400 && <p>User already exists</p>}
+        {errorBackend === 403 && <p> Password is not valid</p>}
+        {errorBackend === 403 && <p>You are signed up now. Please log in.</p>}
       </form>
     </div>
   );
