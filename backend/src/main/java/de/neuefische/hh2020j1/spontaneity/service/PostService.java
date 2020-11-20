@@ -24,7 +24,7 @@ public class PostService {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public List<Post> getIdeas() {
+    public List<Post> getIdeasSortedByTime() {
         Query querySortByTime = new Query();
         querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
 
