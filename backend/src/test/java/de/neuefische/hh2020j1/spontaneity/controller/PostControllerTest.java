@@ -3,18 +3,20 @@ package de.neuefische.hh2020j1.spontaneity.controller;
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
+import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -22,10 +24,10 @@ import org.springframework.test.context.TestPropertySource;
 public class PostControllerTest {
 
     @LocalServerPort
-    int port;
+    private int port;
 
     @Autowired
-    TestRestTemplate testRestTemplate;
+    private TestRestTemplate testRestTemplate;
 
     @Autowired
     private PostDao postDao;
@@ -44,7 +46,7 @@ public class PostControllerTest {
     }
 
     private String getPostsUrl(){
-        return "http://localhost"+port+"/api/posts";
+        return "http://localhost:"+port+"/api/posts";
     }
 
     private String login(){
@@ -58,6 +60,20 @@ public class PostControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         return new HttpEntity<T>(data,headers);
+    }
+
+    @Test
+    public void getIdeasSortedTest(){
+        //Given
+        String url=getPostsUrl();
+
+        //When
+        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+        ResponseEntity <Post[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, Post[].class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.OK));
+        assertThat(response.getBody(),is(PostSeeder.getStockPostsSorted().toArray()));
     }
 
 
