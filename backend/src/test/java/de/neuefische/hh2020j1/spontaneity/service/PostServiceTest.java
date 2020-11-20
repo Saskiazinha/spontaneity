@@ -20,6 +20,6 @@ class PostServiceTest {
     @DisplayName("The \"getIdeasSortedByTime\" method should return posts in the order of their startPoint")
     void getIdeasSortedByTime(){
         Query querySortByTime = new Query();
-        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPosts());
+        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
     }
 }
