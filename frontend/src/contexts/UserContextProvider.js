@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react";
 import UserContext from "./UserContext";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import {
+  loadTokenFromLocalStorage,
+  loadUserDataFromLocalStorage,
+  saveTokenToLocalStorage,
+  saveUserDataToLocalStorage,
+} from "../service/LocalStorage";
 
 export default function UserContextProvider({ children }) {
-  const [token, setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
-  const [userData, setUserData] = useState();
+  const [token, setToken] = useState(loadTokenFromLocalStorage());
+  const [userData, setUserData] = useState(loadUserDataFromLocalStorage());
 
   function postLogin(loginData) {
     return axios
@@ -19,7 +25,8 @@ export default function UserContextProvider({ children }) {
         const decoded = jwtDecode(token);
         if (decoded.exp > new Date().getTime() / 1000) {
           setUserData(decoded);
-          localStorage.setItem("ACCESS_TOKEN", token);
+          saveTokenToLocalStorage(token);
+          saveUserDataToLocalStorage(decoded);
         }
       } catch (e) {
         console.log(e);
@@ -27,12 +34,25 @@ export default function UserContextProvider({ children }) {
     }
   }, [token]);
 
-  const tokenIsValid = () => {
-    return token && userData?.exp > new Date().getTime() / 1000;
-  };
+  const tokenIsValid = () =>
+    token && userData?.exp > new Date().getTime() / 1000;
+
+  function postSignUp(signUpData) {
+    return axios
+      .post("/auth/signup", signUpData)
+      .then((response) => response.data);
+  }
 
   return (
-    <UserContext.Provider value={{ token, tokenIsValid, postLogin, userData }}>
+    <UserContext.Provider
+      value={{
+        token,
+        tokenIsValid,
+        postLogin,
+        userData,
+        postSignUp,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

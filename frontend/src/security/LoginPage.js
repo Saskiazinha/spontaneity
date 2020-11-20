@@ -8,8 +8,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const history = useHistory();
   return (
-    <>
-      {/*Placeholder Header Component*/}
+    <div>
       <form onSubmit={handleSubmit}>
         <label>
           Username
@@ -28,10 +27,13 @@ export default function LoginPage() {
             type="password"
           />
         </label>
+        <button type="submit">Login</button>
         {error ?? <p>{error}</p>}
-        <button>Login</button>
       </form>
-    </>
+      <button type="button" onClick={() => history.push("/signup")}>
+        Sign Up
+      </button>
+    </div>
   );
   function handleChange(event) {
     setLoginData({ ...loginData, [event.target.name]: event.target.value });
