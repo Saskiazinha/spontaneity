@@ -2,6 +2,7 @@ package de.neuefische.hh2020j1.spontaneity.controller;
 
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
+import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
@@ -69,11 +70,11 @@ public class PostControllerTest {
 
         //When
         HttpEntity<Void>entity=getValidAuthorizationEntity(null);
-        ResponseEntity <Post[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, Post[].class);
+        ResponseEntity <SendPostDto[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, SendPostDto[].class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(PostSeeder.getStockPostsSorted().toArray()));
+        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSorted().toArray()));
     }
 
 

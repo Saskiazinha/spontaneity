@@ -1,6 +1,7 @@
 package de.neuefische.hh2020j1.spontaneity.service;
 
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
+import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
 import org.junit.jupiter.api.DisplayName;
@@ -21,15 +22,15 @@ class PostServiceTest {
 
 //    @Test
 //    @DisplayName("The \"getIdeasSortedByTime\" method should return posts in the order of their startPoint")
-//    void getIdeasSortedByTime(){
+//    void getIdeasSortedByTimeTest(){
 //        //Given
 //        Query querySortByTime = new Query();
 //        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
 //
 //        //When
-//        List<Post> allPosts= postService.getIdeasSortedByTime();
+//        List<SendPostDto> allPosts= postService.getIdeasSortedByTime();
 //
 //        //Then
-//        assertThat(allPosts,is(PostSeeder.getStockPostsSorted()));
+//        assertThat(allPosts,is(PostSeeder.getStockSendPostsDtoSorted()));
 //    }
 }

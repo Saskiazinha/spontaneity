@@ -8,7 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParseUtilsTest {
 
