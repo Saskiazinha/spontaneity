@@ -11,5 +11,7 @@ export default function PostContextProvider({ children }) {
     tokenIsValid() && getPosts(token).then(setPosts).catch(console.log);
   }, [token, tokenIsValid]);
 
-  return <PostContext.Provider value={posts}>{children}</PostContext.Provider>;
+  return (
+    <PostContext.Provider value={{ posts }}>{children}</PostContext.Provider>
+  );
 }
