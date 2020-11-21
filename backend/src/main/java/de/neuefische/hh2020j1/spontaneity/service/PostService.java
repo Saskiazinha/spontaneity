@@ -1,7 +1,9 @@
 package de.neuefische.hh2020j1.spontaneity.service;
 
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
+import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
+import de.neuefische.hh2020j1.spontaneity.utils.ParseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -20,11 +22,12 @@ public class PostService {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public List<Post> getIdeasSortedByTime() {
+    public List<SendPostDto> getIdeasSortedByTime() {
         Query querySortByTime = new Query();
         querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
 
         List<Post> posts = mongoTemplate.find(querySortByTime, Post.class);
-        return posts;
+        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(posts);
+        return sendPosts;
     }
 }

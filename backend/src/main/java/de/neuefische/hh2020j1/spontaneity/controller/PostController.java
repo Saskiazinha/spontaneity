@@ -1,6 +1,7 @@
 package de.neuefische.hh2020j1.spontaneity.controller;
 
 
+import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getIdeasSorted(){
+    public List<SendPostDto> getIdeasSorted(){
         return postService.getIdeasSortedByTime();
     }
 }

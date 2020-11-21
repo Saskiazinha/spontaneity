@@ -2,10 +2,10 @@ package de.neuefische.hh2020j1.spontaneity.controller;
 
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
-import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
+import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class PostControllerTest {
     }
 
     private String login(){
-        ResponseEntity<String>response=testRestTemplate.postForEntity("http://localhost:"+port+"/auth/login",new LoginDto("Ilaria","a-password"),String.class);
+        ResponseEntity<String>response=testRestTemplate.postForEntity("http://localhost:"+port+"/auth/login",new LoginDto ("Ilaria","a-password"),String.class);
         return response.getBody();
     }
 
