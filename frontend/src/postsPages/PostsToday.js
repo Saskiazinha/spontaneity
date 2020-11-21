@@ -1,5 +1,10 @@
 import React from "react";
+import SpontaneityHeader from "../commons/SpontaneityHeader";
 
 export default function PostsToday() {
-  return <div>Posts Today</div>;
+  return (
+    <div>
+      <SpontaneityHeader />
+    </div>
+  );
 }
