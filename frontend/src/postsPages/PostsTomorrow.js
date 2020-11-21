@@ -3,12 +3,11 @@ import SpontaneityHeader from "../commons/SpontaneityHeader";
 import NavigationHeader from "../commons/NavigationHeader";
 import PostContext from "../contexts/PostContext";
 import PostList from "../postsCommons/PostList";
+import { getDate } from "../utils/DateUtils";
 
 export default function PostsTomorrow() {
   const { posts } = useContext(PostContext);
-  const filteredPosts = posts.filter(
-    (post) => post.localDate == getDateTomorrow()
-  );
+  const filteredPosts = posts.filter((post) => post.localDate == getDate(1));
   return (
     <div>
       <SpontaneityHeader />
@@ -16,11 +15,4 @@ export default function PostsTomorrow() {
       <PostList posts={filteredPosts} />
     </div>
   );
-
-  function getDateTomorrow() {
-    const tomorrow = new Date();
-    tomorrow.setDate(new Date().getDate() + 1);
-    const date = tomorrow.toISOString().slice(0, 10);
-    return date;
-  }
 }

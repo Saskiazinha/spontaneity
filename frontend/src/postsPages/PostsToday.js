@@ -3,12 +3,11 @@ import SpontaneityHeader from "../commons/SpontaneityHeader";
 import NavigationHeader from "../commons/NavigationHeader";
 import PostContext from "../contexts/PostContext";
 import PostList from "../postsCommons/PostList";
+import { getDate } from "../utils/DateUtils";
 
 export default function PostsToday() {
   const { posts } = useContext(PostContext);
-  const filteredPosts = posts.filter(
-    (post) => post.localDate == getDateToday()
-  );
+  const filteredPosts = posts.filter((post) => post.localDate == getDate(0));
   return (
     <div>
       <SpontaneityHeader />
@@ -16,9 +15,4 @@ export default function PostsToday() {
       <PostList posts={filteredPosts} />
     </div>
   );
-
-  function getDateToday() {
-    const date = new Date().toISOString().slice(0, 10);
-    return date;
-  }
 }
