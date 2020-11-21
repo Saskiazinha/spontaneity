@@ -1,6 +1,6 @@
 package de.neuefische.hh2020j1.spontaneity.model;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import de.neuefische.hh2020j1.spontaneity.utils.EnumStatusLocation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +23,7 @@ public class Post {
     private Instant startPoint;
     private Instant endPoint;
     private String location;
+    private EnumStatusLocation statusLocation;
     private String category;
     private String notes;
     private Instant timestamp;
