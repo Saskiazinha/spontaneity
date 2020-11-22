@@ -6,12 +6,22 @@ export default function NavigationHeader({ title, day }) {
   const history = useHistory();
   return (
     <NavigationStyled>
-      <button onClick={handleBackwardsDirection}>Icon</button>
+      <button
+        disabled={history.location.pathname === "/posts/today"}
+        onClick={handleBackwardsDirection}
+      >
+        Icon
+      </button>
       <div>
         <h2>{title}</h2>
         <h3>{day}</h3>
       </div>
-      <button onClick={handleForwardDirection}>Icon</button>
+      <button
+        disabled={history.location.pathname === "/posts/dayaftertomorrow"}
+        onClick={handleForwardDirection}
+      >
+        Icon
+      </button>
     </NavigationStyled>
   );
 
