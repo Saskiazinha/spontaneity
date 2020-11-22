@@ -10,11 +10,11 @@ export default function PostsTomorrow() {
   const { posts } = useContext(PostContext);
   const filteredPosts = posts.filter((post) => post.localDate === getDate(1));
   return (
-    <div>
+    <>
       <SpontaneityHeader />
       <NavigationHeader title={"Posts of Friends"} day={"Tomorrow"} />
       <PostList posts={filteredPosts} />
       <Footer />
-    </div>
+    </>
   );
 }
