@@ -4,6 +4,7 @@ import NavigationHeader from "../commons/NavigationHeader";
 import PostContext from "../contexts/PostContext";
 import PostList from "../postsCommons/PostList";
 import { getDate } from "../utils/DateUtils";
+import Footer from "../commons/Footer";
 
 export default function PostsDayAfterTomorrow() {
   const { posts } = useContext(PostContext);
@@ -13,6 +14,7 @@ export default function PostsDayAfterTomorrow() {
       <SpontaneityHeader />
       <NavigationHeader title={"Posts of Friends"} day={"Day After Tomorrow"} />
       <PostList posts={filteredPosts} />
+      <Footer />
     </div>
   );
 }
