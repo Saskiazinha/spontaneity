@@ -7,7 +7,7 @@ import { getDate } from "../utils/DateUtils";
 
 export default function PostsDayAfterTomorrow() {
   const { posts } = useContext(PostContext);
-  const filteredPosts = posts.filter((post) => post.localDate == getDate(2));
+  const filteredPosts = posts.filter((post) => post.localDate === getDate(2));
   return (
     <div>
       <SpontaneityHeader />

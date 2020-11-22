@@ -7,7 +7,7 @@ import { getDate } from "../utils/DateUtils";
 
 export default function PostsToday() {
   const { posts } = useContext(PostContext);
-  const filteredPosts = posts.filter((post) => post.localDate == getDate(0));
+  const filteredPosts = posts.filter((post) => post.localDate === getDate(0));
   return (
     <div>
       <SpontaneityHeader />
