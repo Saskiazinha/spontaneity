@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class PostServiceTest {
 
     private final PostDao postDao=mock(PostDao.class);
-    MongoTemplate mongoTemplate=mock(MongoTemplate.class);
+    private final MongoTemplate mongoTemplate=mock(MongoTemplate.class);
     private final PostService postService=new PostService(postDao, mongoTemplate);
 
     @Test
