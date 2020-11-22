@@ -7,7 +7,6 @@ export default function Post({ post }) {
       <p>
         {post.startPoint} - {post.endPoint}
       </p>
-      <p>{post.localDate}</p>
       <p>{post.location}</p>
       <p>{post.statusLocation}</p>
       <button>Details</button>
