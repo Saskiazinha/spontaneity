@@ -12,7 +12,11 @@ export default function PostsToday() {
   return (
     <>
       <SpontaneityHeader />
-      <NavigationHeader title={"Posts of Friends"} day={"Today"} />
+      <NavigationHeader
+        title={"Posts of Friends"}
+        day={"Today"}
+        postType={"posts"}
+      />
       <PostList posts={filteredPosts} />
       <Footer />
     </>

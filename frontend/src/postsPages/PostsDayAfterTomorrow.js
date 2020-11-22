@@ -12,7 +12,11 @@ export default function PostsDayAfterTomorrow() {
   return (
     <>
       <SpontaneityHeader />
-      <NavigationHeader title={"Posts of Friends"} day={"Day After Tomorrow"} />
+      <NavigationHeader
+        title={"Posts of Friends"}
+        day={"Day After Tomorrow"}
+        postType={"posts"}
+      />
       <PostList posts={filteredPosts} />
       <Footer />
     </>

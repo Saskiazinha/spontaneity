@@ -2,12 +2,12 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 
-export default function NavigationHeader({ title, day }) {
+export default function NavigationHeader({ title, day, postType }) {
   const history = useHistory();
   return (
     <NavigationStyled>
       <button
-        disabled={history.location.pathname === "/posts/today"}
+        disabled={history.location.pathname === "/" + postType + "/today"}
         onClick={handleBackwardsDirection}
       >
         Icon
@@ -17,7 +17,9 @@ export default function NavigationHeader({ title, day }) {
         <h3>{day}</h3>
       </div>
       <button
-        disabled={history.location.pathname === "/posts/dayaftertomorrow"}
+        disabled={
+          history.location.pathname === "/" + postType + "/dayaftertomorrow"
+        }
         onClick={handleForwardDirection}
       >
         Icon
@@ -27,11 +29,11 @@ export default function NavigationHeader({ title, day }) {
 
   function handleBackwardsDirection() {
     switch (history.location.pathname) {
-      case "/posts/tomorrow":
-        history.push("/posts/today");
+      case "/" + postType + "/tomorrow":
+        history.push("/" + postType + "/today");
         break;
-      case "/posts/dayaftertomorrow":
-        history.push("/posts/tomorrow");
+      case "/" + postType + "/dayaftertomorrow":
+        history.push("/" + postType + "/tomorrow");
         break;
       default:
         console.log("Something went wrong");
@@ -40,11 +42,11 @@ export default function NavigationHeader({ title, day }) {
 
   function handleForwardDirection() {
     switch (history.location.pathname) {
-      case "/posts/today":
-        history.push("/posts/tomorrow");
+      case "/" + postType + "/today":
+        history.push("/" + postType + "/tomorrow");
         break;
-      case "/posts/tomorrow":
-        history.push("/posts/dayaftertomorrow");
+      case "/" + postType + "/tomorrow":
+        history.push("/" + postType + "/dayaftertomorrow");
         break;
       default:
         console.log("Something went wrong");
