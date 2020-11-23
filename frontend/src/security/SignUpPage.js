@@ -66,7 +66,7 @@ export default function SignUpPage() {
         .then(() => history.push("/login"))
         .catch((error) => setErrorBackend(error.response.status));
     } catch (e) {
-      console.log(e);
+      setErrorFrontend(e.message);
     }
   }
 
@@ -78,7 +78,6 @@ export default function SignUpPage() {
 
   function checkIfPasswordMatch() {
     if (password1 !== password2) {
-      setErrorFrontend("Passwords are not matching");
       clearForm();
       throw new Error("Passwords are not matching");
     }
@@ -87,25 +86,21 @@ export default function SignUpPage() {
 
   function checkPasswordLength() {
     if (password1.length < 6) {
-      setErrorFrontend("Password must be a minimum of 6 characters.");
       throw new Error("Password must be a minimum of 6 characters.");
     }
   }
   function checkIfPasswordContainsNumbers() {
     if (!/\d/.test(password1)) {
-      setErrorFrontend("Password must contain at least one digit.");
       throw new Error("Password must contain at least one digit.");
     }
   }
   function checkIfPasswordContainsSmallLetters() {
     if (!/[a-z]/.test(password1)) {
-      setErrorFrontend("Password must contain at least one lowercase letter.");
       throw new Error("Password must contain at least one lowercase letter.");
     }
   }
   function checkIfPasswordContainsUppercaseLetters() {
     if (!/[A-Z]/.test(password1)) {
-      setErrorFrontend("Password must contain at least one uppercase letter.");
       throw new Error("Password must contain at least one uppercase letter.");
     }
   }
