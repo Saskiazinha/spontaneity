@@ -57,7 +57,7 @@ export default function SignUpPage() {
     try {
       checkIfPasswordMatch();
       validatePassword();
-      let signUpData = { username: username, password: password1 };
+      const signUpData = { username: username, password: password1 };
 
       postSignUp(signUpData)
         .then(() => history.push("/login"))

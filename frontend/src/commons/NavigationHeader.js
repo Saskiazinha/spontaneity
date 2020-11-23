@@ -56,22 +56,13 @@ export default function NavigationHeader({ title, day, postType }) {
 
 const NavigationStyled = styled.div`
   display: grid;
-  grid-template-columns: var(--size-m) 50px 1fr 50px var(--size-m);
-  grid-template-areas: "distleft button1 middle button2 distright";
+  grid-template-columns: 50px 1fr 50px;
+  padding: var(--size-m);
 
   div {
-    grid-area: middle;
     justify-self: center;
     align-items: center;
     text-align: center;
-  }
-
-  button:first-of-type {
-    grid-area: button1;
-  }
-
-  button:last-of-type {
-    grid-area: button2;
   }
 
   button {
