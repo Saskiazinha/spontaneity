@@ -46,6 +46,5 @@ export default App;
 const Layout = styled.main`
   display: grid;
   grid-template-rows: 50px min-content 1fr 50px;
-  grid-row-gap: var(--size-m);
   height: 100vh;
 `;

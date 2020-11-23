@@ -1,5 +1,6 @@
 package de.neuefische.hh2020j1.spontaneity.model;
 
+import de.neuefische.hh2020j1.spontaneity.utils.EnumCategory;
 import de.neuefische.hh2020j1.spontaneity.utils.EnumStatusLocation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,7 @@ public class Post {
     private Instant endPoint;
     private String location;
     private EnumStatusLocation statusLocation;
-    private String category;
+    private EnumCategory category;
     private String notes;
     private Instant timestamp;
 
