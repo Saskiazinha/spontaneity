@@ -56,10 +56,7 @@ export default function SignUpPage() {
     event.preventDefault();
     try {
       checkIfPasswordMatch();
-      checkPasswordLength();
-      checkIfPasswordContainsNumbers();
-      checkIfPasswordContainsSmallLetters();
-      checkIfPasswordContainsUppercaseLetters();
+      validatePassword();
       let signUpData = { username: username, password: password1 };
 
       postSignUp(signUpData)
@@ -82,6 +79,13 @@ export default function SignUpPage() {
       throw new Error("Passwords are not matching");
     }
     clearForm();
+  }
+
+  function validatePassword() {
+    checkPasswordLength();
+    checkIfPasswordContainsNumbers();
+    checkIfPasswordContainsSmallLetters();
+    checkIfPasswordContainsUppercaseLetters();
   }
 
   function checkPasswordLength() {
