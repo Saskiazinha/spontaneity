@@ -55,11 +55,11 @@ export default function SignUpPage() {
   function handleSubmit(event) {
     event.preventDefault();
     try {
-      checkIfPwsMatch();
-      checkPwLength();
-      checkIfPwContainsNumbers();
-      checkIfPwContainsSmallLetters();
-      checkIfPwContainsUppercaseLetters();
+      checkIfPasswordMatch();
+      checkPasswordLength();
+      checkIfPasswordContainsNumbers();
+      checkIfPasswordContainsSmallLetters();
+      checkIfPasswordContainsUppercaseLetters();
       let signUpData = { username: username, password: password1 };
 
       postSignUp(signUpData)
@@ -76,7 +76,7 @@ export default function SignUpPage() {
     setUsername("");
   }
 
-  function checkIfPwsMatch() {
+  function checkIfPasswordMatch() {
     if (password1 !== password2) {
       setErrorFrontend("Passwords are not matching");
       clearForm();
@@ -85,25 +85,25 @@ export default function SignUpPage() {
     clearForm();
   }
 
-  function checkPwLength() {
+  function checkPasswordLength() {
     if (password1.length < 6) {
       setErrorFrontend("Password must be a minimum of 6 characters.");
       throw new Error("Password must be a minimum of 6 characters.");
     }
   }
-  function checkIfPwContainsNumbers() {
+  function checkIfPasswordContainsNumbers() {
     if (!/\d/.test(password1)) {
       setErrorFrontend("Password must contain at least one digit.");
       throw new Error("Password must contain at least one digit.");
     }
   }
-  function checkIfPwContainsSmallLetters() {
+  function checkIfPasswordContainsSmallLetters() {
     if (!/[a-z]/.test(password1)) {
       setErrorFrontend("Password must contain at least one lowercase letter.");
       throw new Error("Password must contain at least one lowercase letter.");
     }
   }
-  function checkIfPwContainsUppercaseLetters() {
+  function checkIfPasswordContainsUppercaseLetters() {
     if (!/[A-Z]/.test(password1)) {
       setErrorFrontend("Password must contain at least one uppercase letter.");
       throw new Error("Password must contain at least one uppercase letter.");
