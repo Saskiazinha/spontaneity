@@ -22,9 +22,11 @@ public class ParseUtils {
                         LocalDate.ofInstant(post.getStartPoint(), ZoneId.of("Europe/Berlin")),
                         LocalTime.ofInstant(post.getStartPoint(),ZoneId.of("Europe/Berlin")),
                         LocalTime.ofInstant(post.getEndPoint(),ZoneId.of("Europe/Berlin")),
+                        post.getStatusTime(),
                         post.getLocation(),
                         post.getStatusLocation(),
                         post.getCategory(),
+                        post.getStatusCategory(),
                         post.getNotes(),
                         post.getTimestamp()))
                         .collect(Collectors.toList());
@@ -42,9 +44,11 @@ public class ParseUtils {
                         sendPost.getCreator(),
                         sendPost.getLocalDate().atTime(sendPost.getStartPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
                         sendPost.getLocalDate().atTime(sendPost.getEndPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
+                        sendPost.getStatusTime(),
                         sendPost.getLocation(),
                         sendPost.getStatusLocation(),
                         sendPost.getCategory(),
+                        sendPost.getStatusCategory(),
                         sendPost.getNotes(),
                         sendPost.getTimestamp()))
                         .collect(Collectors.toList());

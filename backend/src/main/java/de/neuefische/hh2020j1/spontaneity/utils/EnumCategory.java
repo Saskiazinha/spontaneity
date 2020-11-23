@@ -2,7 +2,7 @@ package de.neuefische.hh2020j1.spontaneity.utils;
 
 public enum EnumCategory {
     Drinks("DR"),
-    Dinner("DI"),
+    Meal("ME"),
     Events("EV"),
     Exercise("EX"),
     Outdoor("OU"),
