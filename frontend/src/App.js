@@ -9,6 +9,7 @@ import SignUpPage from "./security/SignUpPage";
 import PostsTomorrow from "./postsPages/PostsTomorrow";
 import PostsDayAfterTomorrow from "./postsPages/PostsDayAfterTomorrow";
 import PostContextProvider from "./contexts/PostContextProvider";
+import DetailsPage from "./detailsPage/DetailsPage";
 
 function App() {
   return (
@@ -16,21 +17,15 @@ function App() {
       <PostContextProvider>
         <Layout>
           <Switch>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/signup">
-              <SignUpPage />
-            </Route>
-            <ProtectedRoute path="/posts/today">
-              <PostsToday />
-            </ProtectedRoute>
-            <ProtectedRoute path="/posts/tomorrow">
-              <PostsTomorrow />
-            </ProtectedRoute>
-            <ProtectedRoute path="/posts/dayaftertomorrow">
-              <PostsDayAfterTomorrow />
-            </ProtectedRoute>
+            <Route path="/login" component={LoginPage} />
+            <Route path="/signup" component={SignUpPage} />
+            <ProtectedRoute path="/posts/today" component={PostsToday} />
+            <ProtectedRoute path="/posts/tomorrow" component={PostsTomorrow} />
+            <ProtectedRoute
+              path="/posts/dayaftertomorrow"
+              component={PostsDayAfterTomorrow}
+            />
+            <ProtectedRoute path="/posts/:id" component={DetailsPage} />
             <Route path="/">
               <Redirect to="/posts/today" />
             </Route>
