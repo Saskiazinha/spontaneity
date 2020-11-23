@@ -5,13 +5,13 @@ import PostContext from "../contexts/PostContext";
 import PostList from "../postsCommons/PostList";
 import { getDate } from "../utils/DateUtils";
 
-export default function PostsToday() {
+export default function PostsDayAfterTomorrow() {
   const { posts } = useContext(PostContext);
-  const filteredPosts = posts.filter((post) => post.localDate === getDate(0));
+  const filteredPosts = posts.filter((post) => post.localDate === getDate(2));
   return (
     <div>
       <SpontaneityHeader />
-      <NavigationHeader title={"Posts of Friends"} day={"Today"} />
+      <NavigationHeader title={"Posts of Friends"} day={"Day After Tomorrow"} />
       <PostList posts={filteredPosts} />
     </div>
   );

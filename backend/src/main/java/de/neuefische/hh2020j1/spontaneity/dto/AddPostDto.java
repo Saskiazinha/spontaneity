@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDto {
+public class AddPostDto {
 
     private Date date;
     private LocalTime startPoint;

@@ -1,32 +1,28 @@
-package de.neuefische.hh2020j1.spontaneity.model;
+package de.neuefische.hh2020j1.spontaneity.dto;
 
 import de.neuefische.hh2020j1.spontaneity.utils.EnumStatusLocation;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Document(collection = "post")
-public class Post {
-    @Id
+@AllArgsConstructor
+public class SendPostDto {
+
     private String id;
     private String creator;
-    private Instant startPoint;
-    private Instant endPoint;
+    private LocalDate localDate;
+    private LocalTime startPoint;
+    private LocalTime endPoint;
     private String location;
     private EnumStatusLocation statusLocation;
     private String category;
     private String notes;
     private Instant timestamp;
-
-
 }
+
