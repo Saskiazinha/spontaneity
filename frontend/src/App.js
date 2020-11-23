@@ -9,6 +9,7 @@ import SignUpPage from "./security/SignUpPage";
 import PostsTomorrow from "./postsPages/PostsTomorrow";
 import PostsDayAfterTomorrow from "./postsPages/PostsDayAfterTomorrow";
 import PostContextProvider from "./contexts/PostContextProvider";
+import DetailsPage from "./detailsPage/DetailsPage";
 
 function App() {
   return (
