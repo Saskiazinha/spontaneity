@@ -1,9 +1,14 @@
 import React from "react";
+import styled from "styled-components/macro";
 
 export default function SpontaneityHeader() {
   return (
-    <div>
+    <HeaderStyled>
       <h1>Spontaneity</h1>
-    </div>
+    </HeaderStyled>
   );
 }
+
+const HeaderStyled = styled.div`
+  text-align: center;
+`;
