@@ -8,8 +8,22 @@ export default function PostContextProvider({ children }) {
   const { token, tokenIsValid } = useContext(UserContext);
 
   useEffect(() => {
-    tokenIsValid() && getPosts(token).then(setPosts).catch(console.log);
+    tokenIsValid() &&
+      getPosts(token)
+        .then((posts) => setPostsWithoutSeconds(posts))
+        .catch(console.log);
   }, [token, tokenIsValid]);
+
+  function setPostsWithoutSeconds(posts) {
+    const newPosts = posts.map((post) => {
+      return {
+        ...post,
+        startPoint: post.startPoint.slice(0, 5),
+        endPoint: post.endPoint.slice(0, 5),
+      };
+    });
+    setPosts(newPosts);
+  }
 
   return (
     <PostContext.Provider value={{ posts }}>{children}</PostContext.Provider>
