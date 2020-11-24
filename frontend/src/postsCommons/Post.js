@@ -10,49 +10,76 @@ import { RiCalendarEventFill } from "react-icons/ri";
 
 export default function Post({ post }) {
   const history = useHistory();
+  const time = "time";
+  const category = "category";
+  const location = "location";
   return (
     <PostStyled>
       <NameStyling>{post.creator}</NameStyling>
       <Button onClick={() => history.push("/posts/" + post.id)}>Details</Button>
       <ContentStyling>
         <div>
-          <Icon>
-            <BsClockHistory />
-          </Icon>
+          <Icon>{renderIcon(time)}</Icon>
           <Content>
             {post.startPoint} - {post.endPoint}
           </Content>
         </div>
         <div>
-          <Icon>{renderCategoryIcon()}</Icon>
+          <Icon>{renderIcon(category)}</Icon>
           <Content>{post.category}</Content>
         </div>
         <div>
-          <Icon>
-            <SiGooglemaps />
-          </Icon>
+          <Icon>{renderIcon(location)}</Icon>
           <Content>{post.location}</Content>
         </div>
       </ContentStyling>
     </PostStyled>
   );
 
-  function renderCategoryIcon() {
+  function renderIcon(icon) {
+    if (icon === time) {
+      return <BsClockHistory color={getStatusColor(post.statusTime)} />;
+    }
+    if (icon === category) {
+      const color = getStatusColor(post.statusCategory);
+      return renderCategoryIcon(color);
+    }
+    if (icon === location) {
+      return <SiGooglemaps color={getStatusColor(post.statusLocation)} />;
+    }
+  }
+
+  function getStatusColor(status) {
+    switch (status) {
+      case "GREEN":
+        return "#2FAB63";
+      case "ORANGE":
+        return "#F78310";
+      case "BLUE":
+        return "#0074B6";
+      default:
+        console.log("No matching color für:");
+        console.log(post.creator);
+        console.log(status);
+    }
+  }
+
+  function renderCategoryIcon(color) {
     switch (post.category) {
       case "Drinks":
-        return <BiDrink />;
+        return <BiDrink color={color} />;
       case "Meal":
-        return <GiMeal />;
+        return <GiMeal color={color} />;
       case "Events":
-        return <RiCalendarEventFill />;
+        return <RiCalendarEventFill color={color} />;
       case "Exercise":
-        return <BiRun />;
+        return <BiRun color={color} />;
       case "Outdoor":
-        return <GiMountains />;
+        return <GiMountains color={color} />;
       case "Party":
-        return <GiPartyFlags />;
+        return <GiPartyFlags color={color} />;
       case "Hangout":
-        return <GiSofa />;
+        return <GiSofa color={color} />;
       default:
         console.log("Something went wrong");
     }
@@ -96,6 +123,7 @@ const ContentStyling = styled.div`
 const Icon = styled.p`
   margin: 0;
   font-size: 25px;
+  color: #f78310;
 `;
 
 const Content = styled.p`
