@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import { useHistory } from "react-router-dom";
 import Button from "../commons/Button";
-import { BsWatch } from "react-icons/bs";
+import { IoMdClock } from "react-icons/io";
 import { SiGooglemaps } from "react-icons/si";
 import { BiDrink, BiRun } from "react-icons/bi";
 import { GiMeal, GiMountains, GiPartyFlags, GiSofa } from "react-icons/gi";
@@ -38,7 +38,7 @@ export default function Post({ post }) {
 
   function renderIcon(icon) {
     if (icon === time) {
-      return <BsWatch color={getStatusColor(post.statusTime)} />;
+      return <IoMdClock color={getStatusColor(post.statusTime)} />;
     }
     if (icon === category) {
       const color = getStatusColor(post.statusCategory);
@@ -53,14 +53,12 @@ export default function Post({ post }) {
     switch (status) {
       case "GREEN":
         return "#2FAB63";
-      case "ORANGE":
-        return "#F78310";
+      case "YELLOW":
+        return "#EFD102";
       case "BLUE":
         return "#0074B6";
       default:
-        console.log("No matching color für:");
-        console.log(post.creator);
-        console.log(status);
+        console.log("Something went wrong");
     }
   }
 
@@ -123,7 +121,6 @@ const ContentStyling = styled.div`
 const Icon = styled.p`
   margin: 0;
   font-size: 25px;
-  color: #f78310;
 `;
 
 const Content = styled.p`

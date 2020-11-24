@@ -17,9 +17,9 @@ export default createGlobalStyle`
    
    --white-main: #ffffff;
    
-   //#F9F871 yellow
-   //#2FAB63 green
-   //#0074B6 blue
+   --green:#2FAB63;
+   --yellow:#EFD102;
+   --blue:#0074B6;
    
   }
   

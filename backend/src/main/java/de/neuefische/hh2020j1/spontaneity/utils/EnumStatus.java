@@ -2,7 +2,7 @@ package de.neuefische.hh2020j1.spontaneity.utils;
 
 public enum EnumStatus {
     GREEN("G"),
-    ORANGE("O"),
+    YELLOW("Y"),
     BLUE("B");
 
     public final String abbreviation;
