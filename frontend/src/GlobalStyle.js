@@ -12,6 +12,8 @@ export default createGlobalStyle`
    --size-xxxl: 40px;
    
    --turquoise-main:#4c9ba6;
+   --turquoise-bright:#e6f4f1;
+   --turquoise-grey:#324b4f;
    
    --white-main: #ffffff;
    
@@ -20,6 +22,7 @@ export default createGlobalStyle`
   html, body {
     margin: 0;
      font-size: 112.5%;
+     font-family: Arial, sans-serif;
   }
   
 `;

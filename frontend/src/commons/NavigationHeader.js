@@ -65,7 +65,11 @@ const NavigationStyled = styled.div`
     justify-self: center;
     align-items: center;
     text-align: center;
-    padding: var(--size-m);
+    padding: var(--size-s);
+
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 0.9rem;
+    color: #324b4f;
 
     h2,
     h3 {
