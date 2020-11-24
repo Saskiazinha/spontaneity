@@ -76,7 +76,7 @@ const HeadlineStyled = styled.div`
 
   font-family: "Comic Sans MS", sans-serif;
   font-size: 0.9rem;
-  color: var(--turquoise-grey);
+  color: var(--turquoise-main);
 `;
 
 const NavigationButton = styled.button`
