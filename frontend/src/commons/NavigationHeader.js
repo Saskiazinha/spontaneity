@@ -1,29 +1,30 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
+import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
 
 export default function NavigationHeader({ title, day, postType }) {
   const history = useHistory();
   return (
     <NavigationStyled>
-      <button
+      <NavigationButton
         disabled={history.location.pathname === "/" + postType + "/today"}
         onClick={handleBackwardsDirection}
       >
-        Icon
-      </button>
-      <div>
+        <BsChevronDoubleLeft size={20} />
+      </NavigationButton>
+      <HeadlineStyled>
         <h2>{title}</h2>
         <h3>{day}</h3>
-      </div>
-      <button
+      </HeadlineStyled>
+      <NavigationButton
         disabled={
           history.location.pathname === "/" + postType + "/dayaftertomorrow"
         }
         onClick={handleForwardDirection}
       >
-        Icon
-      </button>
+        <BsChevronDoubleRight size={20} />
+      </NavigationButton>
     </NavigationStyled>
   );
 
@@ -61,24 +62,33 @@ const NavigationStyled = styled.div`
   padding-right: var(--size-m);
   margin: 0;
 
-  div {
-    justify-self: center;
-    align-items: center;
-    text-align: center;
-    padding: var(--size-s);
-
-    font-family: "Comic Sans MS", sans-serif;
-    font-size: 0.9rem;
-    color: #324b4f;
-
-    h2,
-    h3 {
-      margin: 0;
-    }
+  h2,
+  h3 {
+    margin: 0;
   }
+`;
 
-  button {
-    height: 30px;
-    align-self: center;
+const HeadlineStyled = styled.div`
+  justify-self: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--size-s);
+
+  font-family: "Comic Sans MS", sans-serif;
+  font-size: 0.9rem;
+  color: var(--turquoise-grey);
+`;
+
+const NavigationButton = styled.button`
+  align-self: center;
+  height: 30px;
+  width: 40px;
+  color: var(--white-main);
+  background-color: var(--turquoise-main);
+  border-radius: 5px;
+  border: none;
+
+  &:disabled {
+    background-color: var(--turquoise-bright);
   }
 `;
