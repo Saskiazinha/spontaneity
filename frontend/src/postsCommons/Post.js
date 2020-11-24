@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/macro";
 import { useHistory } from "react-router-dom";
 import Button from "../commons/Button";
-import { BsClockHistory } from "react-icons/bs";
+import { BsWatch } from "react-icons/bs";
 import { SiGooglemaps } from "react-icons/si";
 import { BiDrink, BiRun } from "react-icons/bi";
 import { GiMeal, GiMountains, GiPartyFlags, GiSofa } from "react-icons/gi";
@@ -38,7 +38,7 @@ export default function Post({ post }) {
 
   function renderIcon(icon) {
     if (icon === time) {
-      return <BsClockHistory color={getStatusColor(post.statusTime)} />;
+      return <BsWatch color={getStatusColor(post.statusTime)} />;
     }
     if (icon === category) {
       const color = getStatusColor(post.statusCategory);

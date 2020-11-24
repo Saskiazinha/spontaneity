@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
-import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 export default function NavigationHeader({ title, day, postType }) {
   const history = useHistory();
@@ -11,7 +11,7 @@ export default function NavigationHeader({ title, day, postType }) {
         disabled={history.location.pathname === "/" + postType + "/today"}
         onClick={handleBackwardsDirection}
       >
-        <BsChevronDoubleLeft size={20} />
+        <BsChevronLeft size={20} />
       </NavigationButton>
       <HeadlineStyled>
         <h2>{title}</h2>
@@ -23,7 +23,7 @@ export default function NavigationHeader({ title, day, postType }) {
         }
         onClick={handleForwardDirection}
       >
-        <BsChevronDoubleRight size={20} />
+        <BsChevronRight size={20} />
       </NavigationButton>
     </NavigationStyled>
   );
