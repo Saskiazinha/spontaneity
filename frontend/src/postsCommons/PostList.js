@@ -16,4 +16,6 @@ export default function PostList({ posts }) {
 
 const StyledList = styled.div`
   list-style: none;
+  overflow: scroll;
+  padding: var(--size-l) var(--size-xl);
 `;

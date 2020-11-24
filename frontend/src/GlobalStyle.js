@@ -10,5 +10,16 @@ export default createGlobalStyle`
    --size-xl: 24px;
    --size-xxl: 32px;
    --size-xxxl: 40px;
+   
+   --turquoise-main:#4c9ba6;
+   
+   --white-main: #ffffff;
+   
   }
+  
+  html, body {
+    margin: 0;
+     font-size: 112.5%;
+  }
+  
 `;
