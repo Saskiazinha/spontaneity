@@ -108,6 +108,8 @@ const NameStyling = styled.h4`
   justify-self: center;
   font-size: 1.1em;
   font-weight: bold;
+  color: var(--turquoise-main);
+  letter-spacing: 0.2em;
 `;
 
 const ContentStyling = styled.div`

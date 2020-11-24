@@ -26,7 +26,7 @@ export default createGlobalStyle`
   html, body {
     margin: 0;
      font-size: 112.5%;
-     font-family: Arial, sans-serif;
+     font-family: "Apple Braille", sans-serif;
      color: var(--turquoise-grey);
   }
   

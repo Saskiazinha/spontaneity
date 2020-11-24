@@ -58,8 +58,7 @@ export default function NavigationHeader({ title, day, postType }) {
 const NavigationStyled = styled.div`
   display: grid;
   grid-template-columns: 50px 1fr 50px;
-  padding-left: var(--size-m);
-  padding-right: var(--size-m);
+  padding: var(--size-xs) var(--size-m);
   margin: 0;
 
   h2,
@@ -73,9 +72,7 @@ const HeadlineStyled = styled.div`
   align-items: center;
   text-align: center;
   padding: var(--size-s);
-
-  font-family: "Comic Sans MS", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--turquoise-main);
 `;
 
