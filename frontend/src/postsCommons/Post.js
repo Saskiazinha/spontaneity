@@ -95,7 +95,7 @@ const PostStyled = styled.div`
 
   button {
     grid-row: 1;
-    grid-column: 3 / 3;
+    grid-column: 3;
 
     justify-self: end;
   }
