@@ -61,7 +61,7 @@ const LoginStyling = styled.div`
 
 const FormStyling = styled.form`
   display: grid;
-  grid-template-rows: 50px 50px 50px 60px 50px;
+  grid-template-rows: repeat(5, 20%);
   justify-items: center;
   padding: var(--size-xxxl);
   gap: var(--size-xl);
