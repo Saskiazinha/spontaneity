@@ -7,7 +7,7 @@ export default function LoginButton({ children, ...rest }) {
 
 const LoginButtonStyled = styled.button`
   width: 100%;
-  font-size: 16px;
+  font-size: 1.05em;
   background-color: var(--turquoise-bright);
   color: var(--turquoise-grey);
   border-radius: 7px;
