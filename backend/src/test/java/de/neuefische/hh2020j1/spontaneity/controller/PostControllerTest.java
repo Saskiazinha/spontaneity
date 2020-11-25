@@ -3,7 +3,6 @@ package de.neuefische.hh2020j1.spontaneity.controller;
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
-import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
 import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
@@ -64,7 +63,7 @@ public class PostControllerTest {
     }
 
     @Test
-    public void getIdeasSortedTest(){
+    public void getPostsSortedTest(){
         //Given
         String url=getPostsUrl();
 
@@ -74,7 +73,21 @@ public class PostControllerTest {
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSortedWithoutFranzi().toArray()));
+        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSortedWithoutPrincipal().toArray()));
+    }
+
+    @Test
+    public void getPostsOfUserTest(){
+        //Given
+        String url=getPostsUrl()+"/myposts";
+
+        //When
+        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+        ResponseEntity <SendPostDto[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, SendPostDto[].class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.OK));
+        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSortedForPrincipal().toArray()));
     }
 
 

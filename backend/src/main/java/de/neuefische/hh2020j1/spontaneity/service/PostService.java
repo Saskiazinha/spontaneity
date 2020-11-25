@@ -7,6 +7,7 @@ import de.neuefische.hh2020j1.spontaneity.utils.ParseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,17 @@ public class PostService {
         List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(postsWithoutCreator);
         return sendPosts;
     }
+
+    public List<SendPostDto> getPostsOfUser(String principalName){
+        Query queryPostsForUser = new Query();
+        queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
+        List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
+
+        List<SendPostDto>sendPosts= ParseUtils.parseToSendPostDto(userPosts);
+        return sendPosts;
+
+    }
+
 
 }
