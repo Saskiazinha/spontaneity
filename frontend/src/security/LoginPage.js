@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components/macro";
 import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import LoginButton from "../commons/LoginButton";
 
 export default function LoginPage() {
   const [loginData, setLoginData] = useState({ username: "", password: "" });
@@ -10,17 +11,17 @@ export default function LoginPage() {
   const history = useHistory();
   return (
     <LoginStyling>
-      <TitelStyling>Spontaneity</TitelStyling>
+      <h1>Spontaneity</h1>
       <FormStyling onSubmit={handleSubmit}>
-        <Label>
+        <LabelStyled>
           <input
             name="username"
             value={loginData.username}
             onChange={handleChange}
             placeholder="Username"
           />
-        </Label>
-        <Label>
+        </LabelStyled>
+        <LabelStyled>
           <input
             name="password"
             value={loginData.password}
@@ -28,12 +29,12 @@ export default function LoginPage() {
             type="password"
             placeholder="Password"
           />
-        </Label>
+        </LabelStyled>
         <LoginButton type="submit">Login</LoginButton>
         {error ?? <p>{error}</p>}
-        <SignUpButton type="button" onClick={() => history.push("/signup")}>
+        <SignUpStyling type="button" onClick={() => history.push("/signup")}>
           Sign Up
-        </SignUpButton>
+        </SignUpStyling>
       </FormStyling>
     </LoginStyling>
   );
@@ -52,10 +53,10 @@ export default function LoginPage() {
 const LoginStyling = styled.div`
   background-color: var(--turquoise-main);
   height: 100vh;
-`;
 
-const TitelStyling = styled.h1`
-  text-align: center;
+  h1 {
+    text-align: center;
+  }
 `;
 
 const FormStyling = styled.form`
@@ -66,7 +67,7 @@ const FormStyling = styled.form`
   gap: var(--size-xl);
 `;
 
-const Label = styled.label`
+const LabelStyled = styled.label`
   display: grid;
   width: 100%;
 
@@ -74,26 +75,17 @@ const Label = styled.label`
     border-radius: 7px;
     border: none;
     padding-left: 10px;
-    font-size: 14px;
-    color: #324b4f;
+    font-size: 0.88em;
+    color: var(--turquoise-grey);
   }
 `;
 
-const LoginButton = styled.button`
-  width: 100%;
-  font-size: 16px;
-  background-color: var(--turquoise-bright);
-  color: var(--turquoise-grey);
-  border-radius: 7px;
-  border: none;
-`;
-
-const SignUpButton = styled.button`
+const SignUpStyling = styled.button`
   grid-row: 5/5;
   width: 80px;
   border: none;
   background-color: transparent;
   color: var(--white-main);
-  font-size: 18px;
+  font-size: 1.15em;
   text-decoration-line: underline;
 `;
