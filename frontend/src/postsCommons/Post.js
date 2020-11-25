@@ -95,7 +95,7 @@ const PostStyled = styled.div`
 
   button {
     grid-row: 1;
-    grid-column: 3 / 3;
+    grid-column: 3;
 
     justify-self: end;
   }
@@ -103,7 +103,7 @@ const PostStyled = styled.div`
 
 const NameStyling = styled.h4`
   grid-row: 1;
-  grid-column: 2 / 2;
+  grid-column: 2;
   align-self: center;
   justify-self: center;
   font-size: 1.1em;
@@ -113,7 +113,7 @@ const NameStyling = styled.h4`
 `;
 
 const ContentStyling = styled.div`
-  grid-row: 2 / 2;
+  grid-row: 2;
   grid-column: span 3;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
