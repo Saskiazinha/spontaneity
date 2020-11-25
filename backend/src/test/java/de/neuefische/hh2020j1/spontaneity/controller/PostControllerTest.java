@@ -43,7 +43,7 @@ public class PostControllerTest {
 
     userDao.deleteAll();
     String password=new BCryptPasswordEncoder().encode("a-password");
-    userDao.save(new SpontaneityUser("Ilaria",password));
+    userDao.save(new SpontaneityUser("Franzi",password));
     }
 
     private String getPostsUrl(){
@@ -51,7 +51,7 @@ public class PostControllerTest {
     }
 
     private String login(){
-        ResponseEntity<String>response=testRestTemplate.postForEntity("http://localhost:"+port+"/auth/login",new LoginDto ("Ilaria","a-password"),String.class);
+        ResponseEntity<String>response=testRestTemplate.postForEntity("http://localhost:"+port+"/auth/login",new LoginDto ("Franzi","a-password"),String.class);
         return response.getBody();
     }
 
@@ -63,19 +63,19 @@ public class PostControllerTest {
         return new HttpEntity<T>(data,headers);
     }
 
-//    @Test
-//    public void getIdeasSortedTest(){
-//        //Given
-//        String url=getPostsUrl();
-//
-//        //When
-//        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
-//        ResponseEntity <SendPostDto[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, SendPostDto[].class);
-//
-//        //Then
-//        assertThat(response.getStatusCode(),is(HttpStatus.OK));
-//        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSorted().toArray()));
-//    }
+    @Test
+    public void getIdeasSortedTest(){
+        //Given
+        String url=getPostsUrl();
+
+        //When
+        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+        ResponseEntity <SendPostDto[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, SendPostDto[].class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.OK));
+        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSortedWithoutFranzi().toArray()));
+    }
 
 
 

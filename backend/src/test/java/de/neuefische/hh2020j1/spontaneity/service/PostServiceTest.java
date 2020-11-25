@@ -21,18 +21,19 @@ class PostServiceTest {
     private final MongoTemplate mongoTemplate=mock(MongoTemplate.class);
     private final PostService postService=new PostService(postDao, mongoTemplate);
 
-//    @Test
-//    @DisplayName("The \"getIdeasSortedByTime\" method should return posts in the order of their startPoint")
-//    void getIdeasSortedByTimeTest(){
-//        //Given
-//        Query querySortByTime = new Query();
-//        querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
-//        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
-//
-//        //When
-//        List<SendPostDto> allPosts= postService.getIdeasSortedByTime();
-//
-//        //Then
-//        assertThat(allPosts,is(PostSeeder.getStockSendPostsDtoSorted()));
-//    }
+    @Test
+    @DisplayName("The \"getIdeasSortedByTime\" method should return posts in the order of their startPoint")
+    void getIdeasSortedByTimeTest(){
+        //Given
+        Query querySortByTime = new Query();
+        querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
+        String principleName="Franzi";
+
+        //When
+        List<SendPostDto> allPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principleName);
+
+        //Then
+        assertThat(allPosts,is(PostSeeder.getStockSendPostsDtoSortedWithoutFranzi()));
+    }
 }

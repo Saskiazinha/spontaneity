@@ -44,4 +44,13 @@ public class PostSeeder {
         ));
     }
 
+    public static final List<SendPostDto> getStockSendPostsDtoSortedWithoutFranzi(){
+        return new ArrayList<SendPostDto>(List.of(
+                new SendPostDto("222", "Rebekka", LocalDate.of(2020,11,20),LocalTime.of(12,00), LocalTime.of(13,30),EnumStatus.YELLOW,"Altona" , EnumStatus.YELLOW, EnumCategory.Exercise,EnumStatus.GREEN, "I would like to do some exercise", Instant.parse("2020-11-20T10:56:04Z")),
+                new SendPostDto("333", "Janosch", LocalDate.of(2020,11,21),LocalTime.of(13,00), LocalTime.of(14,00),EnumStatus.GREEN,"Barmbek" , EnumStatus.GREEN, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", Instant.parse("2020-11-20T10:56:04Z")),
+                new SendPostDto("444", "Carsten", LocalDate.of(2020,11,22),LocalTime.of(16,00), LocalTime.of(18,00),EnumStatus.GREEN,"Sternschanze" , EnumStatus.YELLOW, EnumCategory.Events,EnumStatus.BLUE, "I would like to go to a concert", Instant.parse("2020-11-20T10:56:04Z")),
+                new SendPostDto("555", "Leonie", LocalDate.of(2020,11,22),LocalTime.of(21,00), LocalTime.of(23,00),EnumStatus.GREEN,"Eimsbüttel" , EnumStatus.GREEN, EnumCategory.Drinks,EnumStatus.YELLOW, "I would like to have a drink out", Instant.parse("2020-11-20T10:56:04Z"))
+        ));
+    }
+
 }

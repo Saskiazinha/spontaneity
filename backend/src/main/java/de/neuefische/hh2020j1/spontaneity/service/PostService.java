@@ -26,26 +26,26 @@ public class PostService {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public List<SendPostDto> getPostsSortedByTimeWithoutUsersPosts(Principal principal) {
+    public List<SendPostDto> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
         Query querySortForTime = new Query();
         querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
         List<Post> postsWithoutCreator=posts.stream()
-                .filter(post->(post.getCreator().equals(principal.getName())))
+                .filter(post->(!post.getCreator().equals(principalName)))
                         .collect(Collectors.toList());
 
         List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(postsWithoutCreator);
         return sendPosts;
     }
 
-    public List <SendPostDto> getPostsOfUser(Principal principal){
-        Query queryPostsForUser = new Query();
-        queryPostsForUser.addCriteria(Criteria.where("creator").is(principal.getName()));
-        List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
-
-        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(userPosts);
-        return sendPosts;
-
-    }
+//    public List <SendPostDto> getPostsOfUser(Principal principal){
+//        Query queryPostsForUser = new Query();
+//        queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
+//        List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
+//
+//        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(userPosts);
+//        return sendPosts;
+//
+//    }
 }
