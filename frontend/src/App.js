@@ -40,6 +40,6 @@ export default App;
 
 const Layout = styled.main`
   display: grid;
-  grid-template-rows: 50px min-content 1fr 50px;
+  grid-template-rows: 10% min-content 1fr 10%;
   height: 100vh;
 `;

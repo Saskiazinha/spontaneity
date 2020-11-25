@@ -1,29 +1,30 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 export default function NavigationHeader({ title, day, postType }) {
   const history = useHistory();
   return (
     <NavigationStyled>
-      <button
+      <NavigationButton
         disabled={history.location.pathname === "/" + postType + "/today"}
         onClick={handleBackwardsDirection}
       >
-        Icon
-      </button>
-      <div>
+        <BsChevronLeft size={20} />
+      </NavigationButton>
+      <HeadlineStyled>
         <h2>{title}</h2>
         <h3>{day}</h3>
-      </div>
-      <button
+      </HeadlineStyled>
+      <NavigationButton
         disabled={
           history.location.pathname === "/" + postType + "/dayaftertomorrow"
         }
         onClick={handleForwardDirection}
       >
-        Icon
-      </button>
+        <BsChevronRight size={20} />
+      </NavigationButton>
     </NavigationStyled>
   );
 
@@ -57,16 +58,34 @@ export default function NavigationHeader({ title, day, postType }) {
 const NavigationStyled = styled.div`
   display: grid;
   grid-template-columns: 50px 1fr 50px;
-  padding: var(--size-m);
+  padding: var(--size-xs) var(--size-m);
+  margin: 0;
 
-  div {
-    justify-self: center;
-    align-items: center;
-    text-align: center;
+  h2,
+  h3 {
+    margin: 0;
   }
+`;
 
-  button {
-    height: 30px;
-    align-self: center;
+const HeadlineStyled = styled.div`
+  justify-self: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--size-s);
+  font-size: 0.8rem;
+  color: var(--turquoise-main);
+`;
+
+const NavigationButton = styled.button`
+  align-self: center;
+  height: 30px;
+  width: 40px;
+  color: var(--white-main);
+  background-color: var(--turquoise-main);
+  border-radius: 5px;
+  border: none;
+
+  &:disabled {
+    background-color: var(--turquoise-bright);
   }
 `;

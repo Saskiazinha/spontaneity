@@ -10,5 +10,24 @@ export default createGlobalStyle`
    --size-xl: 24px;
    --size-xxl: 32px;
    --size-xxxl: 40px;
+   
+   --turquoise-main:#4c9ba6;
+   --turquoise-bright:#e6f4f1;
+   --turquoise-grey:#324b4f;
+   
+   --white-main: #ffffff;
+   
+   --green:#2FAB63;
+   --yellow:#EFD102;
+   --blue:#0074B6;
+   
   }
+  
+  html, body {
+    margin: 0;
+     font-size: 112.5%;
+     font-family: "Apple Braille", sans-serif;
+     color: var(--turquoise-grey);
+  }
+  
 `;

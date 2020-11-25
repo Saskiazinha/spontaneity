@@ -16,4 +16,11 @@ export default function PostList({ posts }) {
 
 const StyledList = styled.div`
   list-style: none;
+  overflow: scroll;
+  padding: 0 var(--size-xl) var(--size-s) var(--size-xl);
+  font-size: 0.9rem;
+
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: var(--size-m);
 `;
