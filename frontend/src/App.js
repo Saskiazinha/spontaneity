@@ -10,6 +10,9 @@ import PostsTomorrow from "./postsPages/PostsTomorrow";
 import PostsDayAfterTomorrow from "./postsPages/PostsDayAfterTomorrow";
 import PostContextProvider from "./contexts/PostContextProvider";
 import DetailsPage from "./detailsPage/DetailsPage";
+import MyPostsToday from "./myPostsPages/MyPostsToday";
+import MyPostsTomorrow from "./myPostsPages/MyPostsTomorrow";
+import MyPostsDayAfterTomorrow from "./myPostsPages/MyPostsDayAfterTomorrow";
 
 function App() {
   return (
@@ -24,6 +27,15 @@ function App() {
             <ProtectedRoute
               path="/posts/dayaftertomorrow"
               component={PostsDayAfterTomorrow}
+            />
+            <ProtectedRoute path="/myposts/today" component={MyPostsToday} />
+            <ProtectedRoute
+              path="/myposts/tomorrow"
+              component={MyPostsTomorrow}
+            />
+            <ProtectedRoute
+              path="/myposts/dayaftertomorrow"
+              component={MyPostsDayAfterTomorrow}
             />
             <ProtectedRoute path="/posts/:id" component={DetailsPage} />
             <Route path="/">
