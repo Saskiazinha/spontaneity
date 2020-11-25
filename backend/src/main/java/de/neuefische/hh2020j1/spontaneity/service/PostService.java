@@ -7,6 +7,7 @@ import de.neuefische.hh2020j1.spontaneity.utils.ParseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,10 +24,12 @@ public class PostService {
     }
 
     public List<SendPostDto> getIdeasSortedByTime() {
-        Query querySortByTime = new Query();
-        querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        Query query = new Query();
+        query.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+//        query.addCriteria(Criteria.where("username").regex("^A"));
 
-        List<Post> posts = mongoTemplate.find(querySortByTime, Post.class);
+
+        List<Post> posts = mongoTemplate.find(query, Post.class);
         List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(posts);
         return sendPosts;
     }
