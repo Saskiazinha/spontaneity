@@ -63,19 +63,19 @@ public class PostControllerTest {
         return new HttpEntity<T>(data,headers);
     }
 
-    @Test
-    public void getIdeasSortedTest(){
-        //Given
-        String url=getPostsUrl();
-
-        //When
-        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
-        ResponseEntity <SendPostDto[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, SendPostDto[].class);
-
-        //Then
-        assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSorted().toArray()));
-    }
+//    @Test
+//    public void getIdeasSortedTest(){
+//        //Given
+//        String url=getPostsUrl();
+//
+//        //When
+//        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+//        ResponseEntity <SendPostDto[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, SendPostDto[].class);
+//
+//        //Then
+//        assertThat(response.getStatusCode(),is(HttpStatus.OK));
+//        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSorted().toArray()));
+//    }
 
 
 

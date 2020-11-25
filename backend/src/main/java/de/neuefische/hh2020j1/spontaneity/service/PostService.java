@@ -10,7 +10,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -23,14 +26,26 @@ public class PostService {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public List<SendPostDto> getIdeasSortedByTime() {
-        Query query = new Query();
-        query.with(Sort.by(Sort.Direction.ASC,"startPoint"));
-//        query.addCriteria(Criteria.where("username").regex("^A"));
+    public List<SendPostDto> getPostsSortedByTimeWithoutUsersPosts(Principal principal) {
+        Query querySortForTime = new Query();
+        querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
+        List<Post> postsWithoutCreator=posts.stream()
+                .filter(post->(post.getCreator().equals(principal.getName())))
+                        .collect(Collectors.toList());
 
-        List<Post> posts = mongoTemplate.find(query, Post.class);
-        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(posts);
+        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(postsWithoutCreator);
         return sendPosts;
+    }
+
+    public List <SendPostDto> getPostsOfUser(Principal principal){
+        Query queryPostsForUser = new Query();
+        queryPostsForUser.addCriteria(Criteria.where("creator").is(principal.getName()));
+        List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
+
+        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(userPosts);
+        return sendPosts;
+
     }
 }
