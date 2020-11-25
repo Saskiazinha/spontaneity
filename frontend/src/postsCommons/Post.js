@@ -113,7 +113,7 @@ const NameStyling = styled.h4`
 `;
 
 const ContentStyling = styled.div`
-  grid-row: 2 / 2;
+  grid-row: 2 ;
   grid-column: span 3;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
