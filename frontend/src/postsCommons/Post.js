@@ -103,7 +103,7 @@ const PostStyled = styled.div`
 
 const NameStyling = styled.h4`
   grid-row: 1;
-  grid-column: 2 / 2;
+  grid-column: 2;
   align-self: center;
   justify-self: center;
   font-size: 1.1em;
