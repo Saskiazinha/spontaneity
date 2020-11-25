@@ -81,7 +81,7 @@ const LabelStyled = styled.label`
 `;
 
 const SignUpStyling = styled.button`
-  grid-row: 5/5;
+  grid-row: 5;
   width: 80px;
   border: none;
   background-color: transparent;
