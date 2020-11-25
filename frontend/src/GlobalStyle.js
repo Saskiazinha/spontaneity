@@ -25,9 +25,16 @@ export default createGlobalStyle`
   
   html, body {
     margin: 0;
-     font-size: 112.5%;
+     font-size: 1rem;
      font-family: "Apple Braille", sans-serif;
      color: var(--turquoise-grey);
+  }
+  
+  h1{
+    font-family: "Satisfy", sans-serif;
+    font-size: 220%;
+    color: var(--white-main);
+
   }
   
 `;

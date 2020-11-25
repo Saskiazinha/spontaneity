@@ -18,11 +18,7 @@ const HeaderStyled = styled.div`
   grid-template-columns: 20% 1fr 20%;
   justify-items: center;
   align-items: center;
-
-  font-family: "Satisfy", sans-serif;
-  font-size: 1rem;
   background-color: var(--turquoise-main);
-  color: var(--white-main);
 
   h1 {
     margin: 0;
