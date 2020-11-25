@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,12 @@ public class PostController {
     }
 
     @GetMapping
-    public List<SendPostDto> getIdeasSorted(){
-        return postService.getIdeasSortedByTime();
+    public List<SendPostDto> getPostsSortedWithoutUsersPosts(Principal principal){
+        return postService.getPostsSortedByTimeWithoutUsersPosts(principal.getName());
+    }
+
+    @GetMapping("/myposts")
+    public List<SendPostDto> getPostsOfUser(Principal principal){
+        return postService.getPostsOfUser(principal.getName());
     }
 }

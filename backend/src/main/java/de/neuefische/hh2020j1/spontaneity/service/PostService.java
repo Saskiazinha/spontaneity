@@ -7,9 +7,12 @@ import de.neuefische.hh2020j1.spontaneity.utils.ParseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -22,12 +25,29 @@ public class PostService {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public List<SendPostDto> getIdeasSortedByTime() {
-        Query querySortByTime = new Query();
-        querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+    public List<SendPostDto> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
+        Query querySortForTime = new Query();
+        querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
-        List<Post> posts = mongoTemplate.find(querySortByTime, Post.class);
-        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(posts);
+        List<Post> postsWithoutCreator=posts.stream()
+                .filter(post->(!post.getCreator().equals(principalName)))
+                        .collect(Collectors.toList());
+
+        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(postsWithoutCreator);
         return sendPosts;
     }
+
+    public List<SendPostDto> getPostsOfUser(String principalName){
+        Query queryPostsForUser = new Query();
+        queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
+        List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
+
+        List<SendPostDto>sendPosts= ParseUtils.parseToSendPostDto(userPosts);
+        return sendPosts;
+
+    }
+
+
 }
