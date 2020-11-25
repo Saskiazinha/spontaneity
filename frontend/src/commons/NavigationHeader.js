@@ -72,7 +72,7 @@ const HeadlineStyled = styled.div`
   align-items: center;
   text-align: center;
   padding: var(--size-s);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--turquoise-main);
 `;
 

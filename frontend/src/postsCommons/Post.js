@@ -113,6 +113,7 @@ const NameStyling = styled.h4`
 `;
 
 const ContentStyling = styled.div`
+  grid-row: 2;
   grid-row: 2 ;
   grid-column: span 3;
   display: grid;
