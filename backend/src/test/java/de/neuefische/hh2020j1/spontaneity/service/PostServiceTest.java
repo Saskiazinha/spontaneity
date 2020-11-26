@@ -4,6 +4,8 @@ import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
+import de.neuefische.hh2020j1.spontaneity.utils.IdUtils;
+import de.neuefische.hh2020j1.spontaneity.utils.TimestampUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Sort;
@@ -18,9 +20,12 @@ import static org.mockito.Mockito.*;
 
 class PostServiceTest {
 
+    private final IdUtils idUtils=mock(IdUtils.class);
+    private final TimestampUtils timestampUtils=mock(TimestampUtils.class);
+
     private final PostDao postDao=mock(PostDao.class);
     private final MongoTemplate mongoTemplate=mock(MongoTemplate.class);
-    private final PostService postService=new PostService(postDao, mongoTemplate);
+    private final PostService postService=new PostService(postDao, mongoTemplate, idUtils, timestampUtils);
 
     @Test
     @DisplayName("The \"getPostsSortedByTime\" method should return posts in the order of their startPoint excluding posts of logged in user")
