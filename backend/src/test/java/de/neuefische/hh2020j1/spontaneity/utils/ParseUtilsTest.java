@@ -14,7 +14,7 @@ class ParseUtilsTest {
     @Test
     void parseToSendPostDtoTest() {
         //When
-        List<SendPostDto> sendPosts= ParseUtils.parseToSendPostDto(PostSeeder.getStockPostsSorted());
+        List<SendPostDto> sendPosts= ParseUtils.parseToSendPostDtos(PostSeeder.getStockPostsSorted());
         //Then
         assertThat(sendPosts,is(PostSeeder.getStockSendPostsDtoSorted()));
     }
@@ -22,7 +22,7 @@ class ParseUtilsTest {
     @Test
     void parseToPostTest() {
         //When
-        List<Post> posts= ParseUtils.parseToPost(PostSeeder.getStockSendPostsDtoSorted());
+        List<Post> posts= ParseUtils.parseToPosts(PostSeeder.getStockSendPostsDtoSorted());
         //Then
         assertThat(posts,is(PostSeeder.getStockPostsSorted()));
     }
