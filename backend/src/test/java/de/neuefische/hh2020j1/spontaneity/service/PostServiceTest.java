@@ -6,10 +6,7 @@ import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.UpdatePostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
-import de.neuefische.hh2020j1.spontaneity.utils.EnumCategory;
-import de.neuefische.hh2020j1.spontaneity.utils.EnumStatus;
-import de.neuefische.hh2020j1.spontaneity.utils.IdUtils;
-import de.neuefische.hh2020j1.spontaneity.utils.TimestampUtils;
+import de.neuefische.hh2020j1.spontaneity.utils.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Sort;
@@ -84,18 +81,19 @@ class PostServiceTest {
 
         AddPostDto addPostDto= new AddPostDto(LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
 
-        Post postExpected=new Post("expectedId", principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instantExpected);
+        Post post=new Post("expectedId", principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instantExpected);
+        SendPostDto sendPost=ParseUtils.parseToSendPostDto(post);
 
         when(idUtils.generateId()).thenReturn(idExpected);
         when(timestampUtils.generateTimestampInstant()).thenReturn(instantExpected);
-        when(postDao.save(postExpected)).thenReturn(postExpected);
+        when(postDao.save(post)).thenReturn(post);
 
         //When
-        Post newPost=postService.addPost(principalName,addPostDto);
+        SendPostDto newPost=postService.addPost(principalName,addPostDto);
 
         //Then
-        assertThat(newPost,is(postExpected));
-        verify(postDao).save(postExpected);
+        assertThat(newPost,is(sendPost));
+        verify(postDao).save(post);
     }
 
     @Test
@@ -112,16 +110,17 @@ class PostServiceTest {
         Post oldPost=new Post(id, principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
         Post updatedPost=new Post(id, principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", newInstant);
+        SendPostDto sendUpdatedPost =ParseUtils.parseToSendPostDto(updatedPost);
 
         when(timestampUtils.generateTimestampInstant()).thenReturn(newInstant);
         when(postDao.findById(id)).thenReturn(Optional.of(oldPost));
         when(postDao.save(updatedPost)).thenReturn(updatedPost);
 
         //When
-        Post result=postService.updatePost(principalName,updatePostDto);
+        SendPostDto result=postService.updatePost(principalName,updatePostDto);
 
         //Then
-        assertThat(result,is(updatedPost));
+        assertThat(result,is(sendUpdatedPost));
         verify(postDao).save(updatedPost);
     }
 

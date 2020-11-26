@@ -9,10 +9,7 @@ import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
 import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
-import de.neuefische.hh2020j1.spontaneity.utils.EnumCategory;
-import de.neuefische.hh2020j1.spontaneity.utils.EnumStatus;
-import de.neuefische.hh2020j1.spontaneity.utils.IdUtils;
-import de.neuefische.hh2020j1.spontaneity.utils.TimestampUtils;
+import de.neuefische.hh2020j1.spontaneity.utils.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,18 +115,18 @@ public class PostControllerTest {
 
         String url=getPostsUrl();
         AddPostDto addPostDto= new AddPostDto(LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
-        Post postExpected=new Post(id, "Franzi", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post(id, "Franzi", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant));
 
         when(mockedIdUtils.generateId()).thenReturn(id);
         when(mockedTimeStampUtils.generateTimestampInstant()).thenReturn(instant);
 
         //When
         HttpEntity<AddPostDto> entity=getValidAuthorizationEntity(addPostDto);
-        ResponseEntity<Post> response=testRestTemplate.exchange(url,HttpMethod.POST,entity, Post.class);
+        ResponseEntity<SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.POST,entity, SendPostDto.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(), is(postExpected));
+        assertThat(response.getBody(), is(sendPostExpected));
     }
 
 //    @Test

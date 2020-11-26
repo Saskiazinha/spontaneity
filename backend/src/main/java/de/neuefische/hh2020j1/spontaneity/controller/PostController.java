@@ -36,12 +36,12 @@ public class PostController {
     }
 
     @PostMapping
-    public Post addPost (@RequestBody AddPostDto dto, Principal principal){
+    public SendPostDto addPost (@RequestBody AddPostDto dto, Principal principal){
         return postService.addPost(principal.getName(),dto);
     }
 
     @PutMapping ("{postId}")
-    public Post updatePost (@RequestBody UpdatePostDto dto, @PathVariable String postId, Principal principal){
+    public SendPostDto updatePost (@RequestBody UpdatePostDto dto, @PathVariable String postId, Principal principal){
         if(!postId.equals(dto.getId())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }

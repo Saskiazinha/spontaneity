@@ -46,7 +46,7 @@ public class PostService {
                 .filter(post->(!Objects.equals(principalName,post.getCreator())))
                         .collect(Collectors.toList());
 
-        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDto(postsWithoutCreator);
+        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDtos(postsWithoutCreator);
         return sendPosts;
     }
 
@@ -56,13 +56,13 @@ public class PostService {
         queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
         List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
 
-        List<SendPostDto>sendPosts= ParseUtils.parseToSendPostDto(userPosts);
+        List<SendPostDto>sendPosts= ParseUtils.parseToSendPostDtos(userPosts);
         return sendPosts;
 
     }
 
 
-    public Post addPost(String principalName, AddPostDto postToBeAdded) {
+    public SendPostDto addPost(String principalName, AddPostDto postToBeAdded) {
         Post postToSave = Post.builder()
                 .id(idUtils.generateId())
                 .creator(principalName)
@@ -77,11 +77,12 @@ public class PostService {
                 .timestamp(timestampUtils.generateTimestampInstant())
                 .build();
 
-        return postDao.save(postToSave);
+        postDao.save(postToSave);
+        return ParseUtils.parseToSendPostDto(postToSave);
     }
 
 
-    public Post updatePost(String principalName, UpdatePostDto postUpdate) {
+    public SendPostDto updatePost(String principalName, UpdatePostDto postUpdate) {
         Post postToBeUpdated =postDao.findById(postUpdate.getId()).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (!Objects.equals(principalName,postToBeUpdated.getCreator())){
@@ -102,7 +103,8 @@ public class PostService {
                 .timestamp(timestampUtils.generateTimestampInstant())
                 .build();
 
-        return postDao.save(updatedPost);
+        postDao.save(updatedPost);
+        return ParseUtils.parseToSendPostDto(updatedPost);
     }
 
     public void deletePost(String principalName, String postId) {
