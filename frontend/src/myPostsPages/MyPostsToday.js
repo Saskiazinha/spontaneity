@@ -4,7 +4,7 @@ import { getDate } from "../utils/DateUtils";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import NavigationHeader from "../commons/NavigationHeader";
 import PostList from "../postsCommons/PostList";
-import Footer from "../commons/Footer";
+import FooterMyPosts from "../commons/FooterMyPosts";
 
 export default function MyPostsToday() {
   const { myPosts } = useContext(PostContext);
@@ -16,7 +16,7 @@ export default function MyPostsToday() {
       <SpontaneityHeader />
       <NavigationHeader title={"My Posts"} day={"Today"} postType={"myposts"} />
       <PostList posts={myPostsFiltered} />
-      <Footer />
+      <FooterMyPosts />
     </>
   );
 }
