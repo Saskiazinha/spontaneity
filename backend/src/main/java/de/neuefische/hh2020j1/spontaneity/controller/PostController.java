@@ -28,7 +28,7 @@ public class PostController {
         return postService.getPostsSortedByTimeWithoutUsersPosts(principal.getName());
     }
 
-    @GetMapping("/myposts")
+    @GetMapping("myposts")
     public List<SendPostDto> getPostsOfUser(Principal principal){
         return postService.getPostsOfUser(principal.getName());
     }
