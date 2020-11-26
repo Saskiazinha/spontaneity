@@ -7,7 +7,7 @@ export default function FooterMyPosts() {
   return (
     <FooterStyled>
       <IconButtonStyled>
-        <BsPlusCircle size={42} />
+        <BsPlusCircle size={40} />
       </IconButtonStyled>
     </FooterStyled>
   );
