@@ -129,24 +129,121 @@ public class PostControllerTest {
         assertThat(response.getBody(), is(sendPostExpected));
     }
 
-//    @Test
-//    public void updatePostTest(){
-//        //Given
-//        String url=getPostsUrl()+"/someId";
-//        Instant instant= Instant.parse("2020-11-26T10:00:00Z");
-//        UpdatePostDto updatePostDto= new UpdatePostDto("someId",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
-//
-//        when(mockedTimeStampUtils.generateTimestampInstant()).thenReturn(instant);
-//
-//        //When
-//        HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
-//        ResponseEntity <Post> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,Post.class);
-//
-//        //Then
-//        assertThat(response.getStatusCode(),is(HttpStatus.OK));
-//        assertThat(response.getBody(),is());
-//
-//    }
+    @Test
+    public void updatePostTest(){
+        //Given
+        String url=getPostsUrl()+"/555";
+        Instant instant= Instant.parse("2020-11-26T10:00:00Z");
+        UpdatePostDto updatePostDto= new UpdatePostDto("555",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post("555", "Franzi", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", instant));
+
+        when(mockedTimeStampUtils.generateTimestampInstant()).thenReturn(instant);
+
+        //When
+        HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
+        ResponseEntity <SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,SendPostDto.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.OK));
+        assertThat(response.getBody(),is(sendPostExpected));
+
+    }
+
+    @Test
+    public void updatePostOfOtherUserShouldReturnForbiddenTest(){
+        //Given
+        String url=getPostsUrl()+"/333";
+        UpdatePostDto updatePostDto= new UpdatePostDto("333",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+
+
+        //When
+        HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
+        ResponseEntity <SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,SendPostDto.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.FORBIDDEN));
+
+    }
+
+    @Test
+    public void updatePostWithoutMatchingIdsShouldReturnBadRequest(){
+        //Given
+        String url=getPostsUrl()+"/anId";
+        UpdatePostDto updatePostDto= new UpdatePostDto("someId",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+
+
+        //When
+        HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
+        ResponseEntity <SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,SendPostDto.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.BAD_REQUEST));
+
+    }
+
+    @Test
+    public void updateNotExistingPostShouldReturnNotFound(){
+        //Given
+        String url=getPostsUrl()+"/anId";
+        UpdatePostDto updatePostDto= new UpdatePostDto("anId",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+
+
+        //When
+        HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
+        ResponseEntity <SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,SendPostDto.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.NOT_FOUND));
+
+    }
+
+    @Test
+    public void deletePost(){
+        //Given
+        String url= getPostsUrl()+"/555";
+
+        //When
+        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+        ResponseEntity<Void>response=testRestTemplate.exchange(url,HttpMethod.DELETE,entity,Void.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.OK));
+        boolean postPresent=postDao.findById("555").isPresent();
+        assertThat(postPresent,is(false));
+
+    }
+
+    @Test
+    public void deletePostFromOtherUserIsForbidden(){
+        //Given
+        String url= getPostsUrl()+"/333";
+
+        //When
+        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+        ResponseEntity<Void>response=testRestTemplate.exchange(url,HttpMethod.DELETE,entity,Void.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.FORBIDDEN));
+        boolean postPresent=postDao.findById("333").isPresent();
+        assertThat(postPresent,is(true));
+
+    }
+
+    @Test
+    public void deleteNotExistingPostShouldReturnNotFound(){
+        //Given
+        String url= getPostsUrl()+"/someId";
+
+        //When
+        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+        ResponseEntity<Void>response=testRestTemplate.exchange(url,HttpMethod.DELETE,entity,Void.class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.NOT_FOUND));
+
+
+    }
+
 
 
 
