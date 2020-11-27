@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PostContext from "../contexts/PostContext";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
-import FooterDetails from "../commons/FooterDetails";
+import Footer from "../commons/Footer";
 import UserContext from "../contexts/UserContext";
 import { IconButtonStyled } from "../styling/IconButtonStyled";
 import { FaRegEdit } from "react-icons/fa";
@@ -38,18 +38,18 @@ export default function DetailsPage() {
         <p>Notes: {post.notes}</p>
         <p>{post.timestamp}</p>
       </div>
-      <FooterDetails actions={getButtons()} />
+      <Footer actions={getDeleteUpdateButtons()} />
     </>
   );
 
-  function getButtons() {
+  function getDeleteUpdateButtons() {
     if (userData?.sub === post.creator) {
       return [
         <IconButtonStyled key="update">
-          <FaRegEdit />
+          <FaRegEdit size={25} />
         </IconButtonStyled>,
         <IconButtonStyled key="delete">
-          <RiDeleteBin6Line />
+          <RiDeleteBin6Line size={25} />
         </IconButtonStyled>,
       ];
     }

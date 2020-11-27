@@ -5,6 +5,7 @@ import PostContext from "../contexts/PostContext";
 import PostList from "../postsCommons/PostList";
 import { getDate } from "../utils/DateUtils";
 import Footer from "../commons/Footer";
+import { getMapsFilterButtons } from "../commons/MapsFilterButtons";
 
 export default function PostsToday() {
   const { posts } = useContext(PostContext);
@@ -18,7 +19,7 @@ export default function PostsToday() {
         postType={"posts"}
       />
       <PostList posts={filteredPosts} />
-      <Footer />
+      <Footer actions={getMapsFilterButtons()} />
     </>
   );
 }
