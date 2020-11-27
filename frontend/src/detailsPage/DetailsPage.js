@@ -4,7 +4,7 @@ import PostContext from "../contexts/PostContext";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import Footer from "../commons/Footer";
 import UserContext from "../contexts/UserContext";
-import { IconButtonStyled } from "../styling/IconButtonStyled";
+import { IconButtonStyled } from "../buttons/IconButtonStyled";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -21,7 +21,7 @@ export default function DetailsPage() {
     if (myPosts.find((myPost) => myPost.id === id)) {
       return setPost(myPosts.find((myPost) => myPost.id === id));
     }
-  });
+  }, [posts, myPosts, id]);
 
   return (
     <>

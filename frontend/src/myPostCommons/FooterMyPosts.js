@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { BsPlusCircle } from "react-icons/bs";
-import { IconButtonStyled } from "../styling/IconButtonStyled";
+import { IconButtonStyled } from "../buttons/IconButtonStyled";
 
 export default function FooterMyPosts() {
   return (
     <FooterStyled>
       <IconButtonStyled>
-        <BsPlusCircle size={40} />
+        <BsPlusCircle size={38} />
       </IconButtonStyled>
     </FooterStyled>
   );

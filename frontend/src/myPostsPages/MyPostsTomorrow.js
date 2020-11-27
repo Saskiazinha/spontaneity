@@ -3,8 +3,8 @@ import PostContext from "../contexts/PostContext";
 import { getDate } from "../utils/DateUtils";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import NavigationHeader from "../commons/NavigationHeader";
-import PostList from "../postsCommons/PostList";
-import FooterMyPosts from "../commons/FooterMyPosts";
+import PostList from "../commons/PostList";
+import FooterMyPosts from "../myPostCommons/FooterMyPosts";
 
 export default function MyPostsToday() {
   const { myPosts } = useContext(PostContext);

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components/macro";
 import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
-import LoginButton from "../commons/LoginButton";
+import LoginButton from "../buttons/LoginButton";
 
 export default function LoginPage() {
   const [loginData, setLoginData] = useState({ username: "", password: "" });

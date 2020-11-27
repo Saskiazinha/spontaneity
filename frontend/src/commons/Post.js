@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { useHistory } from "react-router-dom";
-import Button from "../commons/Button";
+import Button from "../buttons/Button";
 import { IoMdClock } from "react-icons/io";
 import { SiGooglemaps } from "react-icons/si";
 import { BiDrink, BiRun } from "react-icons/bi";
@@ -114,7 +114,7 @@ const NameStyling = styled.h4`
 
 const ContentStyling = styled.div`
   grid-row: 2;
-  grid-row: 2 ;
+  grid-row: 2;
   grid-column: span 3;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

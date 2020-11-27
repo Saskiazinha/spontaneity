@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import NavigationHeader from "../commons/NavigationHeader";
 import PostContext from "../contexts/PostContext";
-import PostList from "../postsCommons/PostList";
+import PostList from "../commons/PostList";
 import { getDate } from "../utils/DateUtils";
 import Footer from "../commons/Footer";
-import { getMapsFilterButtons } from "../commons/MapsFilterButtons";
+import { getMapsFilterButtons } from "../postsCommons/MapsFilterButtons";
 
 export default function PostsToday() {
   const { posts } = useContext(PostContext);

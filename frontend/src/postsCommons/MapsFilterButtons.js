@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButtonStyled } from "../styling/IconButtonStyled";
+import { IconButtonStyled } from "../buttons/IconButtonStyled";
 import { MdFilterList } from "react-icons/md";
 import { SiGooglemaps } from "react-icons/si";
 
