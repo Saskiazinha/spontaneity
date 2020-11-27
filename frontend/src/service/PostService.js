@@ -75,3 +75,6 @@ export const updatePost = (
       header(token)
     )
     .then((response) => response.data);
+
+export const removePost = (id, token) =>
+  axios.delete("/api/posts/" + id, header(token));

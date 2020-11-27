@@ -9,7 +9,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function DetailsPage() {
-  const { posts, myPosts } = useContext(PostContext);
+  const { posts, myPosts, deletePost } = useContext(PostContext);
   const [post, setPost] = useState("");
   const { userData } = useContext(UserContext);
   const { id } = useParams();
@@ -47,15 +47,20 @@ export default function DetailsPage() {
     if (userData?.sub === post.creator) {
       return [
         <IconButtonStyled
-          onClick={() => history.push("/update" + post.id)}
           key="update"
+          onClick={() => history.push("/update" + post.id)}
         >
           <FaRegEdit size={25} />
         </IconButtonStyled>,
-        <IconButtonStyled key="delete">
+        <IconButtonStyled key="delete" onClick={handleDelete}>
           <RiDeleteBin6Line size={25} />
         </IconButtonStyled>,
       ];
     }
+  }
+
+  function handleDelete(event) {
+    deletePost(post.id);
+    history.goBack(2);
   }
 }

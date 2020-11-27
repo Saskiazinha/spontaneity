@@ -5,6 +5,7 @@ import {
   getMyPosts,
   addPost,
   updatePost,
+  removePost,
 } from "../service/PostService";
 import UserContext from "./UserContext";
 
@@ -91,6 +92,16 @@ export default function PostContextProvider({ children }) {
       )
       .catch(console.log);
 
+  const deletePost = (id) =>
+    removePost(id, token)
+      .then(() =>
+        setPostsWithoutSeconds(
+          myPosts.filter((myPost) => myPost.id !== id),
+          "myPosts"
+        )
+      )
+      .catch(console.log);
+
   function setPostsWithoutSeconds(posts, kind) {
     const newPosts = posts.map((post) => {
       return {
@@ -107,7 +118,9 @@ export default function PostContextProvider({ children }) {
   }
 
   return (
-    <PostContext.Provider value={{ posts, myPosts, createPost, editPost }}>
+    <PostContext.Provider
+      value={{ posts, myPosts, createPost, editPost, deletePost }}
+    >
       {children}
     </PostContext.Provider>
   );
