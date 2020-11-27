@@ -9,7 +9,7 @@ export default function FooterMyPosts() {
   return (
     <FooterStyled>
       <IconButtonStyled onClick={() => history.push("/add")}>
-        <BsPlusCircle size={38} />
+        <BsPlusCircle size={36} />
       </IconButtonStyled>
     </FooterStyled>
   );
