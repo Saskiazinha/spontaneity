@@ -1,13 +1,15 @@
 package de.neuefische.hh2020j1.spontaneity.controller;
 
 
+import de.neuefische.hh2020j1.spontaneity.dto.AddPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
+import de.neuefische.hh2020j1.spontaneity.dto.UpdatePostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -31,5 +33,24 @@ public class PostController {
     @GetMapping("myposts")
     public List<SendPostDto> getPostsOfUser(Principal principal){
         return postService.getPostsOfUser(principal.getName());
+    }
+
+    @PostMapping
+    public SendPostDto addPost (@RequestBody AddPostDto dto, Principal principal){
+        return postService.addPost(principal.getName(),dto);
+    }
+
+    @PutMapping ("{postId}")
+    public SendPostDto updatePost (@RequestBody UpdatePostDto dto, @PathVariable String postId, Principal principal){
+        if(!postId.equals(dto.getId())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        return postService.updatePost(principal.getName(),dto);
+    }
+
+    @DeleteMapping ("{postId}")
+    public void deletePost (@PathVariable String postId, Principal principal){
+        postService.deletePost(principal.getName(),postId);
     }
 }

@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class AddPostDto {
-
+public class UpdatePostDto {
+    private String id;
     private LocalDate localDate;
     private LocalTime startPoint;
     private LocalTime endPoint;
@@ -26,6 +25,4 @@ public class AddPostDto {
     private EnumCategory category;
     private EnumStatus statusCategory;
     private String notes;
-
-
 }
