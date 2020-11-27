@@ -101,8 +101,9 @@ export default function PostContextProvider({ children }) {
     });
     if (kind === "myPosts") {
       setMyPosts(newPosts);
+    } else {
+      setPosts(newPosts);
     }
-    setPosts(newPosts);
   }
 
   return (
