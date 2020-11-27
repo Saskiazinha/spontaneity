@@ -50,7 +50,9 @@ export default function PostContextProvider({ children }) {
       notes,
       token
     )
-      .then((newPost) => setMyPosts([...myPosts, newPost]))
+      .then((newPost) =>
+        setPostsWithoutSeconds([...myPosts, newPost], "myPosts")
+      )
       .catch(console.log);
 
   const editPost = (
@@ -79,10 +81,13 @@ export default function PostContextProvider({ children }) {
       token
     )
       .then((updatedPost) =>
-        setMyPosts([
-          ...myPosts.filter((post) => post.id !== updatedPost.id),
-          updatedPost,
-        ])
+        setPostsWithoutSeconds(
+          [
+            ...myPosts.filter((post) => post.id !== updatedPost.id),
+            updatedPost,
+          ],
+          "myPosts"
+        )
       )
       .catch(console.log);
 
