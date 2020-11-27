@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import { getDate } from "../utils/DateUtils";
 
-export default function PostForm() {
-  const [postData, setPostData] = useState({});
+const initialState = {
+  localDate: "",
+  startPoint: "",
+  endPoint: "",
+  statusTime: "",
+  location: "",
+  statusLocation: "",
+  category: "",
+  statusCategory: "",
+  notes: "",
+};
+
+export default function PostForm({ onSave, post = initialState }) {
+  const [postData, setPostData] = useState(post);
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         Choose day
         <input
@@ -63,8 +75,8 @@ export default function PostForm() {
       <label>
         Location flexibility
         <select
-          name="location"
-          value={postData.location}
+          name="statusLocation"
+          value={postData.statusLocation}
           onChange={handleChange}
           required
         >
@@ -112,7 +124,17 @@ export default function PostForm() {
           type="text"
         />
       </label>
+      <div>
+        <button>Save</button>
+      </div>
     </form>
   );
-  function handleChange() {}
+  function handleChange(event) {
+    setPostData({ ...postData, [event.target.name]: event.target.value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    onSave(postData);
+  }
 }

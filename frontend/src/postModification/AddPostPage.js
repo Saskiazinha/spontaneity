@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import Header from "../commons/Header";
 import PostForm from "../postModification/PostForm";
+import PostContext from "../contexts/PostContext";
 
 export default function AddPostPage() {
+  const { createPost } = useContext(PostContext);
   return (
     <>
       <SpontaneityHeader />
       <Header title={"Add Post"} />
-      <PostForm />
+      <PostForm onSave={handleSave} />
     </>
   );
+
+  function handleSave(post) {
+    console.log(post);
+    const {
+      localDate,
+      startPoint,
+      endPoint,
+      statusTime,
+      location,
+      statusLocation,
+      category,
+      statusCategory,
+      notes,
+    } = post;
+    createPost(
+      localDate,
+      startPoint,
+      endPoint,
+      statusTime,
+      location,
+      statusLocation,
+      category,
+      statusCategory,
+      notes
+    );
+  }
 }

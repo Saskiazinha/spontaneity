@@ -13,3 +13,33 @@ export const getMyPosts = (token) =>
   axios
     .get("/api/posts/myposts", header(token))
     .then((response) => response.data);
+
+export const addPost = (
+  localDate,
+  startPoint,
+  endPoint,
+  statusTime,
+  location,
+  statusLocation,
+  category,
+  statusCategory,
+  notes,
+  token
+) =>
+  axios
+    .post(
+      "/api/posts",
+      {
+        localDate,
+        startPoint,
+        endPoint,
+        statusTime,
+        location,
+        statusLocation,
+        category,
+        statusCategory,
+        notes,
+      },
+      header(token)
+    )
+    .then((response) => response.data);
