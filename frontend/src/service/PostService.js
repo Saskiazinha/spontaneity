@@ -43,3 +43,35 @@ export const addPost = (
       header(token)
     )
     .then((response) => response.data);
+
+export const updatePost = (
+  id,
+  localDate,
+  startPoint,
+  endPoint,
+  statusTime,
+  location,
+  statusLocation,
+  category,
+  statusCategory,
+  notes,
+  token
+) =>
+  axios
+    .put(
+      "/api/posts/" + id,
+      {
+        id,
+        localDate,
+        startPoint,
+        endPoint,
+        statusTime,
+        location,
+        statusLocation,
+        category,
+        statusCategory,
+        notes,
+      },
+      header(token)
+    )
+    .then((response) => response.data);

@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import PostContext from "./PostContext";
-import { getPosts, getMyPosts, addPost } from "../service/PostService";
+import {
+  getPosts,
+  getMyPosts,
+  addPost,
+  updatePost,
+} from "../service/PostService";
 import UserContext from "./UserContext";
 
 export default function PostContextProvider({ children }) {
@@ -48,6 +53,39 @@ export default function PostContextProvider({ children }) {
       .then((newPost) => setMyPosts([...myPosts, newPost]))
       .catch(console.log);
 
+  const editPost = (
+    id,
+    localDate,
+    startPoint,
+    endPoint,
+    statusTime,
+    location,
+    statusLocation,
+    category,
+    statusCategory,
+    notes
+  ) =>
+    updatePost(
+      id,
+      localDate,
+      startPoint,
+      endPoint,
+      statusTime,
+      location,
+      statusLocation,
+      category,
+      statusCategory,
+      notes,
+      token
+    )
+      .then((updatedPost) =>
+        setMyPosts([
+          ...myPosts.filter((post) => post.id !== updatedPost.id),
+          updatedPost,
+        ])
+      )
+      .catch(console.log);
+
   function setPostsWithoutSeconds(posts, kind) {
     const newPosts = posts.map((post) => {
       return {
@@ -63,7 +101,7 @@ export default function PostContextProvider({ children }) {
   }
 
   return (
-    <PostContext.Provider value={{ posts, myPosts, createPost }}>
+    <PostContext.Provider value={{ posts, myPosts, createPost, editPost }}>
       {children}
     </PostContext.Provider>
   );

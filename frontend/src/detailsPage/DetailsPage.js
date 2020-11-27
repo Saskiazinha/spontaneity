@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import PostContext from "../contexts/PostContext";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import Footer from "../commons/Footer";
@@ -13,6 +13,7 @@ export default function DetailsPage() {
   const [post, setPost] = useState("");
   const { userData } = useContext(UserContext);
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     if (posts.find((post) => post.id === id)) {
@@ -45,7 +46,10 @@ export default function DetailsPage() {
   function getDeleteUpdateButtons() {
     if (userData?.sub === post.creator) {
       return [
-        <IconButtonStyled key="update">
+        <IconButtonStyled
+          onClick={() => history.push("/update" + post.id)}
+          key="update"
+        >
           <FaRegEdit size={25} />
         </IconButtonStyled>,
         <IconButtonStyled key="delete">

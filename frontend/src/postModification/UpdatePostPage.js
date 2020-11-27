@@ -1,23 +1,27 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import Header from "../commons/Header";
 import PostForm from "../postModification/PostForm";
 import PostContext from "../contexts/PostContext";
 
 export default function AddPostPage() {
-  const { createPost } = useContext(PostContext);
+  const { myPosts, editPost } = useContext(PostContext);
   const history = useHistory();
+  const { id } = useParams();
+  const post = myPosts.find((post) => post.id === id);
   return (
     <>
       <SpontaneityHeader />
-      <Header title={"Add Post"} />
-      <PostForm onSave={handleSave} />
+      <Header title={"Update Post"} />
+      <PostForm onSave={handleSave} post={post} />
     </>
   );
 
   function handleSave(post) {
+    console.log(post);
     const {
+      id,
       localDate,
       startPoint,
       endPoint,
@@ -28,7 +32,8 @@ export default function AddPostPage() {
       statusCategory,
       notes,
     } = post;
-    createPost(
+    editPost(
+      id,
       localDate,
       startPoint,
       endPoint,

@@ -14,6 +14,7 @@ import MyPostsToday from "./myPostsPages/MyPostsToday";
 import MyPostsTomorrow from "./myPostsPages/MyPostsTomorrow";
 import MyPostsDayAfterTomorrow from "./myPostsPages/MyPostsDayAfterTomorrow";
 import AddPostPage from "./postModification/AddPostPage";
+import UpdatePostPage from "./postModification/UpdatePostPage";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             />
             <ProtectedRoute path="/posts/:id" component={DetailsPage} />
             <ProtectedRoute path="/add" component={AddPostPage} />
+            <ProtectedRoute path="/update:id" component={UpdatePostPage} />
             <Route path="/">
               <Redirect to="/posts/today" />
             </Route>
