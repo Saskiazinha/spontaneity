@@ -19,7 +19,6 @@ export default function AddPostPage() {
   );
 
   function handleSave(post) {
-    console.log(post);
     const {
       id,
       localDate,
