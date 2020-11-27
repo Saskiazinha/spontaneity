@@ -5,11 +5,11 @@ const initialState = {
   localDate: "",
   startPoint: "",
   endPoint: "",
-  statusTime: "",
+  statusTime: "GREEN",
   location: "",
-  statusLocation: "",
-  category: "",
-  statusCategory: "",
+  statusLocation: "GREEN",
+  category: "Drinks",
+  statusCategory: "GREEN",
   notes: "",
 };
 
@@ -55,7 +55,6 @@ export default function PostForm({ onSave, post = initialState }) {
           name="statusTime"
           value={postData.statusTime}
           onChange={handleChange}
-          required
         >
           <option value="GREEN">totally flexible(green)</option>
           <option value="YELLOW">a little flexible(yellow)</option>
@@ -78,7 +77,6 @@ export default function PostForm({ onSave, post = initialState }) {
           name="statusLocation"
           value={postData.statusLocation}
           onChange={handleChange}
-          required
         >
           <option value="GREEN">totally flexible(green)</option>
           <option value="YELLOW">a little flexible(yellow)</option>
@@ -91,7 +89,6 @@ export default function PostForm({ onSave, post = initialState }) {
           name="category"
           value={postData.category}
           onChange={handleChange}
-          required
         >
           <option value="Drinks">Drinks out</option>
           <option value="Meal">Meal out</option>
@@ -108,7 +105,6 @@ export default function PostForm({ onSave, post = initialState }) {
           name="statusCategory"
           value={postData.statusCategory}
           onChange={handleChange}
-          required
         >
           <option value="GREEN">totally flexible(green)</option>
           <option value="YELLOW">a little flexible(yellow)</option>
