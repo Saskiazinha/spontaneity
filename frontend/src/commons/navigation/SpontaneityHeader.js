@@ -33,8 +33,10 @@ export default function SpontaneityHeader() {
         <h1>Spontaneity</h1>
       </HeaderStyled>
       <Menu ref={dropdownRef} active={isActive}>
-        <NavLink to="/posts/today">Posts</NavLink>
-        <NavLink to="/myposts/today">My Posts</NavLink>
+        <NavLink to="/posts/today">Home</NavLink>
+        <NavLink to="/myposts/today">My posts</NavLink>
+        <NavLink to="/myposts/today">Logout</NavLink>
+        <NavLink to="/myposts/today">Info</NavLink>
       </Menu>
     </div>
   );
@@ -43,28 +45,6 @@ export default function SpontaneityHeader() {
     setIsActive(!isActive);
   }
 }
-
-const Menu = styled.button`
-  background: #ffffff;
-  border-radius: 8px;
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 300px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-20px);
-  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-
-  ${(props) =>
-    props.active &&
-    css`
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    `}
-`;
 
 const HeaderStyled = styled.div`
   display: grid;
@@ -82,4 +62,31 @@ const MenuButton = styled.button`
   color: var(--white-main);
   background-color: transparent;
   border: none;
+`;
+
+const Menu = styled.nav`
+  display: grid;
+  grid-template-rows: repeat(5, 50px);
+  padding: var(--size-m) 0 0 var(--size-l);
+  background: var(--turquoise-main);
+  width: 140px;
+  height: 83vh;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+
+  a {
+    text-decoration: none;
+    color: var(--white-main);
+    padding: var(--size-xs);
+  }
+
+  ${(props) =>
+    props.active &&
+    css`
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    `}
 `;
