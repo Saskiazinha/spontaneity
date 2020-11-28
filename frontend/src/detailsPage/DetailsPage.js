@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import PostContext from "../contexts/PostContext";
-import SpontaneityHeader from "../commons/SpontaneityHeader";
+import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import Footer from "../commons/Footer";
 import UserContext from "../contexts/UserContext";
 import { IconButtonStyled } from "../buttons/IconButtonStyled";

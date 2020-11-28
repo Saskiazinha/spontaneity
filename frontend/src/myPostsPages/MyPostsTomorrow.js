@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import PostContext from "../contexts/PostContext";
 import { getDate } from "../utils/DateUtils";
-import SpontaneityHeader from "../commons/SpontaneityHeader";
-import NavigationHeader from "../commons/NavigationHeader";
+import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
+import NavigationHeader from "../commons/navigation/NavigationHeader";
 import PostList from "../commons/PostList";
 import FooterMyPosts from "../myPostCommons/FooterMyPosts";
 
