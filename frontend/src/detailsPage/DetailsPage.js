@@ -7,6 +7,8 @@ import UserContext from "../contexts/UserContext";
 import { IconButtonStyled } from "../buttons/IconButtonStyled";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import PostContent from "../commons/PostContent";
+import Header from "../commons/Header";
 
 export default function DetailsPage() {
   const { posts, myPosts, deletePost } = useContext(PostContext);
@@ -28,14 +30,10 @@ export default function DetailsPage() {
     <>
       <SpontaneityHeader />
 
-      <h2>Details</h2>
+      <Header title="Details" />
       <div>
-        <p>{post.creator}</p>
-        <p>
-          Icon {post.startPoint} - {post.endPoint}
-        </p>
-        <p>Icon {post.location}</p>
-        <p>Icon {post.category}</p>
+        <h3>{post.creator}</h3>
+        <PostContent post={post} />
         <p>Notes: {post.notes}</p>
         <p>{post.timestamp}</p>
       </div>

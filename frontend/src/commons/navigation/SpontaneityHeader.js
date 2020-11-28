@@ -35,8 +35,8 @@ export default function SpontaneityHeader() {
       <Menu ref={dropdownRef} active={isActive}>
         <NavLink to="/posts/today">Home</NavLink>
         <NavLink to="/myposts/today">My posts</NavLink>
-        <NavLink to="/myposts/today">Logout</NavLink>
         <NavLink to="/myposts/today">Info</NavLink>
+        <NavLink to="/myposts/today">Logout</NavLink>
       </Menu>
     </div>
   );
@@ -67,17 +67,19 @@ const MenuButton = styled.button`
 const Menu = styled.nav`
   display: grid;
   grid-template-rows: repeat(5, 50px);
-  padding: var(--size-m) 0 0 var(--size-l);
+  padding: var(--size-l) 0 0 var(--size-xl);
   background: var(--turquoise-main);
-  width: 140px;
+  width: 145px;
   height: 83vh;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-20px);
+  transform: translateX(-20px);
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
 
   a {
     text-decoration: none;
+    letter-spacing: 0.4px;
+    font-size: 1.05em;
     color: var(--white-main);
     padding: var(--size-xs);
   }
@@ -85,8 +87,8 @@ const Menu = styled.nav`
   ${(props) =>
     props.active &&
     css`
-      opacity: 1;
+      opacity: 0.9;
       visibility: visible;
-      transform: translateY(0);
+      transform: translateX(0);
     `}
 `;
