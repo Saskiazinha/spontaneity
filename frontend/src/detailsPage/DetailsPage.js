@@ -110,7 +110,7 @@ const DetailsStyling = styled.div`
 const NotesStyling = styled.div`
   padding: var(--size-s) var(--size-l);
   margin: 0 var(--size-s);
-  border: var(--turquoise-green) dashed 1px;
+  border: var(--turquoise-main) dashed 1px;
   border-radius: 20px;
 
   h4 {
