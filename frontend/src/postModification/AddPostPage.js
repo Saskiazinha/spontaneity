@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import SpontaneityHeader from "../commons/SpontaneityHeader";
+import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import Header from "../commons/Header";
 import PostForm from "../postModification/PostForm";
 import PostContext from "../contexts/PostContext";
+import Footer from "../commons/Footer";
 
 export default function AddPostPage() {
   const { createPost } = useContext(PostContext);
@@ -13,6 +14,7 @@ export default function AddPostPage() {
       <SpontaneityHeader />
       <Header title={"Add Post"} />
       <PostForm onSave={handleSave} />
+      <Footer />
     </>
   );
 

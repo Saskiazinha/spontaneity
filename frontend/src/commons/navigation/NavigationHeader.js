@@ -65,6 +65,9 @@ const NavigationStyled = styled.div`
   h3 {
     margin: 0;
   }
+  h2 {
+    color: var(--turquoise-green);
+  }
 `;
 
 const HeadlineStyled = styled.div`

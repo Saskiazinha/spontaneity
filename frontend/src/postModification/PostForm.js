@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components/macro";
 import { getDate } from "../utils/DateUtils";
 
 const initialState = {
@@ -16,114 +17,93 @@ const initialState = {
 export default function PostForm({ onSave, post = initialState }) {
   const [postData, setPostData] = useState(post);
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Choose day
-        <input
-          name="localDate"
-          value={postData.localDate}
-          onChange={handleChange}
-          type="date"
-          min={getDate(0)}
-          max={getDate(2)}
-          required
-        />
-      </label>
-      <label>
-        From
-        <input
-          name="startPoint"
-          value={postData.startPoint}
-          onChange={handleChange}
-          type="time"
-          required
-        />
-      </label>
-      <label>
-        To
-        <input
-          name="endPoint"
-          value={postData.endPoint}
-          onChange={handleChange}
-          type="time"
-          required
-        />
-      </label>
-      <label>
-        Time flexibility
-        <select
-          name="statusTime"
-          value={postData.statusTime}
-          onChange={handleChange}
-        >
-          <option value="GREEN">totally flexible(green)</option>
-          <option value="YELLOW">a little flexible(yellow)</option>
-          <option value="BLUE">not flexibel(blue)</option>
-        </select>
-      </label>
-      <label>
-        Location
-        <input
-          name="location"
-          value={postData.location}
-          onChange={handleChange}
-          type="text"
-          required
-        />
-      </label>
-      <label>
-        Location flexibility
-        <select
-          name="statusLocation"
-          value={postData.statusLocation}
-          onChange={handleChange}
-        >
-          <option value="GREEN">totally flexible(green)</option>
-          <option value="YELLOW">a little flexible(yellow)</option>
-          <option value="BLUE">not flexibel(blue)</option>
-        </select>
-      </label>
-      <label>
-        Category
-        <select
-          name="category"
-          value={postData.category}
-          onChange={handleChange}
-        >
-          <option value="Drinks">Drinks out</option>
-          <option value="Meal">Meal out</option>
-          <option value="Events">Events</option>
-          <option value="Exercise">Exercise</option>
-          <option value="Outdoor">Outdoor</option>
-          <option value="Party">Party</option>
-          <option value="Hangout">Hangout</option>
-        </select>
-      </label>
-      <label>
-        Category flexibility
-        <select
-          name="statusCategory"
-          value={postData.statusCategory}
-          onChange={handleChange}
-        >
-          <option value="GREEN">totally flexible(green)</option>
-          <option value="YELLOW">a little flexible(yellow)</option>
-          <option value="BLUE">not flexibel(blue)</option>
-        </select>
-      </label>
-      <label>
+    <FormStyling onSubmit={handleSubmit}>
+      <label htmlFor="localDate">Date</label>
+      <Date
+        name="localDate"
+        value={postData.localDate}
+        onChange={handleChange}
+        type="date"
+        min={getDate(0)}
+        max={getDate(2)}
+        required
+      />
+      <From htmlFor="startPoint">From</From>
+      <StartInput
+        name="startPoint"
+        value={postData.startPoint}
+        onChange={handleChange}
+        type="time"
+        required
+      />
+      <To htmlFor="endPoint">To</To>
+      <End
+        name="endPoint"
+        value={postData.endPoint}
+        onChange={handleChange}
+        type="time"
+        required
+      />
+      <StatusTime
+        name="statusTime"
+        value={postData.statusTime}
+        onChange={handleChange}
+      >
+        <option value="GREEN">fully flexible</option>
+        <option value="YELLOW">a little flexible</option>
+        <option value="BLUE">not flexible</option>
+      </StatusTime>
+      <Location htmlFor="location">Location</Location>
+      <LocationInput
+        name="location"
+        value={postData.location}
+        onChange={handleChange}
+        type="text"
+        required
+      />
+      <StatusLocation
+        name="statusLocation"
+        value={postData.statusLocation}
+        onChange={handleChange}
+      >
+        <option value="GREEN">fully flexible</option>
+        <option value="YELLOW">a little flexible</option>
+        <option value="BLUE">not flexible</option>
+      </StatusLocation>
+      <Category htmlFor="location">Category</Category>
+      <CategorySelect
+        name="category"
+        value={postData.category}
+        onChange={handleChange}
+      >
+        <option value="Drinks">Drinks out</option>
+        <option value="Meal">Meal out</option>
+        <option value="Events">Events</option>
+        <option value="Exercise">Exercise</option>
+        <option value="Outdoor">Outdoor</option>
+        <option value="Party">Party</option>
+        <option value="Hangout">Hangout</option>
+      </CategorySelect>
+      <StatusCategory
+        name="statusCategory"
+        value={postData.statusCategory}
+        onChange={handleChange}
+      >
+        <option value="GREEN">fully flexible</option>
+        <option value="YELLOW">a little flexible</option>
+        <option value="BLUE">not flexible</option>
+      </StatusCategory>
+      <Notes>
         Notes
-        <input
+        <textarea
           name="notes"
           value={postData.notes}
           onChange={handleChange}
           type="text"
         />
-      </label>
-      <div>
-        <button>Save</button>
-      </div>
-    </form>
+      </Notes>
+      <Button>Save</Button>
+    </FormStyling>
   );
   function handleChange(event) {
     setPostData({ ...postData, [event.target.name]: event.target.value });
@@ -134,3 +114,95 @@ export default function PostForm({ onSave, post = initialState }) {
     onSave(postData);
   }
 }
+
+const FormStyling = styled.form`
+  display: grid;
+  grid-template-columns: min-content 110px 92px;
+  grid-template-rows: repeat(5, min-content) 1fr min-content;
+  column-gap: var(--size-s);
+  row-gap: var(--size-xl);
+  align-items: center;
+  background-color: var(--turquoise-bright);
+  box-shadow: 3px 3px 3px #95b0b4;
+  border-radius: 20px;
+  padding: var(--size-xl) var(--size-m);
+  margin: 0 var(--size-xl) var(--size-l) var(--size-xl);
+`;
+
+const Notes = styled.label`
+  grid-row: 6;
+  grid-column: span 3;
+  display: grid;
+  textarea {
+    height: 80px;
+  }
+`;
+
+const Button = styled.button`
+  grid-row: 7;
+  grid-column: 1/4;
+  justify-self: center;
+  height: 30px;
+  width: 100px;
+`;
+
+const Date = styled.input`
+  grid-row: 1;
+  grid-column: 2/4;
+  width: min-content;
+`;
+
+const From = styled.label`
+  grid-row: 2;
+  grid-column: 1;
+`;
+
+const StartInput = styled.input`
+  grid-row: 2;
+  grid-column: 2;
+`;
+
+const To = styled.label`
+  grid-row: 3;
+  grid-column: 1;
+`;
+
+const End = styled.input`
+  grid-row: 3;
+  grid-column: 2;
+`;
+
+const StatusTime = styled.select`
+  grid-row: 2 / 4;
+  grid-column: 3;
+`;
+
+const Location = styled.label`
+  grid-row: 4;
+  grid-column: 1;
+`;
+
+const LocationInput = styled.input`
+  grid-row: 4;
+  grid-column: 2;
+`;
+
+const StatusLocation = styled.select`
+  grid-row: 4;
+  grid-column: 3;
+`;
+
+const Category = styled.label`
+  grid-row: 5;
+  grid-column: 1;
+`;
+
+const CategorySelect = styled.select`
+  grid-row: 5;
+  grid-column: 2;
+`;
+
+const StatusCategory = styled.select`
+  grid-row: 5;
+  grid-column: 3;
+`;
