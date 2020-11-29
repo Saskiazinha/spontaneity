@@ -3,8 +3,8 @@ import PostContext from "../contexts/PostContext";
 import { getDate } from "../utils/DateUtils";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import NavigationHeader from "../commons/NavigationHeader";
-import PostList from "../postsCommons/PostList";
-import Footer from "../commons/Footer";
+import PostList from "../commons/PostList";
+import FooterMyPosts from "../myPostCommons/FooterMyPosts";
 
 export default function MyPostsDayAfterTomorrow() {
   const { myPosts } = useContext(PostContext);
@@ -20,7 +20,7 @@ export default function MyPostsDayAfterTomorrow() {
         postType={"myposts"}
       />
       <PostList posts={myPostsFiltered} />
-      <Footer />
+      <FooterMyPosts />
     </>
   );
 }

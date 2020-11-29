@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import SpontaneityHeader from "../commons/SpontaneityHeader";
 import NavigationHeader from "../commons/NavigationHeader";
 import PostContext from "../contexts/PostContext";
-import PostList from "../postsCommons/PostList";
+import PostList from "../commons/PostList";
 import { getDate } from "../utils/DateUtils";
 import Footer from "../commons/Footer";
+import { getMapsFilterButtons } from "../postsCommons/MapsFilterButtons";
 
 export default function PostsDayAfterTomorrow() {
   const { posts } = useContext(PostContext);
@@ -18,7 +19,7 @@ export default function PostsDayAfterTomorrow() {
         postType={"posts"}
       />
       <PostList posts={filteredPosts} />
-      <Footer />
+      <Footer actions={getMapsFilterButtons()} />
     </>
   );
 }

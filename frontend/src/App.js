@@ -13,6 +13,8 @@ import DetailsPage from "./detailsPage/DetailsPage";
 import MyPostsToday from "./myPostsPages/MyPostsToday";
 import MyPostsTomorrow from "./myPostsPages/MyPostsTomorrow";
 import MyPostsDayAfterTomorrow from "./myPostsPages/MyPostsDayAfterTomorrow";
+import AddPostPage from "./postModification/AddPostPage";
+import UpdatePostPage from "./postModification/UpdatePostPage";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
               component={MyPostsDayAfterTomorrow}
             />
             <ProtectedRoute path="/posts/:id" component={DetailsPage} />
+            <ProtectedRoute path="/add" component={AddPostPage} />
+            <ProtectedRoute path="/update:id" component={UpdatePostPage} />
             <Route path="/">
               <Redirect to="/posts/today" />
             </Route>
@@ -52,6 +56,6 @@ export default App;
 
 const Layout = styled.main`
   display: grid;
-  grid-template-rows: 10% min-content 1fr 10%;
+  grid-template-rows: 10% min-content 1fr 8%;
   height: 100vh;
 `;

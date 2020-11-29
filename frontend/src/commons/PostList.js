@@ -23,4 +23,10 @@ const StyledList = styled.div`
   display: grid;
   grid-auto-rows: min-content;
   gap: var(--size-m);
+
+  li:last-child:after {
+    content: "";
+    display: block;
+    height: var(--size-m);
+  }
 `;

@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import PostContext from "./PostContext";
-import { getPosts } from "../service/PostService";
-import { getMyPosts } from "../service/PostService";
+import {
+  getPosts,
+  getMyPosts,
+  addPost,
+  updatePost,
+  removePost,
+} from "../service/PostService";
 import UserContext from "./UserContext";
 
 export default function PostContextProvider({ children }) {
@@ -23,6 +28,80 @@ export default function PostContextProvider({ children }) {
         .catch(console.log);
   }, [token, tokenIsValid]);
 
+  const createPost = (
+    localDate,
+    startPoint,
+    endPoint,
+    statusTime,
+    location,
+    statusLocation,
+    category,
+    statusCategory,
+    notes
+  ) =>
+    addPost(
+      localDate,
+      startPoint,
+      endPoint,
+      statusTime,
+      location,
+      statusLocation,
+      category,
+      statusCategory,
+      notes,
+      token
+    )
+      .then((newPost) =>
+        setPostsWithoutSeconds([...myPosts, newPost], "myPosts")
+      )
+      .catch(console.log);
+
+  const editPost = (
+    id,
+    localDate,
+    startPoint,
+    endPoint,
+    statusTime,
+    location,
+    statusLocation,
+    category,
+    statusCategory,
+    notes
+  ) =>
+    updatePost(
+      id,
+      localDate,
+      startPoint,
+      endPoint,
+      statusTime,
+      location,
+      statusLocation,
+      category,
+      statusCategory,
+      notes,
+      token
+    )
+      .then((updatedPost) =>
+        setPostsWithoutSeconds(
+          [
+            ...myPosts.filter((post) => post.id !== updatedPost.id),
+            updatedPost,
+          ],
+          "myPosts"
+        )
+      )
+      .catch(console.log);
+
+  const deletePost = (id) =>
+    removePost(id, token)
+      .then(() =>
+        setPostsWithoutSeconds(
+          myPosts.filter((myPost) => myPost.id !== id),
+          "myPosts"
+        )
+      )
+      .catch(console.log);
+
   function setPostsWithoutSeconds(posts, kind) {
     const newPosts = posts.map((post) => {
       return {
@@ -33,12 +112,15 @@ export default function PostContextProvider({ children }) {
     });
     if (kind === "myPosts") {
       setMyPosts(newPosts);
+    } else {
+      setPosts(newPosts);
     }
-    setPosts(newPosts);
   }
 
   return (
-    <PostContext.Provider value={{ posts, myPosts }}>
+    <PostContext.Provider
+      value={{ posts, myPosts, createPost, editPost, deletePost }}
+    >
       {children}
     </PostContext.Provider>
   );

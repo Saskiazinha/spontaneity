@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
-import LoginButton from "../commons/LoginButton";
+import LoginButton from "../buttons/LoginButton";
 
 export default function SignUpPage() {
   const [username, setUsername] = useState("");
