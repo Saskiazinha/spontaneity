@@ -40,5 +40,5 @@ const NameStyling = styled.h4`
   font-size: 1.1em;
   font-weight: bold;
   color: var(--turquoise-main);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
 `;
