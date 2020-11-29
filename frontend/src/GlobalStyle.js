@@ -14,6 +14,7 @@ export default createGlobalStyle`
    --turquoise-main:#4c9ba6;
    --turquoise-bright:#e6f4f1;
    --turquoise-grey:#324b4f;
+   --turquoise-green:#005e69;
    
    --white-main: #ffffff;
    
@@ -35,6 +36,13 @@ export default createGlobalStyle`
     font-size: 220%;
     color: var(--white-main);
 
+  }
+  
+  button{
+    background-color: var(--turquoise-main);
+    color: var(--white-main);
+     border-radius: 5px;
+    border: none;
   }
   
 `;

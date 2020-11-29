@@ -10,8 +10,8 @@ export default function Header({ title }) {
 }
 
 const HeaderStyled = styled.h3`
-  margin: var(--size-xs) 0 0 0;
+  margin: var(--size-xs) 0 var(--size-l) 0;
   text-align: center;
   font-size: 1.4em;
-  color: var(--turquoise-main);
+  color: #005e69;
 `;

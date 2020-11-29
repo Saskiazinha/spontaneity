@@ -87,9 +87,9 @@ const NameStyling = styled.h4`
   font-size: 1.1em;
   letter-spacing: 0.1em;
   color: var(--turquoise-main);
-  border-bottom: var(--turquoise-main) solid 1px;
-  padding: var(--size-m) 0;
-  margin: 0 var(--size-m);
+  //border-bottom: var(--turquoise-green) dashed 1px;
+  //padding: var(--size-m) 0;
+  margin: 0;
 `;
 
 const Content = styled.div`
@@ -104,13 +104,13 @@ const DetailsStyling = styled.div`
   box-shadow: 3px 3px 3px #95b0b4;
   border-radius: 20px;
   padding: var(--size-m) var(--size-m);
-  margin: var(--size-l) var(--size-xl);
+  margin: 0 var(--size-xl) var(--size-l) var(--size-xl);
 `;
 
 const NotesStyling = styled.div`
   padding: var(--size-s) var(--size-l);
   margin: 0 var(--size-s);
-  border: var(--turquoise-main) dashed 1px;
+  border: var(--turquoise-green) dashed 1px;
   border-radius: 20px;
 
   h4 {
