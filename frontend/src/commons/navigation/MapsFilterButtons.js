@@ -15,6 +15,5 @@ export const getMapsFilterButtons = (filterActive, setFilterActive) => {
 
   function handleFilter() {
     setFilterActive(!filterActive);
-    console.log(filterActive);
   }
 };
