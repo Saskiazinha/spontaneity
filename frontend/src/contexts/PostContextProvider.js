@@ -6,12 +6,14 @@ import {
   addPost,
   updatePost,
   removePost,
+  getTimeMatchingPosts,
 } from "../service/PostService";
 import UserContext from "./UserContext";
 
 export default function PostContextProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const [myPosts, setMyPosts] = useState([]);
+  const [matchingPosts, setMatchingPosts] = useState([]);
   const { token, tokenIsValid } = useContext(UserContext);
 
   useEffect(() => {
@@ -25,6 +27,15 @@ export default function PostContextProvider({ children }) {
     tokenIsValid() &&
       getMyPosts(token)
         .then((myPosts) => setPostsWithoutSeconds(myPosts, "myPosts"))
+        .catch(console.log);
+  }, [token, tokenIsValid]);
+
+  useEffect(() => {
+    tokenIsValid() &&
+      getTimeMatchingPosts(token)
+        .then((matchingPosts) =>
+          setPostsWithoutSeconds(matchingPosts, "matchingPosts")
+        )
         .catch(console.log);
   }, [token, tokenIsValid]);
 
@@ -112,6 +123,8 @@ export default function PostContextProvider({ children }) {
     });
     if (kind === "myPosts") {
       setMyPosts(newPosts);
+    } else if (kind === "matchingPosts") {
+      setMatchingPosts(newPosts);
     } else {
       setPosts(newPosts);
     }
@@ -119,7 +132,14 @@ export default function PostContextProvider({ children }) {
 
   return (
     <PostContext.Provider
-      value={{ posts, myPosts, createPost, editPost, deletePost }}
+      value={{
+        posts,
+        myPosts,
+        matchingPosts,
+        createPost,
+        editPost,
+        deletePost,
+      }}
     >
       {children}
     </PostContext.Provider>

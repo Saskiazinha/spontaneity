@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import NavigationHeader from "../commons/navigation/NavigationHeader";
 import PostContext from "../contexts/PostContext";
@@ -8,8 +8,22 @@ import Footer from "../commons/Footer";
 import { getMapsFilterButtons } from "../postsCommons/MapsFilterButtons";
 
 export default function PostsToday() {
-  const { posts } = useContext(PostContext);
-  const filteredPosts = posts.filter((post) => post.localDate === getDate(0));
+  const { posts, matchingPosts } = useContext(PostContext);
+  const [postsToPass, setPostsToPass] = useState(posts);
+  const [filterActive, setFilterActive] = useState(false);
+
+  useEffect(() => {
+    if (filterActive) {
+      setPostsToPass(matchingPosts);
+    }
+    if (!filterActive) {
+      setPostsToPass(posts);
+    }
+  }, [filterActive, posts, matchingPosts]);
+
+  const filteredPosts = postsToPass.filter(
+    (post) => post.localDate === getDate(0)
+  );
   return (
     <>
       <SpontaneityHeader />
@@ -19,7 +33,7 @@ export default function PostsToday() {
         postType={"posts"}
       />
       <PostList posts={filteredPosts} />
-      <Footer actions={getMapsFilterButtons()} />
+      <Footer actions={getMapsFilterButtons(filterActive, setFilterActive)} />
     </>
   );
 }
