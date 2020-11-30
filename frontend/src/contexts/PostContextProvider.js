@@ -28,7 +28,7 @@ export default function PostContextProvider({ children }) {
       getMyPosts(token)
         .then((myPosts) => setPostsWithoutSeconds(myPosts, "myPosts"))
         .catch(console.log);
-  }, [token, tokenIsValid]);
+  }, [token, tokenIsValid, myPosts]);
 
   useEffect(() => {
     tokenIsValid() &&
