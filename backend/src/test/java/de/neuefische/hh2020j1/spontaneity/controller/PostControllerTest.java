@@ -108,6 +108,20 @@ public class PostControllerTest {
     }
 
     @Test
+    public void getPostsFilteredForUsersTime(){
+        //Given
+        String url=getPostsUrl()+"/filtered";
+
+        //When
+        HttpEntity<Void>entity=getValidAuthorizationEntity(null);
+        ResponseEntity <SendPostDto[]> response = testRestTemplate.exchange(url, HttpMethod.GET,entity, SendPostDto[].class);
+
+        //Then
+        assertThat(response.getStatusCode(),is(HttpStatus.OK));
+        assertThat(response.getBody(),is(PostSeeder.getStockFilteredSendPostsDto().toArray()));
+    }
+
+    @Test
     public void addPostTest(){
         //Given
         String id="someId";
