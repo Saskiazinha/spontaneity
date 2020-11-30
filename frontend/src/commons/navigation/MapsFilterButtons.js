@@ -5,7 +5,7 @@ import { SiGooglemaps } from "react-icons/si";
 
 export const getMapsFilterButtons = (filterActive, setFilterActive) => {
   return [
-    <IconButtonStyled key="filter" onClick={handleFilter}>
+    <IconButtonStyled key="filter" onClick={handleFilter} active={filterActive}>
       <MdFilterList size={34} />
     </IconButtonStyled>,
     <IconButtonStyled key="maps">
