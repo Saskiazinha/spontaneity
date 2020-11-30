@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -42,20 +43,32 @@ public class PostService {
         querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
-        List<Post> postsWithoutCreator=posts.stream()
+        return posts.stream()
                 .filter(post->(!Objects.equals(principalName,post.getCreator())))
                         .collect(Collectors.toList());
-        return postsWithoutCreator;
     }
 
     public List<Post> getPostsOfUser(String principalName){
         Query queryPostsForUser = new Query();
         queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
-        List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
 
-        return userPosts;
+        return mongoTemplate.find(queryPostsForUser, Post.class);
 
+    }
+
+    public List<Post> getPostsFilteredForUsersTime(String principalName) {
+        List<Post>userPosts=getPostsOfUser(principalName);
+        List<Post>friendsPosts=getPostsSortedByTimeWithoutUsersPosts(principalName);
+
+        List<Post>filteredPosts=new ArrayList<>();
+
+        userPosts.forEach(((userPost)->
+        filteredPosts.addAll(friendsPosts.stream().
+                filter(post->(post.getStartPoint().getEpochSecond()<userPost.getEndPoint().getEpochSecond()&&post.getEndPoint().getEpochSecond()>userPost.getStartPoint().getEpochSecond()))
+                .collect(Collectors.toList());
+                ;
+        ));
     }
 
 
@@ -113,4 +126,6 @@ public class PostService {
 
         postDao.deleteById(postId);
     }
+
+
 }

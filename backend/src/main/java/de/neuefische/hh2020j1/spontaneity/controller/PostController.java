@@ -28,14 +28,20 @@ public class PostController {
 
     @GetMapping
     public List<SendPostDto> getPostsSortedWithoutUsersPosts(Principal principal){
-        List<Post> postsWithoutCreator= postService.getPostsSortedByTimeWithoutUsersPosts(principal.getName());
-        return ParseUtils.parseToSendPostDtos(postsWithoutCreator);
+        List<Post> friendsPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principal.getName());
+        return ParseUtils.parseToSendPostDtos(friendsPosts);
     }
 
     @GetMapping("myposts")
     public List<SendPostDto> getPostsOfUser(Principal principal){
          List<Post>userPosts=postService.getPostsOfUser(principal.getName());
         return ParseUtils.parseToSendPostDtos(userPosts);
+    }
+
+    @GetMapping("filtered")
+    public List<SendPostDto>getPostsFilteredForUsersTime(Principal principal){
+        List<Post> filteredPosts = postService.getPostsFilteredForUsersTime(principal.getName());
+        return ParseUtils.parseToSendPostDtos(filteredPosts);
     }
 
     @PostMapping
