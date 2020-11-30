@@ -21,6 +21,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,12 +64,21 @@ public class PostService {
 
         List<Post>filteredPosts=new ArrayList<>();
 
+//        userPosts.forEach(((userPost)->
+//        filteredPosts.addAll(friendsPosts.stream().
+//                filter(post->(post.getStartPoint().getEpochSecond()<userPost.getEndPoint().getEpochSecond()&&post.getEndPoint().getEpochSecond()>userPost.getStartPoint().getEpochSecond()))
+//                .collect(Collectors.toList()))
+//        ));
+
         userPosts.forEach(((userPost)->
-        filteredPosts.addAll(friendsPosts.stream().
+
+        List<Post>toAdd=friendsPosts.stream().
                 filter(post->(post.getStartPoint().getEpochSecond()<userPost.getEndPoint().getEpochSecond()&&post.getEndPoint().getEpochSecond()>userPost.getStartPoint().getEpochSecond()))
-                .collect(Collectors.toList());
-                ;
+                .collect(Collectors.toList())
+
         ));
+
+        return filteredPosts;
     }
 
 
