@@ -7,7 +7,7 @@ import { getDate } from "../utils/DateUtils";
 import Footer from "../commons/Footer";
 import { getMapsFilterButtons } from "../postsCommons/MapsFilterButtons";
 
-export default function PostsToday() {
+export default function FriendsPosts({ day, indexDay }) {
   const { posts, matchingPosts } = useContext(PostContext);
   const [postsToPass, setPostsToPass] = useState(posts);
   const [filterActive, setFilterActive] = useState(false);
@@ -22,14 +22,14 @@ export default function PostsToday() {
   }, [filterActive, posts, matchingPosts]);
 
   const filteredPosts = postsToPass.filter(
-    (post) => post.localDate === getDate(0)
+    (post) => post.localDate === getDate(indexDay)
   );
   return (
     <>
       <SpontaneityHeader />
       <NavigationHeader
         title={"Posts of Friends"}
-        day={"Today"}
+        day={day}
         postType={"posts"}
       />
       <PostList posts={filteredPosts} />

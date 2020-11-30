@@ -2,12 +2,10 @@ import React from "react";
 import styled from "styled-components/macro";
 import { Switch, Route, Redirect } from "react-router-dom";
 import LoginPage from "./security/LoginPage";
-import PostsToday from "./postsPages/PostsToday";
+import FriendsPosts from "./postsPages/FriendsPosts";
 import UserContextProvider from "./contexts/UserContextProvider";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import SignUpPage from "./security/SignUpPage";
-import PostsTomorrow from "./postsPages/PostsTomorrow";
-import PostsDayAfterTomorrow from "./postsPages/PostsDayAfterTomorrow";
 import PostContextProvider from "./contexts/PostContextProvider";
 import DetailsPage from "./detailsPage/DetailsPage";
 import MyPostsToday from "./myPostsPages/MyPostsToday";
@@ -24,12 +22,15 @@ function App() {
           <Switch>
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
-            <ProtectedRoute path="/posts/today" component={PostsToday} />
-            <ProtectedRoute path="/posts/tomorrow" component={PostsTomorrow} />
-            <ProtectedRoute
-              path="/posts/dayaftertomorrow"
-              component={PostsDayAfterTomorrow}
-            />
+            <ProtectedRoute path="/posts/today">
+              <FriendsPosts day={"Today"} indexDay={0} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/posts/tomorrow">
+              <FriendsPosts day={"Tomorrow"} indexDay={1} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/posts/dayaftertomorrow">
+              <FriendsPosts day={"Day After Tomorrow"} indexDay={2} />
+            </ProtectedRoute>
             <ProtectedRoute path="/myposts/today" component={MyPostsToday} />
             <ProtectedRoute
               path="/myposts/tomorrow"
