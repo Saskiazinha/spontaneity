@@ -4,7 +4,7 @@ import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import Header from "../commons/Header";
 import PostForm from "../postModification/PostForm";
 import PostContext from "../contexts/PostContext";
-import Footer from "../commons/Footer";
+import Footer from "../commons/navigation/Footer";
 
 export default function AddPostPage() {
   const { myPosts, editPost } = useContext(PostContext);

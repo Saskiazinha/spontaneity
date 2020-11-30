@@ -4,8 +4,8 @@ import NavigationHeader from "../commons/navigation/NavigationHeader";
 import PostContext from "../contexts/PostContext";
 import PostList from "../commons/PostList";
 import { getDate } from "../utils/DateUtils";
-import Footer from "../commons/Footer";
-import { getMapsFilterButtons } from "../postsCommons/MapsFilterButtons";
+import Footer from "../commons/navigation/Footer";
+import { getMapsFilterButtons } from "../commons/navigation/MapsFilterButtons";
 
 export default function FriendsPosts({ day, indexDay }) {
   const { posts, matchingPosts } = useContext(PostContext);

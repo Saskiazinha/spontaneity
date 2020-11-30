@@ -8,9 +8,7 @@ import ProtectedRoute from "./routing/ProtectedRoute";
 import SignUpPage from "./security/SignUpPage";
 import PostContextProvider from "./contexts/PostContextProvider";
 import DetailsPage from "./detailsPage/DetailsPage";
-import MyPostsToday from "./myPostsPages/MyPostsToday";
-import MyPostsTomorrow from "./myPostsPages/MyPostsTomorrow";
-import MyPostsDayAfterTomorrow from "./myPostsPages/MyPostsDayAfterTomorrow";
+import MyPosts from "./postsPages/MyPosts";
 import AddPostPage from "./postModification/AddPostPage";
 import UpdatePostPage from "./postModification/UpdatePostPage";
 
@@ -31,15 +29,15 @@ function App() {
             <ProtectedRoute path="/posts/dayaftertomorrow">
               <FriendsPosts day={"Day After Tomorrow"} indexDay={2} />
             </ProtectedRoute>
-            <ProtectedRoute path="/myposts/today" component={MyPostsToday} />
-            <ProtectedRoute
-              path="/myposts/tomorrow"
-              component={MyPostsTomorrow}
-            />
-            <ProtectedRoute
-              path="/myposts/dayaftertomorrow"
-              component={MyPostsDayAfterTomorrow}
-            />
+            <ProtectedRoute path="/myposts/today">
+              <MyPosts day={"Today"} indexDay={0} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/myposts/tomorrow">
+              <MyPosts day={"Tomorrow"} indexDay={1} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/myposts/dayaftertomorrow">
+              <MyPosts day={"Day After Tomorrow"} indexDay={2} />
+            </ProtectedRoute>
             <ProtectedRoute path="/posts/:id" component={DetailsPage} />
             <ProtectedRoute path="/add" component={AddPostPage} />
             <ProtectedRoute path="/update:id" component={UpdatePostPage} />
