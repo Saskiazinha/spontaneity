@@ -37,7 +37,7 @@ public class PostService {
         this.timestampUtils = timestampUtils;
     }
 
-    public List<SendPostDto> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
+    public List<Post> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
         Query querySortForTime = new Query();
         querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
@@ -45,19 +45,16 @@ public class PostService {
         List<Post> postsWithoutCreator=posts.stream()
                 .filter(post->(!Objects.equals(principalName,post.getCreator())))
                         .collect(Collectors.toList());
-
-        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDtos(postsWithoutCreator);
-        return sendPosts;
+        return postsWithoutCreator;
     }
 
-    public List<SendPostDto> getPostsOfUser(String principalName){
+    public List<Post> getPostsOfUser(String principalName){
         Query queryPostsForUser = new Query();
         queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
         List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
 
-        List<SendPostDto>sendPosts= ParseUtils.parseToSendPostDtos(userPosts);
-        return sendPosts;
+        return userPosts;
 
     }
 

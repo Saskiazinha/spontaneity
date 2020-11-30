@@ -47,10 +47,10 @@ class PostServiceTest {
         String principleName="Franzi";
 
         //When
-        List<SendPostDto> allPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principleName);
+        List<Post> allPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principleName);
 
         //Then
-        assertThat(allPosts,is(PostSeeder.getStockSendPostsDtoSortedWithoutPrincipal()));
+        assertThat(allPosts,is(PostSeeder.getStockPostsSortedWithoutPrincipal()));
     }
 
     @Test
@@ -65,10 +65,10 @@ class PostServiceTest {
         String principleName="Franzi";
 
         //When
-        List<SendPostDto> userPosts= postService.getPostsOfUser(principleName);
+        List<Post> userPosts= postService.getPostsOfUser(principleName);
 
         //Then
-        assertThat(userPosts,is(PostSeeder.getStockSendPostsDtoSortedForPrincipal()));
+        assertThat(userPosts,is(PostSeeder.getStockPostsSortedForPrincipal()));
     }
 
     @Test

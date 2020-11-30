@@ -44,6 +44,14 @@ public class PostSeeder {
         ));
     }
 
+    public static final List<Post> getStockPostsSortedWithoutPrincipal(){
+        return new ArrayList<Post>(List.of(
+                new Post("222", "Rebekka", Instant.parse("2020-11-20T11:00:00.00Z"), Instant.parse("2020-11-20T12:30:00.00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.YELLOW, EnumCategory.Exercise,EnumStatus.GREEN, "I would like to do some exercise", Instant.parse("2020-11-20T10:56:04Z")),
+                new Post("333", "Janosch", Instant.parse("2020-11-21T12:00:00.00Z"), Instant.parse("2020-11-21T13:00:00.00Z"),EnumStatus.GREEN,"Barmbek" , EnumStatus.GREEN, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", Instant.parse("2020-11-20T10:56:04Z")),
+                new Post("444", "Carsten", Instant.parse("2020-11-22T15:00:00.00Z"), Instant.parse("2020-11-22T17:00:00.00Z"),EnumStatus.GREEN,"Sternschanze" , EnumStatus.YELLOW, EnumCategory.Events,EnumStatus.BLUE, "I would like to go to a concert", Instant.parse("2020-11-20T10:56:04Z"))
+                 ));
+    }
+
     public static final List<SendPostDto> getStockSendPostsDtoSortedWithoutPrincipal(){
         return new ArrayList<SendPostDto>(List.of(
                 new SendPostDto("222", "Rebekka", LocalDate.of(2020,11,20),LocalTime.of(12,00), LocalTime.of(13,30),EnumStatus.YELLOW,"Altona" , EnumStatus.YELLOW, EnumCategory.Exercise,EnumStatus.GREEN, "I would like to do some exercise", Instant.parse("2020-11-20T10:56:04Z")),
