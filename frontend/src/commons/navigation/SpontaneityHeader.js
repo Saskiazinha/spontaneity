@@ -1,9 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 
 export default function SpontaneityHeader() {
+  const history = useHistory();
+  const { logout } = useContext(UserContext);
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -36,13 +40,18 @@ export default function SpontaneityHeader() {
         <NavLink to="/posts/today">Home</NavLink>
         <NavLink to="/myposts/today">My posts</NavLink>
         <NavLink to="/myposts/today">Info</NavLink>
-        <NavLink to="/myposts/today">Logout</NavLink>
+        <button onClick={handleLogout}>Logout</button>
       </Menu>
     </div>
   );
 
   function handleClick() {
     setIsActive(!isActive);
+  }
+
+  function handleLogout() {
+    logout();
+    history.push("/login");
   }
 }
 
