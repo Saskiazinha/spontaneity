@@ -47,10 +47,10 @@ class PostServiceTest {
         String principleName="Franzi";
 
         //When
-        List<SendPostDto> allPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principleName);
+        List<Post> allPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principleName);
 
         //Then
-        assertThat(allPosts,is(PostSeeder.getStockSendPostsDtoSortedWithoutPrincipal()));
+        assertThat(allPosts,is(PostSeeder.getStockPostsSortedWithoutPrincipal()));
     }
 
     @Test
@@ -65,11 +65,34 @@ class PostServiceTest {
         String principleName="Franzi";
 
         //When
-        List<SendPostDto> userPosts= postService.getPostsOfUser(principleName);
+        List<Post> userPosts= postService.getPostsOfUser(principleName);
 
         //Then
-        assertThat(userPosts,is(PostSeeder.getStockSendPostsDtoSortedForPrincipal()));
+        assertThat(userPosts,is(PostSeeder.getStockPostsSortedForPrincipal()));
     }
+
+    @Test
+    @DisplayName("The \"getPostsFilteredForUsersTime\" method should return a List of friends posts that timewise overlap with users posts")
+    void getPostsFilteredForUsersTimeTest(){
+        //Given
+        String principalName="Franzi";
+        Query querySortByTime = new Query();
+        querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
+        Query queryPostsForUser = new Query();
+        queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
+        when(mongoTemplate.find(queryPostsForUser, Post.class)).thenReturn(PostSeeder.getStockPostsSortedForPrincipal());
+
+        //When
+        List<Post> filteredPosts= postService.getPostsFilteredForUsersTime(principalName);
+
+        //Then
+        assertThat(filteredPosts,is(PostSeeder.getStockFilteredPosts()));
+    }
+
+
+
 
     @Test
     @DisplayName("The \"addPost\" method should return the added Post")

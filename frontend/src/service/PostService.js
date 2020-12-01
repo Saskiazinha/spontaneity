@@ -14,6 +14,11 @@ export const getMyPosts = (token) =>
     .get("/api/posts/myposts", header(token))
     .then((response) => response.data);
 
+export const getTimeMatchingPosts = (token) =>
+  axios
+    .get("/api/posts/filtered", header(token))
+    .then((response) => response.data);
+
 export const addPost = (
   localDate,
   startPoint,

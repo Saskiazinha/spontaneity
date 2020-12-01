@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 import PostContext from "../contexts/PostContext";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
-import Footer from "../commons/Footer";
+import Footer from "../commons/navigation/Footer";
 import UserContext from "../contexts/UserContext";
 import { IconButtonStyled } from "../buttons/IconButtonStyled";
 import { FaRegEdit } from "react-icons/fa";
@@ -87,8 +87,6 @@ const NameStyling = styled.h4`
   font-size: 1.1em;
   letter-spacing: 0.1em;
   color: var(--turquoise-main);
-  //border-bottom: var(--turquoise-green) dashed 1px;
-  //padding: var(--size-m) 0;
   margin: 0;
 `;
 

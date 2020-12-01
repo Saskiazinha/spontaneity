@@ -18,8 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,28 +39,44 @@ public class PostService {
         this.timestampUtils = timestampUtils;
     }
 
-    public List<SendPostDto> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
+    public List<Post> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
         Query querySortForTime = new Query();
         querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
-        List<Post> postsWithoutCreator=posts.stream()
+        return posts.stream()
                 .filter(post->(!Objects.equals(principalName,post.getCreator())))
                         .collect(Collectors.toList());
-
-        List<SendPostDto>sendPosts=ParseUtils.parseToSendPostDtos(postsWithoutCreator);
-        return sendPosts;
     }
 
-    public List<SendPostDto> getPostsOfUser(String principalName){
+    public List<Post> getPostsOfUser(String principalName){
         Query queryPostsForUser = new Query();
         queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
-        List<Post>userPosts=mongoTemplate.find(queryPostsForUser, Post.class);
 
-        List<SendPostDto>sendPosts= ParseUtils.parseToSendPostDtos(userPosts);
-        return sendPosts;
+        return mongoTemplate.find(queryPostsForUser, Post.class);
 
+    }
+
+    public List<Post> getPostsFilteredForUsersTime(String principalName) {
+        List<Post>userPosts=getPostsOfUser(principalName);
+        List<Post>friendsPosts=getPostsSortedByTimeWithoutUsersPosts(principalName);
+
+        List<Post>filteredPosts=new ArrayList<>();
+
+        userPosts.forEach(((userPost)->{
+            List<Post>toAdd=(friendsPosts.stream().
+                    filter(post->(post.getStartPoint().getEpochSecond()<userPost.getEndPoint().getEpochSecond()&&post.getEndPoint().getEpochSecond()>userPost.getStartPoint().getEpochSecond()))
+                    .collect(Collectors.toList()));
+            toAdd.forEach((post)->{
+                if(!filteredPosts.contains(post)){
+                    filteredPosts.add(post);
+                }
+            });
+        }
+        ));
+
+        return filteredPosts;
     }
 
 
@@ -116,4 +134,6 @@ public class PostService {
 
         postDao.deleteById(postId);
     }
+
+
 }

@@ -41,37 +41,40 @@ export default function PostContent({ post }) {
       return <SiGooglemaps color={getStatusColor(post.statusLocation)} />;
     }
   }
+
   function getStatusColor(status) {
-    switch (status) {
-      case "GREEN":
-        return "#2FAB63";
-      case "YELLOW":
-        return "#EFD102";
-      case "BLUE":
-        return "#0074B6";
-      default:
-        console.log("Something went wrong");
+    if (status === "GREEN") {
+      return "#2FAB63";
+    }
+    if (status === "YELLOW") {
+      return "#EFD102";
+    }
+    if (status === "BLUE") {
+      return "#0074B6";
     }
   }
 
   function renderCategoryIcon(color) {
-    switch (post.category) {
-      case "Drinks":
-        return <BiDrink color={color} />;
-      case "Meal":
-        return <GiMeal color={color} />;
-      case "Events":
-        return <RiCalendarEventFill color={color} />;
-      case "Exercise":
-        return <BiRun color={color} />;
-      case "Outdoor":
-        return <GiMountains color={color} />;
-      case "Party":
-        return <GiPartyFlags color={color} />;
-      case "Hangout":
-        return <GiSofa color={color} />;
-      default:
-        console.log("Something went wrong");
+    if (post.category === "Drinks") {
+      return <BiDrink color={color} />;
+    }
+    if (post.category === "Meal") {
+      return <GiMeal color={color} />;
+    }
+    if (post.category === "Events") {
+      return <RiCalendarEventFill color={color} />;
+    }
+    if (post.category === "Exercise") {
+      return <BiRun color={color} />;
+    }
+    if (post.category === "Outdoor") {
+      return <GiMountains color={color} />;
+    }
+    if (post.category === "Party") {
+      return <GiPartyFlags color={color} />;
+    }
+    if (post.category === "Party") {
+      return <GiSofa color={color} />;
     }
   }
 }

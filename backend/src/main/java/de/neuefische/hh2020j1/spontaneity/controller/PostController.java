@@ -6,6 +6,7 @@ import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.UpdatePostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.service.PostService;
+import de.neuefische.hh2020j1.spontaneity.utils.ParseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,20 @@ public class PostController {
 
     @GetMapping
     public List<SendPostDto> getPostsSortedWithoutUsersPosts(Principal principal){
-        return postService.getPostsSortedByTimeWithoutUsersPosts(principal.getName());
+        List<Post> friendsPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principal.getName());
+        return ParseUtils.parseToSendPostDtos(friendsPosts);
     }
 
     @GetMapping("myposts")
     public List<SendPostDto> getPostsOfUser(Principal principal){
-        return postService.getPostsOfUser(principal.getName());
+         List<Post>userPosts=postService.getPostsOfUser(principal.getName());
+        return ParseUtils.parseToSendPostDtos(userPosts);
+    }
+
+    @GetMapping("filtered")
+    public List<SendPostDto>getPostsFilteredForUsersTime(Principal principal){
+        List<Post> filteredPosts = postService.getPostsFilteredForUsersTime(principal.getName());
+        return ParseUtils.parseToSendPostDtos(filteredPosts);
     }
 
     @PostMapping
