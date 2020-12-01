@@ -63,19 +63,13 @@ public class PostService {
 
         List<Post>filteredPosts=new ArrayList<>();
 
-        userPosts.forEach(((userPost)->{
-            List<Post>toAdd=(friendsPosts.stream().
-                    filter(post->(post.getStartPoint().getEpochSecond()<userPost.getEndPoint().getEpochSecond()&&post.getEndPoint().getEpochSecond()>userPost.getStartPoint().getEpochSecond()))
+        userPosts.forEach(((userPost)-> {
+            filteredPosts.addAll(friendsPosts.stream().
+                    filter(post -> (post.getStartPoint().getEpochSecond() < userPost.getEndPoint().getEpochSecond() && post.getEndPoint().getEpochSecond() > userPost.getStartPoint().getEpochSecond()))
                     .collect(Collectors.toList()));
-            toAdd.forEach((post)->{
-                if(!filteredPosts.contains(post)){
-                    filteredPosts.add(post);
-                }
-            });
-        }
-        ));
+        }));
 
-        return filteredPosts;
+        return filteredPosts.stream().distinct().collect(Collectors.toList());
     }
 
 
