@@ -2,12 +2,12 @@ import React from "react";
 import Post from "./Post";
 import styled from "styled-components/macro";
 
-export default function PostList({ posts }) {
+export default function PostList({ posts, renderName }) {
   return (
     <StyledList>
       {posts?.map((post) => (
         <li key={post.id}>
-          <Post post={post} />
+          <Post post={post} renderName={renderName} />
         </li>
       ))}
     </StyledList>

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { useHistory } from "react-router-dom";
 import Button from "../buttons/Button";
 import PostContent from "./PostContent";
 
-export default function Post({ post }) {
+export default function Post({ post, renderName }) {
   const history = useHistory();
   return (
     <PostStyled>
-      <NameStyling>{post.creator}</NameStyling>
+      <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
       <Button onClick={() => history.push("/posts/" + post.id)}>Details</Button>
       <PostContent post={post} />
     </PostStyled>

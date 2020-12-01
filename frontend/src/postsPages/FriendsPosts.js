@@ -32,7 +32,7 @@ export default function FriendsPosts({ day, indexDay }) {
         day={day}
         postType={"posts"}
       />
-      <PostList posts={filteredPosts} />
+      <PostList posts={filteredPosts} renderName={true} />
       <Footer actions={getMapsFilterButtons(filterActive, setFilterActive)} />
     </>
   );
