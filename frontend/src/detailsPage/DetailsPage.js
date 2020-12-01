@@ -88,12 +88,12 @@ export default function DetailsPage() {
 
 const DetailsStyling = styled.div`
   display: grid;
-  grid-template-rows: 40px min-content min-content 1fr 40px min-content;
+  grid-template-rows: min-content min-content min-content 1fr 40px min-content;
   gap: var(--size-m);
   background-color: var(--turquoise-bright);
   box-shadow: 3px 3px 3px #95b0b4;
   border-radius: 20px;
-  padding: var(--size-m) var(--size-m);
+  padding: var(--size-xl) var(--size-m);
   margin: 0 var(--size-xl) var(--size-l) var(--size-xl);
 `;
 

@@ -30,7 +30,7 @@ const PostStyled = styled.button`
 const TitleStyling = styled.h3`
   grid-row: 1;
   grid-column: 1/4;
-  font-size: 1.2em;
+  font-size: 1.15em;
   color: var(--turquoise-green);
   margin: 0;
 `;
