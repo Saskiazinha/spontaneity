@@ -20,6 +20,7 @@ export const getTimeMatchingPosts = (token) =>
     .then((response) => response.data);
 
 export const addPost = (
+  title,
   localDate,
   startPoint,
   endPoint,
@@ -35,6 +36,7 @@ export const addPost = (
     .post(
       "/api/posts",
       {
+        title,
         localDate,
         startPoint,
         endPoint,
@@ -51,6 +53,7 @@ export const addPost = (
 
 export const updatePost = (
   id,
+  title,
   localDate,
   startPoint,
   endPoint,
@@ -67,6 +70,7 @@ export const updatePost = (
       "/api/posts/" + id,
       {
         id,
+        title,
         localDate,
         startPoint,
         endPoint,

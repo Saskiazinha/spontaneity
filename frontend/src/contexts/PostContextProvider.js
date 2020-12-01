@@ -40,6 +40,7 @@ export default function PostContextProvider({ children }) {
   }, [token, tokenIsValid]);
 
   const createPost = (
+    title,
     localDate,
     startPoint,
     endPoint,
@@ -51,6 +52,7 @@ export default function PostContextProvider({ children }) {
     notes
   ) =>
     addPost(
+      title,
       localDate,
       startPoint,
       endPoint,
@@ -74,6 +76,7 @@ export default function PostContextProvider({ children }) {
 
   const editPost = (
     id,
+    title,
     localDate,
     startPoint,
     endPoint,
@@ -86,6 +89,7 @@ export default function PostContextProvider({ children }) {
   ) =>
     updatePost(
       id,
+      title,
       localDate,
       startPoint,
       endPoint,
