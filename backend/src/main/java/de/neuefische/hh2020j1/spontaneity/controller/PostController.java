@@ -38,10 +38,10 @@ public class PostController {
         return ParseUtils.parseToSendPostDtos(userPosts);
     }
 
-    @GetMapping("filtered")
+    @GetMapping("matching")
     public List<SendPostDto> getMatchingPosts(Principal principal){
-        List<Post> filteredPosts = postService.getMatchingPosts(principal.getName());
-        return ParseUtils.parseToSendPostDtos(filteredPosts);
+        List<Post> matchingPosts = postService.getMatchingPosts(principal.getName());
+        return ParseUtils.parseToSendPostDtos(matchingPosts);
     }
 
     @PostMapping

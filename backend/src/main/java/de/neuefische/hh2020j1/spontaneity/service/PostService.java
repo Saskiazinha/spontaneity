@@ -61,16 +61,16 @@ public class PostService {
         List<Post>userPosts=getPostsOfUser(principalName);
         List<Post>friendsPosts= getFriendsPosts(principalName);
 
-        List<Post>filteredPosts=new ArrayList<>();
+        List<Post>matchingPosts=new ArrayList<>();
 
 
         userPosts.forEach(((userPost)-> {
-            filteredPosts.addAll(friendsPosts.stream().
+            matchingPosts.addAll(friendsPosts.stream().
                     filter(post -> (post.getStartPoint().isBefore(userPost.getEndPoint()) && post.getEndPoint().isAfter(userPost.getStartPoint())))
                     .collect(Collectors.toList()));
         }));
 
-        return filteredPosts.stream().distinct().collect(Collectors.toList());
+        return matchingPosts.stream().distinct().collect(Collectors.toList());
     }
 
 

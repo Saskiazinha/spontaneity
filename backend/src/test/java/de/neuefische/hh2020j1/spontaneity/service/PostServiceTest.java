@@ -85,10 +85,10 @@ class PostServiceTest {
         when(mongoTemplate.find(queryPostsForUser, Post.class)).thenReturn(PostSeeder.getStockPostsSortedForPrincipal());
 
         //When
-        List<Post> filteredPosts= postService.getMatchingPosts(principalName);
+        List<Post> matchingPosts= postService.getMatchingPosts(principalName);
 
         //Then
-        assertThat(filteredPosts,is(PostSeeder.getStockFilteredPosts()));
+        assertThat(matchingPosts,is(PostSeeder.getStockFilteredPosts()));
     }
 
 

@@ -110,7 +110,7 @@ public class PostControllerTest {
     @Test
     public void getMatchingPostsTest(){
         //Given
-        String url=getPostsUrl()+"/filtered";
+        String url=getPostsUrl()+"/matching";
 
         //When
         HttpEntity<Void>entity=getValidAuthorizationEntity(null);
