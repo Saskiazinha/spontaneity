@@ -17,6 +17,7 @@ import java.util.Date;
 @Builder
 public class AddPostDto {
 
+    private String title;
     private LocalDate localDate;
     private LocalTime startPoint;
     private LocalTime endPoint;

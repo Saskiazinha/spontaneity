@@ -21,6 +21,7 @@ public class Post {
     @Id
     private String id;
     private String creator;
+    private String title;
     private Instant startPoint;
     private Instant endPoint;
     private EnumStatus statusTime;

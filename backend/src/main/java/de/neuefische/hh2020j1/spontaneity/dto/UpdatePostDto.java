@@ -16,6 +16,7 @@ import java.time.LocalTime;
 @Builder
 public class UpdatePostDto {
     private String id;
+    private String title;
     private LocalDate localDate;
     private LocalTime startPoint;
     private LocalTime endPoint;
