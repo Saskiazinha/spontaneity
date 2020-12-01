@@ -72,7 +72,7 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("The \"getPostsFilteredForUsersTime\" method should return a List of friends posts that timewise overlap with users posts")
+    @DisplayName("The \"getMatchingPostsTest\" method should return a List of friends posts that timewise overlap with users posts")
     void getMatchingPostsTest(){
         //Given
         String principalName="Franzi";

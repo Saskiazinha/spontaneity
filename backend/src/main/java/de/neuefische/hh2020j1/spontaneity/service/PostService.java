@@ -63,9 +63,10 @@ public class PostService {
 
         List<Post>filteredPosts=new ArrayList<>();
 
+
         userPosts.forEach(((userPost)-> {
             filteredPosts.addAll(friendsPosts.stream().
-                    filter(post -> (post.getStartPoint().getEpochSecond() < userPost.getEndPoint().getEpochSecond() && post.getEndPoint().getEpochSecond() > userPost.getStartPoint().getEpochSecond()))
+                    filter(post -> (post.getStartPoint().isBefore(userPost.getEndPoint()) && post.getEndPoint().isAfter(userPost.getStartPoint())))
                     .collect(Collectors.toList()));
         }));
 
