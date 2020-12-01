@@ -80,7 +80,7 @@ export default function PostContent({ post }) {
 }
 
 const ContentStyling = styled.div`
-  grid-row: 2;
+  grid-row: 3;
   grid-column: span 3;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

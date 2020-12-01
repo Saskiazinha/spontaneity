@@ -38,7 +38,7 @@ export default function DetailsPage() {
 
       <Header title="Details" />
       <DetailsStyling>
-        <TitleStyling>{post.title}</TitleStyling>
+        <TitleStyling>„{post.title}“</TitleStyling>
         <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
         <Content>
           <PostContent post={post} />
@@ -100,7 +100,7 @@ const DetailsStyling = styled.div`
 const TitleStyling = styled.h3`
   text-align: center;
   align-self: center;
-  color: var(--turquoise-main);
+  color: var(--turquoise-green);
   margin: 0;
 `;
 
