@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { getDate } from "../utils/DateUtils";
 
 const initialState = {
+  title: "",
   localDate: "",
   startPoint: "",
   endPoint: "",
@@ -18,8 +19,16 @@ export default function PostForm({ onSave, post = initialState }) {
   const [postData, setPostData] = useState(post);
   return (
     <FormStyling onSubmit={handleSubmit}>
-      <label htmlFor="localDate">Date</label>
-      <Date
+      <label htmlFor="Title">Title</label>
+      <TitleInput
+        name="title"
+        value={postData.title}
+        onChange={handleChange}
+        type="text"
+        required
+      />
+      <Date htmlFor="localDate">Date</Date>
+      <DateInput
         name="localDate"
         value={postData.localDate}
         onChange={handleChange}
@@ -95,12 +104,7 @@ export default function PostForm({ onSave, post = initialState }) {
       </StatusCategory>
       <Notes>
         Notes
-        <textarea
-          name="notes"
-          value={postData.notes}
-          onChange={handleChange}
-          type="text"
-        />
+        <textarea name="notes" value={postData.notes} onChange={handleChange} />
       </Notes>
       <Button>Save</Button>
     </FormStyling>
@@ -118,9 +122,9 @@ export default function PostForm({ onSave, post = initialState }) {
 const FormStyling = styled.form`
   display: grid;
   grid-template-columns: min-content 110px 92px;
-  grid-template-rows: repeat(5, min-content) 1fr min-content;
+  grid-template-rows: repeat(6, min-content) 1fr min-content;
   column-gap: var(--size-s);
-  row-gap: var(--size-xl);
+  row-gap: 20px;
   align-items: center;
   background-color: var(--turquoise-bright);
   box-shadow: 3px 3px 3px #95b0b4;
@@ -130,7 +134,7 @@ const FormStyling = styled.form`
 `;
 
 const Notes = styled.label`
-  grid-row: 6;
+  grid-row: 7;
   grid-column: span 3;
   display: grid;
   textarea {
@@ -139,70 +143,79 @@ const Notes = styled.label`
 `;
 
 const Button = styled.button`
-  grid-row: 7;
+  grid-row: 8;
   grid-column: 1/4;
   justify-self: center;
   height: 30px;
   width: 100px;
 `;
 
-const Date = styled.input`
+const TitleInput = styled.input`
   grid-row: 1;
   grid-column: 2/4;
-  width: min-content;
+`;
+
+const Date = styled.label`
+  grid-row: 2;
+  grid-column: 1;
+`;
+
+const DateInput = styled.input`
+  grid-row: 2;
+  grid-column: 2/4;
 `;
 
 const From = styled.label`
-  grid-row: 2;
+  grid-row: 3;
   grid-column: 1;
 `;
 
 const StartInput = styled.input`
-  grid-row: 2;
+  grid-row: 3;
   grid-column: 2;
 `;
 
 const To = styled.label`
-  grid-row: 3;
+  grid-row: 4;
   grid-column: 1;
 `;
 
 const End = styled.input`
-  grid-row: 3;
+  grid-row: 4;
   grid-column: 2;
 `;
 
 const StatusTime = styled.select`
-  grid-row: 2 / 4;
+  grid-row: 3 / 5;
   grid-column: 3;
 `;
 
 const Location = styled.label`
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 1;
 `;
 
 const LocationInput = styled.input`
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 2;
 `;
 
 const StatusLocation = styled.select`
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 3;
 `;
 
 const Category = styled.label`
-  grid-row: 5;
+  grid-row: 6;
   grid-column: 1;
 `;
 
 const CategorySelect = styled.select`
-  grid-row: 5;
+  grid-row: 6;
   grid-column: 2;
 `;
 
 const StatusCategory = styled.select`
-  grid-row: 5;
+  grid-row: 6;
   grid-column: 3;
 `;

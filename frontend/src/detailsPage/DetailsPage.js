@@ -30,6 +30,7 @@ export default function DetailsPage() {
       return setPost(myPosts.find((myPost) => myPost.id === id));
     }
   }, [posts, myPosts, id]);
+  console.log(post);
 
   return (
     <>
@@ -37,9 +38,8 @@ export default function DetailsPage() {
 
       <Header title="Details" />
       <DetailsStyling>
-        <NameStyling>
-          {renderName ? <p>{post.creator}</p> : <p>Your Post</p>}
-        </NameStyling>
+        <TitleStyling>{post.title}</TitleStyling>
+        <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
         <Content>
           <PostContent post={post} />
         </Content>
@@ -86,28 +86,38 @@ export default function DetailsPage() {
   }
 }
 
-const NameStyling = styled.h4`
-  text-align: center;
-  align-self: center;
-  font-size: 1.1em;
-  letter-spacing: 0.1em;
-  color: var(--turquoise-main);
-  margin: 0;
-`;
-
-const Content = styled.div`
-  padding: var(--size-s) 0;
-`;
-
 const DetailsStyling = styled.div`
   display: grid;
-  grid-template-rows: 50px min-content 1fr 40px min-content;
+  grid-template-rows: 40px min-content min-content 1fr 40px min-content;
   gap: var(--size-m);
   background-color: var(--turquoise-bright);
   box-shadow: 3px 3px 3px #95b0b4;
   border-radius: 20px;
   padding: var(--size-m) var(--size-m);
   margin: 0 var(--size-xl) var(--size-l) var(--size-xl);
+`;
+
+const TitleStyling = styled.h3`
+  text-align: center;
+  align-self: center;
+  color: var(--turquoise-main);
+  margin: 0;
+`;
+
+const NameStyling = styled.h4`
+  text-align: center;
+  align-self: center;
+  font-size: 1.1em;
+  letter-spacing: 0.1em;
+  color: var(--turquoise-main);
+  margin: -12px 0 var(--size-xs) 0;
+  p {
+    margin: 0;
+  }
+`;
+
+const Content = styled.div`
+  padding: var(--size-s) 0;
 `;
 
 const NotesStyling = styled.div`
