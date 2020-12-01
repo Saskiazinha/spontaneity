@@ -21,7 +21,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +38,7 @@ public class PostService {
         this.timestampUtils = timestampUtils;
     }
 
-    public List<Post> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
+    public List<Post> getFriendsPosts(String principalName) {
         Query querySortForTime = new Query();
         querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
@@ -58,9 +57,9 @@ public class PostService {
 
     }
 
-    public List<Post> getPostsFilteredForUsersTime(String principalName) {
+    public List<Post> getMatchingPosts(String principalName) {
         List<Post>userPosts=getPostsOfUser(principalName);
-        List<Post>friendsPosts=getPostsSortedByTimeWithoutUsersPosts(principalName);
+        List<Post>friendsPosts= getFriendsPosts(principalName);
 
         List<Post>filteredPosts=new ArrayList<>();
 
