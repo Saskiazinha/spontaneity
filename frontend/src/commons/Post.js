@@ -7,29 +7,23 @@ import PostContent from "./PostContent";
 export default function Post({ post, renderName }) {
   const history = useHistory();
   return (
-    <PostStyled>
+    <PostStyled onClick={() => history.push("/posts/" + post.id)}>
       <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
-      <Button onClick={() => history.push("/posts/" + post.id)}>Details</Button>
       <PostContent post={post} />
     </PostStyled>
   );
 }
 
-const PostStyled = styled.div`
+const PostStyled = styled.button`
   display: grid;
   grid-template-rows: 38px 1fr;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   border-radius: 20px;
   box-shadow: 3px 3px 3px #95b0b4;
   background-color: var(--turquoise-bright);
+  color: var(--turquoise-grey);
   padding: var(--size-s);
-
-  button {
-    grid-row: 1;
-    grid-column: 3;
-
-    justify-self: end;
-  }
+  width: 100%;
 `;
 
 const NameStyling = styled.h4`
