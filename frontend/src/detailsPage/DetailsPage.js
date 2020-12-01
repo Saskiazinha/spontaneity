@@ -15,15 +15,18 @@ import Header from "../commons/Header";
 export default function DetailsPage() {
   const { posts, myPosts, deletePost } = useContext(PostContext);
   const [post, setPost] = useState("");
+  const [renderName, setRenderName] = useState(false);
   const { userData } = useContext(UserContext);
   const { id } = useParams();
   const history = useHistory();
 
   useEffect(() => {
     if (posts.find((post) => post.id === id)) {
+      setRenderName(true);
       return setPost(posts.find((post) => post.id === id));
     }
     if (myPosts.find((myPost) => myPost.id === id)) {
+      setRenderName(false);
       return setPost(myPosts.find((myPost) => myPost.id === id));
     }
   }, [posts, myPosts, id]);
@@ -34,7 +37,9 @@ export default function DetailsPage() {
 
       <Header title="Details" />
       <DetailsStyling>
-        <NameStyling>{post.creator}</NameStyling>
+        <NameStyling>
+          {renderName ? <p>{post.creator}</p> : <p>Your Post</p>}
+        </NameStyling>
         <Content>
           <PostContent post={post} />
         </Content>
