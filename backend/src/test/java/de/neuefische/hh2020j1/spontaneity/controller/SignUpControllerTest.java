@@ -65,7 +65,7 @@ public class SignUpControllerTest {
         SpontaneityUser newUser= new SpontaneityUser("Fiene","1234ZabC");
 
         //When
-        ResponseEntity <String> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),String.class);
+        ResponseEntity <Void> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),Void.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.BAD_REQUEST));
