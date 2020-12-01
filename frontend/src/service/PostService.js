@@ -16,7 +16,7 @@ export const getMyPosts = (token) =>
 
 export const getTimeMatchingPosts = (token) =>
   axios
-    .get("/api/posts/filtered", header(token))
+    .get("/api/posts/matching", header(token))
     .then((response) => response.data);
 
 export const addPost = (

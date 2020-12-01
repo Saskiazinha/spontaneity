@@ -27,8 +27,8 @@ public class PostController {
     }
 
     @GetMapping
-    public List<SendPostDto> getPostsSortedWithoutUsersPosts(Principal principal){
-        List<Post> friendsPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principal.getName());
+    public List<SendPostDto> getFriendsPosts(Principal principal){
+        List<Post> friendsPosts= postService.getFriendsPosts(principal.getName());
         return ParseUtils.parseToSendPostDtos(friendsPosts);
     }
 
@@ -38,10 +38,10 @@ public class PostController {
         return ParseUtils.parseToSendPostDtos(userPosts);
     }
 
-    @GetMapping("filtered")
-    public List<SendPostDto>getPostsFilteredForUsersTime(Principal principal){
-        List<Post> filteredPosts = postService.getPostsFilteredForUsersTime(principal.getName());
-        return ParseUtils.parseToSendPostDtos(filteredPosts);
+    @GetMapping("matching")
+    public List<SendPostDto> getMatchingPosts(Principal principal){
+        List<Post> matchingPosts = postService.getMatchingPosts(principal.getName());
+        return ParseUtils.parseToSendPostDtos(matchingPosts);
     }
 
     @PostMapping

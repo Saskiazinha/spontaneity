@@ -38,8 +38,8 @@ class PostServiceTest {
     private final PostService postService=new PostService(postDao, mongoTemplate, idUtils, timestampUtils);
 
     @Test
-    @DisplayName("The \"getPostsSortedByTime\" method should return posts in the order of their startPoint excluding posts of logged in user")
-    void getPostsSortedByTimeWithoutUsersPostsTest(){
+    @DisplayName("The \"getFriendsPostsTest\" method should return posts in the order of their startPoint excluding posts of logged in user")
+    void getFriendsPostsTest(){
         //Given
         Query querySortByTime = new Query();
         querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
@@ -47,7 +47,7 @@ class PostServiceTest {
         String principleName="Franzi";
 
         //When
-        List<Post> allPosts= postService.getPostsSortedByTimeWithoutUsersPosts(principleName);
+        List<Post> allPosts= postService.getFriendsPosts(principleName);
 
         //Then
         assertThat(allPosts,is(PostSeeder.getStockPostsSortedWithoutPrincipal()));
@@ -72,8 +72,8 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("The \"getPostsFilteredForUsersTime\" method should return a List of friends posts that timewise overlap with users posts")
-    void getPostsFilteredForUsersTimeTest(){
+    @DisplayName("The \"getMatchingPostsTest\" method should return a List of friends posts that timewise overlap with users posts")
+    void getMatchingPostsTest(){
         //Given
         String principalName="Franzi";
         Query querySortByTime = new Query();
@@ -85,10 +85,10 @@ class PostServiceTest {
         when(mongoTemplate.find(queryPostsForUser, Post.class)).thenReturn(PostSeeder.getStockPostsSortedForPrincipal());
 
         //When
-        List<Post> filteredPosts= postService.getPostsFilteredForUsersTime(principalName);
+        List<Post> matchingPosts= postService.getMatchingPosts(principalName);
 
         //Then
-        assertThat(filteredPosts,is(PostSeeder.getStockFilteredPosts()));
+        assertThat(matchingPosts,is(PostSeeder.getStockFilteredPosts()));
     }
 
 

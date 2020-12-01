@@ -21,7 +21,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +38,7 @@ public class PostService {
         this.timestampUtils = timestampUtils;
     }
 
-    public List<Post> getPostsSortedByTimeWithoutUsersPosts(String principalName) {
+    public List<Post> getFriendsPosts(String principalName) {
         Query querySortForTime = new Query();
         querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
@@ -58,25 +57,19 @@ public class PostService {
 
     }
 
-    public List<Post> getPostsFilteredForUsersTime(String principalName) {
+    public List<Post> getMatchingPosts(String principalName) {
         List<Post>userPosts=getPostsOfUser(principalName);
-        List<Post>friendsPosts=getPostsSortedByTimeWithoutUsersPosts(principalName);
+        List<Post>friendsPosts= getFriendsPosts(principalName);
 
-        List<Post>filteredPosts=new ArrayList<>();
+        List<Post>matchingPosts=new ArrayList<>();
 
-        userPosts.forEach(((userPost)->{
-            List<Post>toAdd=(friendsPosts.stream().
-                    filter(post->(post.getStartPoint().getEpochSecond()<userPost.getEndPoint().getEpochSecond()&&post.getEndPoint().getEpochSecond()>userPost.getStartPoint().getEpochSecond()))
+        userPosts.forEach(((userPost)-> {
+            matchingPosts.addAll(friendsPosts.stream().
+                    filter(post -> (post.getStartPoint().isBefore(userPost.getEndPoint()) && post.getEndPoint().isAfter(userPost.getStartPoint())))
                     .collect(Collectors.toList()));
-            toAdd.forEach((post)->{
-                if(!filteredPosts.contains(post)){
-                    filteredPosts.add(post);
-                }
-            });
-        }
-        ));
+        }));
 
-        return filteredPosts;
+        return matchingPosts.stream().distinct().collect(Collectors.toList());
     }
 
 
