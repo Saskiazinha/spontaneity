@@ -63,7 +63,6 @@ public class PostService {
 
         List<Post>matchingPosts=new ArrayList<>();
 
-
         userPosts.forEach(((userPost)-> {
             matchingPosts.addAll(friendsPosts.stream().
                     filter(post -> (post.getStartPoint().isBefore(userPost.getEndPoint()) && post.getEndPoint().isAfter(userPost.getStartPoint())))
