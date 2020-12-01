@@ -1,9 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 
 export default function SpontaneityHeader() {
+  const history = useHistory();
+  const { logout } = useContext(UserContext);
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -36,13 +40,18 @@ export default function SpontaneityHeader() {
         <NavLink to="/posts/today">Home</NavLink>
         <NavLink to="/myposts/today">My posts</NavLink>
         <NavLink to="/myposts/today">Info</NavLink>
-        <NavLink to="/myposts/today">Logout</NavLink>
+        <ButtonStyling onClick={handleLogout}>Logout</ButtonStyling>
       </Menu>
     </div>
   );
 
   function handleClick() {
     setIsActive(!isActive);
+  }
+
+  function handleLogout() {
+    logout();
+    history.push("/login");
   }
 }
 
@@ -66,8 +75,9 @@ const MenuButton = styled.button`
 
 const Menu = styled.nav`
   display: grid;
+  align-items: center;
   grid-template-rows: repeat(5, 50px);
-  padding: var(--size-l) 0 0 var(--size-xl);
+  padding: var(--size-m) 0 0 var(--size-xl);
   background: var(--turquoise-main);
   width: 145px;
   height: 83vh;
@@ -91,4 +101,9 @@ const Menu = styled.nav`
       visibility: visible;
       transform: translateX(0);
     `}
+`;
+
+const ButtonStyling = styled.button`
+  justify-self: start;
+  font-size: 1.02em;
 `;

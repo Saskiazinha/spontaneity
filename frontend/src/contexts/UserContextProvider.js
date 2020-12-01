@@ -7,6 +7,8 @@ import {
   loadUserDataFromLocalStorage,
   saveTokenToLocalStorage,
   saveUserDataToLocalStorage,
+  deleteTokenFromLocalStorage,
+  deleteUserDataFromLocalStorage,
 } from "../service/LocalStorage";
 
 export default function UserContextProvider({ children }) {
@@ -43,6 +45,11 @@ export default function UserContextProvider({ children }) {
       .then((response) => response.data);
   }
 
+  function logout() {
+    deleteTokenFromLocalStorage();
+    deleteUserDataFromLocalStorage();
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -51,6 +58,7 @@ export default function UserContextProvider({ children }) {
         postLogin,
         userData,
         postSignUp,
+        logout,
       }}
     >
       {children}
