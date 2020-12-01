@@ -54,6 +54,54 @@ class JWTFilterTest {
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
+    @Test
+    public void getFriendsPostsShouldReturnForbiddenWhenTokenIsExpired(){
+        //Given
+        String token= Jwts.builder()
+                .setClaims(new HashMap<>())
+                .setSubject("Franzi")
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().minus(Duration.ofMinutes(5))))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+        //When
+        String url="http://localhost:"+port+"/api/posts";
+
+        HttpHeaders headers=new HttpHeaders();
+        headers.setBearerAuth(token);
+        HttpEntity<Void> entity=new HttpEntity<>(headers);
+
+        ResponseEntity<String>response=testRestTemplate.exchange(url,HttpMethod.GET,entity,String.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
+
+    }
+
+    @Test
+    public void getFriendsPostsShouldReturnForbiddenWhenSecretKeyNoMatch(){
+        //Given
+        String token= Jwts.builder()
+                .setClaims(new HashMap<>())
+                .setSubject("Franzi")
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plus(Duration.ofMinutes(60))))
+                .signWith(SignatureAlgorithm.HS256, "otherKey")
+                .compact();
+        //When
+        String url="http://localhost:"+port+"/api/posts";
+
+        HttpHeaders headers=new HttpHeaders();
+        headers.setBearerAuth(token);
+        HttpEntity<Void> entity=new HttpEntity<>(headers);
+
+        ResponseEntity<String>response=testRestTemplate.exchange(url,HttpMethod.GET,entity,String.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
+
+    }
+
 
 
 }
