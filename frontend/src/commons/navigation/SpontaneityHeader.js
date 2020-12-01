@@ -40,7 +40,7 @@ export default function SpontaneityHeader() {
         <NavLink to="/posts/today">Home</NavLink>
         <NavLink to="/myposts/today">My posts</NavLink>
         <NavLink to="/myposts/today">Info</NavLink>
-        <button onClick={handleLogout}>Logout</button>
+        <ButtonStyling onClick={handleLogout}>Logout</ButtonStyling>
       </Menu>
     </div>
   );
@@ -75,8 +75,9 @@ const MenuButton = styled.button`
 
 const Menu = styled.nav`
   display: grid;
+  align-items: center;
   grid-template-rows: repeat(5, 50px);
-  padding: var(--size-l) 0 0 var(--size-xl);
+  padding: var(--size-m) 0 0 var(--size-xl);
   background: var(--turquoise-main);
   width: 145px;
   height: 83vh;
@@ -100,4 +101,9 @@ const Menu = styled.nav`
       visibility: visible;
       transform: translateX(0);
     `}
+`;
+
+const ButtonStyling = styled.button`
+  justify-self: start;
+  font-size: 1.02em;
 `;
