@@ -72,6 +72,11 @@ export default function PostContextProvider({ children }) {
           setPostsWithoutSeconds(myPosts, "myPosts")
         )
       )
+      .then(() =>
+        getTimeMatchingPosts(token).then((matchingPosts) =>
+          setPostsWithoutSeconds(matchingPosts, "matchingPosts")
+        )
+      )
       .catch(console.log);
 
   const editPost = (
@@ -113,6 +118,11 @@ export default function PostContextProvider({ children }) {
       .then(() =>
         getMyPosts(token).then((myPosts) =>
           setPostsWithoutSeconds(myPosts, "myPosts")
+        )
+      )
+      .then(() =>
+        getTimeMatchingPosts(token).then((matchingPosts) =>
+          setPostsWithoutSeconds(matchingPosts, "matchingPosts")
         )
       )
       .catch(console.log);
