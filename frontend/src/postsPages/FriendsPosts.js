@@ -5,9 +5,13 @@ import PostContext from "../contexts/PostContext";
 import PostList from "../commons/PostList";
 import { getDate } from "../utils/DateUtils";
 import Footer from "../commons/navigation/Footer";
-import { getMapsFilterButtons } from "../commons/navigation/MapsFilterButtons";
+import { IconButtonStyled } from "../buttons/IconButtonStyled";
+import { MdFilterList } from "react-icons/md";
+import { SiGooglemaps } from "react-icons/si";
+import { useHistory } from "react-router-dom";
 
 export default function FriendsPosts({ day, indexDay }) {
+  const history = useHistory();
   const { posts, matchingPosts } = useContext(PostContext);
   const [postsToPass, setPostsToPass] = useState(posts);
   const [filterActive, setFilterActive] = useState(false);
@@ -33,7 +37,22 @@ export default function FriendsPosts({ day, indexDay }) {
         postType={"posts"}
       />
       <PostList posts={filteredPosts} renderName={true} />
-      <Footer actions={getMapsFilterButtons(filterActive, setFilterActive)} />
+      <Footer actions={getMapsFilterButtons()} />
     </>
   );
+
+  function getMapsFilterButtons() {
+    return [
+      <IconButtonStyled
+        key="filter"
+        onClick={() => setFilterActive(!filterActive)}
+        active={filterActive}
+      >
+        <MdFilterList size={34} />
+      </IconButtonStyled>,
+      <IconButtonStyled key="maps" onClick={() => history.push("/maps/today")}>
+        <SiGooglemaps size={30} />
+      </IconButtonStyled>,
+    ];
+  }
 }
