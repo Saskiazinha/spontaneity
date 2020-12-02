@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components/macro";
 import {
   GoogleMap,
   useLoadScript,
@@ -18,7 +19,10 @@ import {
 // } from "@reach/combobox";
 // import { formatRelative } from "date-fns";
 import "@reach/combobox/styles.css";
-// import mapStyles from "./mapStyles";
+import mapsStyles from "./mapsStyles";
+import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
+import NavigationHeader from "../commons/navigation/NavigationHeader";
+import Footer from "../commons/navigation/Footer";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -29,8 +33,13 @@ const center = {
   lat: 53.551086,
   lng: 9.993682,
 };
+const options = {
+  styles: mapsStyles,
+  disableDefaultUI: true,
+  zoomControl: true,
+};
 
-export default function GoogleMapsPosts() {
+export default function GoogleMapsPosts({ day }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -40,12 +49,20 @@ export default function GoogleMapsPosts() {
   if (!isLoaded) return "Loading Maps";
 
   return (
-    <div>
+    <>
+      <SpontaneityHeader />
+      <NavigationHeader
+        title={"Posts of Friends"}
+        day={day}
+        postType={"posts"}
+      />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
         center={center}
+        options={options}
       ></GoogleMap>
-    </div>
+      <Footer />
+    </>
   );
 }
