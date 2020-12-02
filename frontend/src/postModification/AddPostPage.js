@@ -20,6 +20,7 @@ export default function AddPostPage() {
 
   function handleSave(post) {
     const {
+      title,
       localDate,
       startPoint,
       endPoint,
@@ -31,6 +32,7 @@ export default function AddPostPage() {
       notes,
     } = post;
     createPost(
+      title,
       localDate,
       startPoint,
       endPoint,

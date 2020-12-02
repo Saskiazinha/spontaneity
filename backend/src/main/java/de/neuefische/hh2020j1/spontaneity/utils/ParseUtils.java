@@ -19,6 +19,7 @@ public class ParseUtils {
                 .map(post->new SendPostDto(
                         post.getId(),
                         post.getCreator(),
+                        post.getTitle(),
                         LocalDate.ofInstant(post.getStartPoint(), ZoneId.of("Europe/Berlin")),
                         LocalTime.ofInstant(post.getStartPoint(),ZoneId.of("Europe/Berlin")),
                         LocalTime.ofInstant(post.getEndPoint(),ZoneId.of("Europe/Berlin")),
@@ -42,6 +43,7 @@ public class ParseUtils {
                 .map(sendPost->new Post(
                         sendPost.getId(),
                         sendPost.getCreator(),
+                        sendPost.getTitle(),
                         sendPost.getLocalDate().atTime(sendPost.getStartPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
                         sendPost.getLocalDate().atTime(sendPost.getEndPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
                         sendPost.getStatusTime(),
@@ -58,6 +60,7 @@ public class ParseUtils {
         return new SendPostDto(
                 post.getId(),
                 post.getCreator(),
+                post.getTitle(),
                 LocalDate.ofInstant(post.getStartPoint(), ZoneId.of("Europe/Berlin")),
                 LocalTime.ofInstant(post.getStartPoint(),ZoneId.of("Europe/Berlin")),
                 LocalTime.ofInstant(post.getEndPoint(),ZoneId.of("Europe/Berlin")),
@@ -75,6 +78,7 @@ public class ParseUtils {
         return new Post(
                 sendPost.getId(),
                 sendPost.getCreator(),
+                sendPost.getTitle(),
                 sendPost.getLocalDate().atTime(sendPost.getStartPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
                 sendPost.getLocalDate().atTime(sendPost.getEndPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
                 sendPost.getStatusTime(),

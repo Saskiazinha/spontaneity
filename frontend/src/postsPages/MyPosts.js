@@ -15,7 +15,7 @@ export default function MyPosts({ day, indexDay }) {
     <>
       <SpontaneityHeader />
       <NavigationHeader title={"My Posts"} day={day} postType={"myposts"} />
-      <PostList posts={myPostsFiltered} />
+      <PostList posts={myPostsFiltered} renderName={false} />
       <FooterMyPosts />
     </>
   );

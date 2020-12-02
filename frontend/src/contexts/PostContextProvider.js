@@ -40,6 +40,7 @@ export default function PostContextProvider({ children }) {
   }, [token, tokenIsValid]);
 
   const createPost = (
+    title,
     localDate,
     startPoint,
     endPoint,
@@ -51,6 +52,7 @@ export default function PostContextProvider({ children }) {
     notes
   ) =>
     addPost(
+      title,
       localDate,
       startPoint,
       endPoint,
@@ -70,10 +72,16 @@ export default function PostContextProvider({ children }) {
           setPostsWithoutSeconds(myPosts, "myPosts")
         )
       )
+      .then(() =>
+        getTimeMatchingPosts(token).then((matchingPosts) =>
+          setPostsWithoutSeconds(matchingPosts, "matchingPosts")
+        )
+      )
       .catch(console.log);
 
   const editPost = (
     id,
+    title,
     localDate,
     startPoint,
     endPoint,
@@ -86,6 +94,7 @@ export default function PostContextProvider({ children }) {
   ) =>
     updatePost(
       id,
+      title,
       localDate,
       startPoint,
       endPoint,
@@ -109,6 +118,11 @@ export default function PostContextProvider({ children }) {
       .then(() =>
         getMyPosts(token).then((myPosts) =>
           setPostsWithoutSeconds(myPosts, "myPosts")
+        )
+      )
+      .then(() =>
+        getTimeMatchingPosts(token).then((matchingPosts) =>
+          setPostsWithoutSeconds(matchingPosts, "matchingPosts")
         )
       )
       .catch(console.log);

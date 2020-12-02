@@ -102,9 +102,9 @@ class PostServiceTest {
         Instant instantExpected= Instant.parse("2020-11-26T10:00:00Z");
         String principalName="Franzi";
 
-        AddPostDto addPostDto= new AddPostDto(LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
+        AddPostDto addPostDto= new AddPostDto("Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
 
-        Post post=new Post("expectedId", principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instantExpected);
+        Post post=new Post("expectedId", principalName,"Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instantExpected);
         SendPostDto sendPost=ParseUtils.parseToSendPostDto(post);
 
         when(idUtils.generateId()).thenReturn(idExpected);
@@ -128,11 +128,11 @@ class PostServiceTest {
         Instant newInstant= Instant.parse("2020-11-26T11:00:00Z");
         String principalName="Franzi";
 
-        UpdatePostDto updatePostDto= new UpdatePostDto(id,LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto= new UpdatePostDto(id,"Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
 
-        Post oldPost=new Post(id, principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post oldPost=new Post(id, principalName,"Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
-        Post updatedPost=new Post(id, principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", newInstant);
+        Post updatedPost=new Post(id, principalName,"Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", newInstant);
         SendPostDto sendUpdatedPost =ParseUtils.parseToSendPostDto(updatedPost);
 
         when(timestampUtils.generateTimestampInstant()).thenReturn(newInstant);
@@ -156,9 +156,9 @@ class PostServiceTest {
         Instant instant= Instant.parse("2020-11-26T10:00:00Z");
         String principalName="Franzi";
 
-        UpdatePostDto updatePostDto= new UpdatePostDto(id,LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto= new UpdatePostDto(id,"Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
 
-        Post oldPost=new Post(id, principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post oldPost=new Post(id, principalName, "Dinner out",Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
         when(postDao.findById(id)).thenReturn(Optional.of(oldPost));
 
@@ -177,7 +177,7 @@ class PostServiceTest {
         String id="someId";
         String principalName="Franzi";
 
-        UpdatePostDto updatePostDto= new UpdatePostDto(id,LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto= new UpdatePostDto(id,"Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Altona", EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
 
         when(postDao.findById(id)).thenReturn(Optional.empty());
 
@@ -198,7 +198,7 @@ class PostServiceTest {
         String principalName="Franzi";
         Instant instant= Instant.parse("2020-11-26T10:00:00Z");
 
-        Post post=new Post(id, principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post post=new Post(id, principalName,"Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
         when(postDao.findById(id)).thenReturn(Optional.of(post));
 
@@ -234,7 +234,7 @@ class PostServiceTest {
         String principalName="Franzi";
         Instant instant= Instant.parse("2020-11-26T10:00:00Z");
 
-        Post post=new Post(id, principalName, Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post post=new Post(id, principalName,"Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Altona" , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
         when(postDao.findById(id)).thenReturn(Optional.of(post));
 

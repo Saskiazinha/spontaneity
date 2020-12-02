@@ -17,6 +17,7 @@ public class SendPostDto {
 
     private String id;
     private String creator;
+    private String title;
     private LocalDate localDate;
     private LocalTime startPoint;
     private LocalTime endPoint;

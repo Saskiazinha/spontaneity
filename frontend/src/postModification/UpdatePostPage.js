@@ -23,6 +23,7 @@ export default function AddPostPage() {
   function handleSave(post) {
     const {
       id,
+      title,
       localDate,
       startPoint,
       endPoint,
@@ -35,6 +36,7 @@ export default function AddPostPage() {
     } = post;
     editPost(
       id,
+      title,
       localDate,
       startPoint,
       endPoint,
