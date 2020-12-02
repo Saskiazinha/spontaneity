@@ -24,7 +24,7 @@ export default function PostContent({ post }) {
       </div>
       <div>
         <Icon>{renderIcon(location)}</Icon>
-        <Content>{post.location}</Content>
+        <Content>{post.location.district}</Content>
       </div>
     </ContentStyling>
   );
