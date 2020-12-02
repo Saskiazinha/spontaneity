@@ -2,8 +2,8 @@ package de.neuefische.hh2020j1.spontaneity.seeder;
 
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
-import de.neuefische.hh2020j1.spontaneity.utils.EnumCategory;
-import de.neuefische.hh2020j1.spontaneity.utils.EnumStatus;
+import de.neuefische.hh2020j1.spontaneity.model.EnumCategory;
+import de.neuefische.hh2020j1.spontaneity.model.EnumStatus;
 
 import java.time.Instant;
 import java.time.LocalDate;

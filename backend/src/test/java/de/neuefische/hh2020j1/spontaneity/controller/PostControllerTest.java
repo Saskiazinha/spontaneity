@@ -5,6 +5,8 @@ import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.dto.AddPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.UpdatePostDto;
+import de.neuefische.hh2020j1.spontaneity.model.EnumCategory;
+import de.neuefische.hh2020j1.spontaneity.model.EnumStatus;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
