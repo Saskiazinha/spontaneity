@@ -11,6 +11,7 @@ import DetailsPage from "./detailsPage/DetailsPage";
 import MyPosts from "./postsPages/MyPosts";
 import AddPostPage from "./postModification/AddPostPage";
 import UpdatePostPage from "./postModification/UpdatePostPage";
+import GoogleMapsPosts from "./googleMaps/GoogleMapsPosts";
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
             <ProtectedRoute path="/posts/:id" component={DetailsPage} />
             <ProtectedRoute path="/add" component={AddPostPage} />
             <ProtectedRoute path="/update:id" component={UpdatePostPage} />
+            <ProtectedRoute path="/maps/today">
+              <GoogleMapsPosts />
+            </ProtectedRoute>
             <Route path="/">
               <Redirect to="/posts/today" />
             </Route>
