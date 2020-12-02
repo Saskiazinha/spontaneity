@@ -16,11 +16,19 @@ import {
 //   ComboboxList,
 //   ComboboxOption,
 // } from "@reach/combobox";
-import { formatRelative } from "date-fns";
+// import { formatRelative } from "date-fns";
 import "@reach/combobox/styles.css";
 // import mapStyles from "./mapStyles";
 
 const libraries = ["places"];
+const mapContainerStyle = {
+  width: "100vw",
+  height: "100vh",
+};
+const center = {
+  lat: 53.551086,
+  lng: 9.993682,
+};
 
 export default function GoogleMapsPosts() {
   const { isLoaded, loadError } = useLoadScript({
@@ -31,5 +39,13 @@ export default function GoogleMapsPosts() {
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading Maps";
 
-  return <div>map</div>;
+  return (
+    <div>
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        zoom={8}
+        center={center}
+      ></GoogleMap>
+    </div>
+  );
 }
