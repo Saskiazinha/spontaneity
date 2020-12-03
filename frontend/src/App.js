@@ -43,7 +43,7 @@ function App() {
             <ProtectedRoute path="/add" component={AddPostPage} />
             <ProtectedRoute path="/update:id" component={UpdatePostPage} />
             <ProtectedRoute path="/maps/today">
-              <GoogleMapsPosts day={"Today"} />
+              <GoogleMapsPosts day={"Today"} indexDay={0} />
             </ProtectedRoute>
             <Route path="/">
               <Redirect to="/posts/today" />

@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components/macro";
+import { useHistory } from "react-router-dom";
 import {
   GoogleMap,
   useLoadScript,
@@ -25,6 +26,10 @@ import NavigationHeader from "../commons/navigation/NavigationHeader";
 import Footer from "../commons/navigation/Footer";
 import PostContext from "../contexts/PostContext";
 import { renderMarker } from "./Marker";
+import { IconButtonStyled } from "../buttons/IconButtonStyled";
+import { MdFilterList } from "react-icons/md";
+import { AiOutlineUnorderedList } from "react-icons/ai";
+import { getDate } from "../utils/DateUtils";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -41,13 +46,29 @@ const options = {
   zoomControl: true,
 };
 
-export default function GoogleMapsPosts({ day }) {
-  const { posts } = useContext(PostContext);
+export default function GoogleMapsPosts({ day, indexDay }) {
+  const history = useHistory();
+  const { posts, matchingPosts } = useContext(PostContext);
+  const [postsToPass, setPostsToPass] = useState(posts);
+  const [filterActive, setFilterActive] = useState(false);
+
+  useEffect(() => {
+    if (filterActive) {
+      setPostsToPass(matchingPosts);
+    }
+    if (!filterActive) {
+      setPostsToPass(posts);
+    }
+  }, [filterActive, posts, matchingPosts]);
+
+  const filteredPosts = postsToPass.filter(
+    (post) => post.localDate === getDate(indexDay)
+  );
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading Maps";
 
@@ -68,7 +89,7 @@ export default function GoogleMapsPosts({ day }) {
           center={center}
           options={options}
         >
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <Marker
               key={post.id}
               position={{ lat: post.location.lat, lng: post.location.lng }}
@@ -77,9 +98,24 @@ export default function GoogleMapsPosts({ day }) {
           ))}
         </GoogleMap>
       </MapsStyling>
-      <Footer />
+      <Footer actions={getMapsFilterButtons()} />
     </>
   );
+
+  function getMapsFilterButtons() {
+    return [
+      <IconButtonStyled
+        key="filter"
+        onClick={() => setFilterActive(!filterActive)}
+        active={filterActive}
+      >
+        <MdFilterList size={34} />
+      </IconButtonStyled>,
+      <IconButtonStyled key="" onClick={() => history.push("/posts/" + day)}>
+        <AiOutlineUnorderedList size={30} />
+      </IconButtonStyled>,
+    ];
+  }
 }
 
 const NavStyling = styled.div`
