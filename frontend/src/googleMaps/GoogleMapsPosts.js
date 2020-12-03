@@ -4,7 +4,7 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  // InfoWindow,
+  InfoWindow,
 } from "@react-google-maps/api";
 // import usePlacesAutocomplete, {
 //   getGeocode,
@@ -42,7 +42,6 @@ const options = {
 
 export default function GoogleMapsPosts({ day }) {
   const { posts } = useContext(PostContext);
-  console.log(posts);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -69,6 +68,10 @@ export default function GoogleMapsPosts({ day }) {
           <Marker
             key={post.id}
             position={{ lat: post.location.lat, lng: post.location.lng }}
+            icon={{
+              url: "/images/marker_blue.svg",
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
           />
         ))}
       </GoogleMap>
