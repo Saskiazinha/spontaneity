@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Location {
-    private int lat;
-    private int lng;
+    private double lat;
+    private double lng;
     private String district;
 }
