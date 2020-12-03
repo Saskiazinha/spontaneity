@@ -5,6 +5,7 @@ import PostContent from "./PostContent";
 
 export default function Post({ post, renderName }) {
   const history = useHistory();
+  console.log(typeof post.location.lat);
   return (
     <PostStyled onClick={() => history.push("/posts/" + post.id)}>
       <TitleStyling>„{post.title}“</TitleStyling>

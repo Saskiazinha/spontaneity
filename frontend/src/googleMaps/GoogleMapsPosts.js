@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 // import styled from "styled-components/macro";
 import {
   GoogleMap,
   useLoadScript,
-  // Marker,
+  Marker,
   // InfoWindow,
 } from "@react-google-maps/api";
 // import usePlacesAutocomplete, {
@@ -23,6 +23,7 @@ import mapsStyles from "./mapsStyles";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import NavigationHeader from "../commons/navigation/NavigationHeader";
 import Footer from "../commons/navigation/Footer";
+import PostContext from "../contexts/PostContext";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -40,6 +41,7 @@ const options = {
 };
 
 export default function GoogleMapsPosts({ day }) {
+  const { posts } = useContext(PostContext);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -61,7 +63,14 @@ export default function GoogleMapsPosts({ day }) {
         zoom={8}
         center={center}
         options={options}
-      ></GoogleMap>
+      >
+        {posts.map((post) => (
+          <Marker
+            key={post.id}
+            position={{ lat: post.location.lat, lng: post.location.lng }}
+          />
+        ))}
+      </GoogleMap>
       <Footer />
     </>
   );
