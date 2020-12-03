@@ -110,6 +110,6 @@ const ButtonStyling = styled.button`
 `;
 
 const StyledImage = styled.img`
-  width: 36px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 `;
