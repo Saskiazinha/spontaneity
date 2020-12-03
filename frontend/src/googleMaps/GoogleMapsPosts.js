@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-// import styled from "styled-components/macro";
+import styled from "styled-components/macro";
 import {
   GoogleMap,
   useLoadScript,
@@ -54,26 +54,45 @@ export default function GoogleMapsPosts({ day }) {
   return (
     <>
       <SpontaneityHeader />
-      <NavigationHeader
-        title={"Posts of Friends"}
-        day={day}
-        postType={"posts"}
-      />
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
-        options={options}
-      >
-        {posts.map((post) => (
-          <Marker
-            key={post.id}
-            position={{ lat: post.location.lat, lng: post.location.lng }}
-            icon={renderMarker(post.statusLocation)}
-          />
-        ))}
-      </GoogleMap>
+      <NavStyling>
+        <NavigationHeader
+          title={"Posts of Friends"}
+          day={day}
+          postType={"posts"}
+        />
+      </NavStyling>
+      <MapsStyling>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={8}
+          center={center}
+          options={options}
+        >
+          {posts.map((post) => (
+            <Marker
+              key={post.id}
+              position={{ lat: post.location.lat, lng: post.location.lng }}
+              icon={renderMarker(post.statusLocation)}
+            />
+          ))}
+        </GoogleMap>
+      </MapsStyling>
       <Footer />
     </>
   );
 }
+
+const NavStyling = styled.div`
+  grid-row: 2/2;
+  position: absolute;
+  top: 55px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+`;
+
+const MapsStyling = styled.div`
+  grid-row: 2/4;
+  overflow: scroll;
+  position: relative;
+`;

@@ -59,6 +59,6 @@ export default App;
 
 const Layout = styled.main`
   display: grid;
-  grid-template-rows: 10% min-content 1fr 8%;
+  grid-template-rows: 50px min-content 1fr 50px;
   height: 100vh;
 `;
