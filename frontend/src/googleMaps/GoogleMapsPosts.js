@@ -24,6 +24,7 @@ import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import NavigationHeader from "../commons/navigation/NavigationHeader";
 import Footer from "../commons/navigation/Footer";
 import PostContext from "../contexts/PostContext";
+import { renderMarker } from "./Marker";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -68,10 +69,7 @@ export default function GoogleMapsPosts({ day }) {
           <Marker
             key={post.id}
             position={{ lat: post.location.lat, lng: post.location.lng }}
-            icon={{
-              url: "/images/marker_blue.svg",
-              scaledSize: new window.google.maps.Size(30, 30),
-            }}
+            icon={renderMarker(post.statusLocation)}
           />
         ))}
       </GoogleMap>
