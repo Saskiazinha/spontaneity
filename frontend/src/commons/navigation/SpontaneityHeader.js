@@ -79,7 +79,7 @@ const Menu = styled.nav`
   grid-template-rows: repeat(5, 50px);
   padding: var(--size-m) 0 0 var(--size-xl);
   background: var(--turquoise-main);
-  width: 145px;
+  width: 135px;
   height: 83vh;
   opacity: 0;
   visibility: hidden;
@@ -97,9 +97,11 @@ const Menu = styled.nav`
   ${(props) =>
     props.active &&
     css`
-      opacity: 0.9;
+      opacity: 0.95;
       visibility: visible;
       transform: translateX(0);
+      position: absolute;
+      z-index: 15;
     `}
 `;
 

@@ -64,7 +64,7 @@ export default function GoogleMapsPosts({ day }) {
       <MapsStyling>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={8}
+          zoom={11.75}
           center={center}
           options={options}
         >
