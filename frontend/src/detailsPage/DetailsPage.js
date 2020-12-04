@@ -141,7 +141,7 @@ const NotesStyling = styled.div`
 const StampStyling = styled.div`
   text-align: center;
   font-size: 0.7em;
-  margin: 0px;
+  margin: 0;
 `;
 
 const ColorCode = styled.div`
@@ -150,6 +150,6 @@ const ColorCode = styled.div`
   justify-content: space-evenly;
   align-items: center;
   p {
-    margin: 0px;
+    margin: 0;
   }
 `;
