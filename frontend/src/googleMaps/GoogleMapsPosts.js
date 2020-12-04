@@ -30,6 +30,8 @@ import { IconButtonStyled } from "../buttons/IconButtonStyled";
 import { MdFilterList } from "react-icons/md";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { getDate } from "../utils/DateUtils";
+import PostContent from "../commons/PostContent";
+import { BiDrink } from "react-icons/bi";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -64,6 +66,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
   const filteredPosts = postsToPass.filter(
     (post) => post.localDate === getDate(indexDay)
   );
+  const [selected, setSelected] = useState(null);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -94,8 +97,25 @@ export default function GoogleMapsPosts({ day, indexDay }) {
               key={post.id}
               position={{ lat: post.location.lat, lng: post.location.lng }}
               icon={renderMarker(post.statusLocation)}
+              onClick={() => setSelected(post)}
             />
           ))}
+          {selected && (
+            <InfoWindow
+              position={{
+                lat: selected.location.lat,
+                lng: selected.location.lng,
+              }}
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
+              <WindowStyling>
+                <NameStyled> {selected.creator}</NameStyled>
+                <PostContent post={selected} />
+              </WindowStyling>
+            </InfoWindow>
+          )}
         </GoogleMap>
       </MapsStyling>
       <Footer actions={getMapsFilterButtons()} />
@@ -136,4 +156,15 @@ const MapsStyling = styled.div`
   grid-row: 2/4;
   overflow: scroll;
   position: relative;
+`;
+
+const WindowStyling = styled.div`
+  text-align: center;
+`;
+
+const NameStyled = styled.p`
+  font-weight: bold;
+  font-size: 1.1em;
+  color: var(--turquoise-green);
+  margin: 0 0 2px 0;
 `;

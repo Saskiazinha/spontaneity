@@ -9,7 +9,7 @@ export default function Post({ post, renderName }) {
     <PostStyled onClick={() => history.push("/posts/" + post.id)}>
       <TitleStyling>„{post.title}“</TitleStyling>
       <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
-      <PostContent post={post} />
+      <PostContent post={post} renderLocation={true} />
     </PostStyled>
   );
 }

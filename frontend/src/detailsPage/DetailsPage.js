@@ -30,7 +30,6 @@ export default function DetailsPage() {
       return setPost(myPosts.find((myPost) => myPost.id === id));
     }
   }, [posts, myPosts, id]);
-  console.log(post);
 
   return (
     <>
@@ -41,7 +40,7 @@ export default function DetailsPage() {
         <TitleStyling>„{post.title}“</TitleStyling>
         <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
         <Content>
-          <PostContent post={post} />
+          <PostContent post={post} renderLocation={true} />
         </Content>
         <NotesStyling>
           <h4>Notes</h4>
