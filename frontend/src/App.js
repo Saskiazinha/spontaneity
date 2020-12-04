@@ -45,6 +45,12 @@ function App() {
             <ProtectedRoute path="/maps/today">
               <GoogleMapsPosts day={"Today"} indexDay={0} />
             </ProtectedRoute>
+            <ProtectedRoute path="/maps/tomorrow">
+              <GoogleMapsPosts day={"Tomorrow"} indexDay={1} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/maps/dayaftertomorrow">
+              <GoogleMapsPosts day={"Day After Tomorrow"} indexDay={2} />
+            </ProtectedRoute>
             <Route path="/">
               <Redirect to="/posts/today" />
             </Route>

@@ -79,7 +79,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
         <NavigationHeader
           title={"Posts of Friends"}
           day={day}
-          postType={"posts"}
+          postType={"maps"}
         />
       </NavStyling>
       <MapsStyling>
@@ -111,7 +111,12 @@ export default function GoogleMapsPosts({ day, indexDay }) {
       >
         <MdFilterList size={34} />
       </IconButtonStyled>,
-      <IconButtonStyled key="" onClick={() => history.push("/posts/" + day)}>
+      <IconButtonStyled
+        key="list"
+        onClick={() =>
+          history.push("/posts/" + day.toLowerCase().replace(/\s+/g, ""))
+        }
+      >
         <AiOutlineUnorderedList size={30} />
       </IconButtonStyled>,
     ];
