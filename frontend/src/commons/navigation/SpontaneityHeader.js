@@ -35,6 +35,7 @@ export default function SpontaneityHeader() {
           <GiHamburgerMenu size={30} />
         </MenuButton>
         <h1>Spontaneity</h1>
+        <StyledImage src="/images/logo.png" alt="logo" />
       </HeaderStyled>
       <Menu ref={dropdownRef} active={isActive}>
         <NavLink to="/posts/today">Home</NavLink>
@@ -108,4 +109,9 @@ const Menu = styled.nav`
 const ButtonStyling = styled.button`
   justify-self: start;
   font-size: 1.02em;
+`;
+
+const StyledImage = styled.img`
+  width: 30px;
+  height: 30px;
 `;

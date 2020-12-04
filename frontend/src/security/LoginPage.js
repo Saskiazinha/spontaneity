@@ -35,6 +35,7 @@ export default function LoginPage() {
         <SignUpStyling type="button" onClick={() => history.push("/signup")}>
           Sign Up
         </SignUpStyling>
+        <StyledImage src="/images/logo.png" alt="logo" />
       </FormStyling>
     </LoginStyling>
   );
@@ -61,7 +62,7 @@ const LoginStyling = styled.div`
 
 const FormStyling = styled.form`
   display: grid;
-  grid-template-rows: repeat(5, 20%);
+  grid-template-rows: repeat(6, 40px);
   justify-items: center;
   padding: var(--size-xxxl);
   gap: var(--size-xl);
@@ -88,4 +89,11 @@ const SignUpStyling = styled.button`
   color: var(--white-main);
   font-size: 1.15em;
   text-decoration-line: underline;
+`;
+
+const StyledImage = styled.img`
+  grid-row: 6;
+  padding-top: 30px;
+  width: 70px;
+  height: 70px;
 `;
