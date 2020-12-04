@@ -94,5 +94,5 @@ const Icon = styled.p`
 
 const Content = styled.p`
   margin: 0;
-  font-size: 0.8em;
+  font-size: 0.9em;
 `;
