@@ -5,7 +5,6 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 export default function NavigationHeader({ title, day, postType }) {
   const history = useHistory();
-  console.log(history.location.pathname);
   return (
     <NavigationStyled>
       <NavigationButton

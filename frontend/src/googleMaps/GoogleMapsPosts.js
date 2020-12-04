@@ -126,7 +126,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
 const NavStyling = styled.div`
   grid-row: 2/2;
   position: absolute;
-  top: 55px;
+  top: 50px;
   left: 0;
   right: 0;
   z-index: 10;
