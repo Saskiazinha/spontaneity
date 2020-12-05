@@ -31,7 +31,6 @@ import { MdFilterList } from "react-icons/md";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { getDate } from "../utils/DateUtils";
 import PostContent from "../commons/PostContent";
-import { BiDrink } from "react-icons/bi";
 
 const libraries = ["places"];
 const mapContainerStyle = {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { getDate } from "../utils/DateUtils";
+import SearchLocation from "../googleMaps/SearchLocation";
 
 const initialState = {
   title: "",
@@ -17,6 +18,7 @@ const initialState = {
 
 export default function PostForm({ onSave, post = initialState }) {
   const [postData, setPostData] = useState(post);
+  const [location, setLocation] = useState({ lat: "", lng: "", address: "" });
   return (
     <FormStyling onSubmit={handleSubmit}>
       <label htmlFor="Title">Title</label>
@@ -63,13 +65,16 @@ export default function PostForm({ onSave, post = initialState }) {
         <option value="BLUE">not flexible</option>
       </StatusTime>
       <Location htmlFor="location">Location</Location>
-      <LocationInput
-        name="location"
-        value={postData.location}
-        onChange={handleChange}
-        type="text"
-        required
-      />
+      <LocationInput>
+        <SearchLocation setLocation={setLocation} />
+      </LocationInput>
+      {/*<LocationInput*/}
+      {/*  name="location"*/}
+      {/*  value={postData.location}*/}
+      {/*  onChange={handleChange}*/}
+      {/*  type="text"*/}
+      {/*  required*/}
+      {/*/>*/}
       <StatusLocation
         name="statusLocation"
         value={postData.statusLocation}
@@ -195,7 +200,7 @@ const Location = styled.label`
   grid-column: 1;
 `;
 
-const LocationInput = styled.input`
+const LocationInput = styled.div`
   grid-row: 5;
   grid-column: 2;
 `;
