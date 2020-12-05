@@ -28,12 +28,13 @@ export default function AddPostPage() {
       startPoint,
       endPoint,
       statusTime,
-      location,
+      district,
       statusLocation,
       category,
       statusCategory,
       notes,
     } = post;
+    const { lat, lng, address } = locationData;
     editPost(
       id,
       title,
@@ -41,7 +42,10 @@ export default function AddPostPage() {
       startPoint,
       endPoint,
       statusTime,
-      location,
+      address,
+      district,
+      lat,
+      lng,
       statusLocation,
       category,
       statusCategory,
