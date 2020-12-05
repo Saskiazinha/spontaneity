@@ -66,7 +66,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
   const filteredPosts = postsToPass.filter(
     (post) => post.localDate === getDate(indexDay)
   );
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState("");
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -107,7 +107,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
                 lng: selected.location.lng,
               }}
               onCloseClick={() => {
-                setSelected(null);
+                setSelected("");
               }}
             >
               <WindowStyling>
