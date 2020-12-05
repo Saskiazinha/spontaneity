@@ -127,8 +127,8 @@ public class PostControllerTest {
         Instant instant= Instant.parse("2020-11-26T10:00:00Z");
 
         String url=getPostsUrl();
-        AddPostDto addPostDto= new AddPostDto("Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW, Location.builder().district("Altona").build(), EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
-        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post(id, "Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,Location.builder().district("Altona").build() , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant));
+        AddPostDto addPostDto= new AddPostDto("Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
+        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post(id, "Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432 , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant));
 
         when(mockedIdUtils.generateId()).thenReturn(id);
         when(mockedTimeStampUtils.generateTimestampInstant()).thenReturn(instant);
@@ -147,8 +147,8 @@ public class PostControllerTest {
         //Given
         String url=getPostsUrl()+"/555";
         Instant instant= Instant.parse("2020-11-26T10:00:00Z");
-        UpdatePostDto updatePostDto= new UpdatePostDto("555","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,Location.builder().district("Altona").build(), EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
-        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post("555", "Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,Location.builder().district("Altona").build() , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", instant));
+        UpdatePostDto updatePostDto= new UpdatePostDto("555","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post("555", "Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432 , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", instant));
 
         when(mockedTimeStampUtils.generateTimestampInstant()).thenReturn(instant);
 
@@ -166,7 +166,7 @@ public class PostControllerTest {
     public void updatePostOfOtherUserShouldReturnForbiddenTest(){
         //Given
         String url=getPostsUrl()+"/333";
-        UpdatePostDto updatePostDto= new UpdatePostDto("333","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,Location.builder().district("Altona").build(), EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto= new UpdatePostDto("333","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
 
 
         //When
@@ -182,7 +182,7 @@ public class PostControllerTest {
     public void updatePostWithoutMatchingIdsShouldReturnBadRequest(){
         //Given
         String url=getPostsUrl()+"/anId";
-        UpdatePostDto updatePostDto= new UpdatePostDto("someId","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,Location.builder().district("Altona").build(), EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto= new UpdatePostDto("someId","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
 
 
         //When
@@ -198,7 +198,7 @@ public class PostControllerTest {
     public void updateNotExistingPostShouldReturnNotFound(){
         //Given
         String url=getPostsUrl()+"/anId";
-        UpdatePostDto updatePostDto= new UpdatePostDto("anId","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,Location.builder().district("Altona").build(), EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto= new UpdatePostDto("anId","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
 
 
         //When

@@ -2,7 +2,6 @@ package de.neuefische.hh2020j1.spontaneity.dto;
 
 import de.neuefische.hh2020j1.spontaneity.model.EnumCategory;
 import de.neuefische.hh2020j1.spontaneity.model.EnumStatus;
-import de.neuefische.hh2020j1.spontaneity.model.Location;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,10 @@ public class SendPostDto {
     private LocalTime startPoint;
     private LocalTime endPoint;
     private EnumStatus statusTime;
-    private Location location;
+    private String address;
+    private String district;
+    private double lat;
+    private double lng;
     private EnumStatus statusLocation;
     private EnumCategory category;
     private EnumStatus statusCategory;

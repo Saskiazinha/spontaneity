@@ -23,7 +23,10 @@ public class Post {
     private Instant startPoint;
     private Instant endPoint;
     private EnumStatus statusTime;
-    private Location location;
+    private String address;
+    private String district;
+    private double lat;
+    private double lng;
     private EnumStatus statusLocation;
     private EnumCategory category;
     private EnumStatus statusCategory;
