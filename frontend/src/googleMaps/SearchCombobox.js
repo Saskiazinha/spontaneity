@@ -12,7 +12,7 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-export default function SearchLocationCombobox(setLocation) {
+export default function SearchLocationCombobox({ setLocationData }) {
   const {
     ready,
     value,
@@ -28,15 +28,17 @@ export default function SearchLocationCombobox(setLocation) {
 
   return (
     <div>
-      <p>test</p>
       <Combobox
         onSelect={async (address) => {
           try {
             const results = await getGeocode({ address });
-            console.log(results[0].types);
+            console.log(results[0]);
             const { lat, lng } = await getLatLng(results[0]);
-            setLocation({ lat: lat, lng: lng });
-            results[0].formatted_address;
+            setLocationData({
+              lat: lat,
+              lng: lng,
+              address: results[0].formatted_address,
+            });
           } catch (error) {
             console.log("error");
           }

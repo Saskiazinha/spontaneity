@@ -20,7 +20,7 @@ export default function AddPostPage() {
     </>
   );
 
-  function handleSave(post) {
+  function handleSave(post, locationData) {
     const {
       id,
       title,
