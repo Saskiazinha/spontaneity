@@ -1,4 +1,4 @@
-package de.neuefische.hh2020j1.spontaneity.utils;
+package de.neuefische.hh2020j1.spontaneity.model;
 
 public enum EnumCategory {
     Drinks("DR"),

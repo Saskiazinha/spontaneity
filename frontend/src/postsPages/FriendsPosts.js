@@ -50,7 +50,12 @@ export default function FriendsPosts({ day, indexDay }) {
       >
         <MdFilterList size={34} />
       </IconButtonStyled>,
-      <IconButtonStyled key="maps" onClick={() => history.push("/maps/today")}>
+      <IconButtonStyled
+        key="maps"
+        onClick={() =>
+          history.push("/maps/" + day.toLowerCase().replace(/\s+/g, ""))
+        }
+      >
         <SiGooglemaps size={30} />
       </IconButtonStyled>,
     ];

@@ -43,7 +43,13 @@ function App() {
             <ProtectedRoute path="/add" component={AddPostPage} />
             <ProtectedRoute path="/update:id" component={UpdatePostPage} />
             <ProtectedRoute path="/maps/today">
-              <GoogleMapsPosts />
+              <GoogleMapsPosts day={"Today"} indexDay={0} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/maps/tomorrow">
+              <GoogleMapsPosts day={"Tomorrow"} indexDay={1} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/maps/dayaftertomorrow">
+              <GoogleMapsPosts day={"Day After Tomorrow"} indexDay={2} />
             </ProtectedRoute>
             <Route path="/">
               <Redirect to="/posts/today" />
@@ -59,6 +65,6 @@ export default App;
 
 const Layout = styled.main`
   display: grid;
-  grid-template-rows: 10% min-content 1fr 8%;
+  grid-template-rows: 50px min-content 1fr 50px;
   height: 100vh;
 `;

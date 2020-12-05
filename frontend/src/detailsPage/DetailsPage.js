@@ -30,7 +30,6 @@ export default function DetailsPage() {
       return setPost(myPosts.find((myPost) => myPost.id === id));
     }
   }, [posts, myPosts, id]);
-  console.log(post);
 
   return (
     <>
@@ -41,7 +40,7 @@ export default function DetailsPage() {
         <TitleStyling>„{post.title}“</TitleStyling>
         <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
         <Content>
-          <PostContent post={post} />
+          <PostContent post={post} renderLocation={true} />
         </Content>
         <NotesStyling>
           <h4>Notes</h4>
@@ -141,7 +140,7 @@ const NotesStyling = styled.div`
 const StampStyling = styled.div`
   text-align: center;
   font-size: 0.7em;
-  margin: 0px;
+  margin: 0;
 `;
 
 const ColorCode = styled.div`
@@ -150,6 +149,6 @@ const ColorCode = styled.div`
   justify-content: space-evenly;
   align-items: center;
   p {
-    margin: 0px;
+    margin: 0;
   }
 `;

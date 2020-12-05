@@ -35,6 +35,7 @@ export default function SpontaneityHeader() {
           <GiHamburgerMenu size={30} />
         </MenuButton>
         <h1>Spontaneity</h1>
+        <StyledImage src="/images/logo.png" alt="logo" />
       </HeaderStyled>
       <Menu ref={dropdownRef} active={isActive}>
         <NavLink to="/posts/today">Home</NavLink>
@@ -79,7 +80,7 @@ const Menu = styled.nav`
   grid-template-rows: repeat(5, 50px);
   padding: var(--size-m) 0 0 var(--size-xl);
   background: var(--turquoise-main);
-  width: 145px;
+  width: 135px;
   height: 83vh;
   opacity: 0;
   visibility: hidden;
@@ -97,13 +98,20 @@ const Menu = styled.nav`
   ${(props) =>
     props.active &&
     css`
-      opacity: 0.9;
+      opacity: 0.95;
       visibility: visible;
       transform: translateX(0);
+      position: absolute;
+      z-index: 15;
     `}
 `;
 
 const ButtonStyling = styled.button`
   justify-self: start;
   font-size: 1.02em;
+`;
+
+const StyledImage = styled.img`
+  width: 30px;
+  height: 30px;
 `;

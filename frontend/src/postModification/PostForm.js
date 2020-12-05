@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { getDate } from "../utils/DateUtils";
+import SearchLocation from "../googleMaps/SearchLocation";
 
 const initialState = {
   title: "",
@@ -8,7 +9,7 @@ const initialState = {
   startPoint: "",
   endPoint: "",
   statusTime: "GREEN",
-  location: "",
+  district: "",
   statusLocation: "GREEN",
   category: "Drinks",
   statusCategory: "GREEN",
@@ -17,6 +18,12 @@ const initialState = {
 
 export default function PostForm({ onSave, post = initialState }) {
   const [postData, setPostData] = useState(post);
+  const [locationData, setLocationData] = useState({
+    lat: "",
+    lng: "",
+    address: "",
+  });
+
   return (
     <FormStyling onSubmit={handleSubmit}>
       <label htmlFor="Title">Title</label>
@@ -25,6 +32,8 @@ export default function PostForm({ onSave, post = initialState }) {
         value={postData.title}
         onChange={handleChange}
         type="text"
+        placeholder="max. 20 characters"
+        maxLength="20"
         required
       />
       <Date htmlFor="localDate">Date</Date>
@@ -63,13 +72,22 @@ export default function PostForm({ onSave, post = initialState }) {
         <option value="BLUE">not flexible</option>
       </StatusTime>
       <Location htmlFor="location">Location</Location>
-      <LocationInput
-        name="location"
-        value={postData.location}
+      <LocationInput>
+        <SearchLocation
+          setLocationData={setLocationData}
+          postAddress={post.address}
+        />
+      </LocationInput>
+      <District htmlFor="district">District</District>
+      <DistrictInput
+        name="district"
+        value={postData.district}
         onChange={handleChange}
         type="text"
+        placeholder="Enter district"
         required
       />
+
       <StatusLocation
         name="statusLocation"
         value={postData.statusLocation}
@@ -104,7 +122,12 @@ export default function PostForm({ onSave, post = initialState }) {
       </StatusCategory>
       <Notes>
         Notes
-        <textarea name="notes" value={postData.notes} onChange={handleChange} />
+        <textarea
+          name="notes"
+          value={postData.notes}
+          onChange={handleChange}
+          maxLength="300"
+        />
       </Notes>
       <Button>Save</Button>
     </FormStyling>
@@ -115,39 +138,22 @@ export default function PostForm({ onSave, post = initialState }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    onSave(postData);
+    onSave(postData, locationData);
   }
 }
 
 const FormStyling = styled.form`
   display: grid;
   grid-template-columns: min-content 110px 92px;
-  grid-template-rows: repeat(6, min-content) 1fr min-content;
+  grid-template-rows: repeat(7, min-content) 1fr min-content;
   column-gap: var(--size-s);
-  row-gap: 20px;
+  row-gap: 16px;
   align-items: center;
   background-color: var(--turquoise-bright);
   box-shadow: 3px 3px 3px #95b0b4;
   border-radius: 20px;
   padding: var(--size-xl) var(--size-m);
   margin: 0 var(--size-xl) var(--size-l) var(--size-xl);
-`;
-
-const Notes = styled.label`
-  grid-row: 7;
-  grid-column: span 3;
-  display: grid;
-  textarea {
-    height: 80px;
-  }
-`;
-
-const Button = styled.button`
-  grid-row: 8;
-  grid-column: 1/4;
-  justify-self: center;
-  height: 30px;
-  width: 100px;
 `;
 
 const TitleInput = styled.input`
@@ -195,27 +201,54 @@ const Location = styled.label`
   grid-column: 1;
 `;
 
-const LocationInput = styled.input`
+const LocationInput = styled.div`
   grid-row: 5;
   grid-column: 2;
 `;
 
-const StatusLocation = styled.select`
-  grid-row: 5;
-  grid-column: 3;
-`;
-
-const Category = styled.label`
+const District = styled.label`
   grid-row: 6;
   grid-column: 1;
 `;
 
-const CategorySelect = styled.select`
+const DistrictInput = styled.input`
   grid-row: 6;
   grid-column: 2;
 `;
 
-const StatusCategory = styled.select`
+const StatusLocation = styled.select`
   grid-row: 6;
   grid-column: 3;
+`;
+
+const Category = styled.label`
+  grid-row: 7;
+  grid-column: 1;
+`;
+
+const CategorySelect = styled.select`
+  grid-row: 7;
+  grid-column: 2;
+`;
+
+const StatusCategory = styled.select`
+  grid-row: 7;
+  grid-column: 3;
+`;
+
+const Notes = styled.label`
+  grid-row: 8;
+  grid-column: span 3;
+  display: grid;
+  textarea {
+    height: 80px;
+  }
+`;
+
+const Button = styled.button`
+  grid-row: 9;
+  grid-column: 1/4;
+  justify-self: center;
+  height: 30px;
+  width: 100px;
 `;

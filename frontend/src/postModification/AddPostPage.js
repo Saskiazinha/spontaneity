@@ -18,26 +18,30 @@ export default function AddPostPage() {
     </>
   );
 
-  function handleSave(post) {
+  function handleSave(post, locationData) {
     const {
       title,
       localDate,
       startPoint,
       endPoint,
       statusTime,
-      location,
+      district,
       statusLocation,
       category,
       statusCategory,
       notes,
     } = post;
+    const { lat, lng, address } = locationData;
     createPost(
       title,
       localDate,
       startPoint,
       endPoint,
       statusTime,
-      location,
+      address,
+      district,
+      lat,
+      lng,
       statusLocation,
       category,
       statusCategory,
