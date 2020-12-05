@@ -203,7 +203,7 @@ const Location = styled.label`
 
 const LocationInput = styled.div`
   grid-row: 5;
-  grid-column: 2/2;
+  grid-column: 2;
 `;
 
 const District = styled.label`

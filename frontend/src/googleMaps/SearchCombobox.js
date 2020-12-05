@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components/macro";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -41,7 +42,6 @@ export default function SearchLocationCombobox({
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            console.log(results[0]);
             setValue(address, false);
             setLocationData({
               lat: lat,
