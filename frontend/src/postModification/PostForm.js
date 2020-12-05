@@ -72,7 +72,10 @@ export default function PostForm({ onSave, post = initialState }) {
       </StatusTime>
       <Location htmlFor="location">Location</Location>
       <LocationInput>
-        <SearchLocation setLocationData={setLocationData} />
+        <SearchLocation
+          setLocationData={setLocationData}
+          postAddress={post.address}
+        />
       </LocationInput>
       <District htmlFor="district">District</District>
       <DistrictInput
@@ -138,7 +141,7 @@ const FormStyling = styled.form`
   grid-template-columns: min-content 110px 92px;
   grid-template-rows: repeat(7, min-content) 1fr min-content;
   column-gap: var(--size-s);
-  row-gap: 20px;
+  row-gap: 16px;
   align-items: center;
   background-color: var(--turquoise-bright);
   box-shadow: 3px 3px 3px #95b0b4;

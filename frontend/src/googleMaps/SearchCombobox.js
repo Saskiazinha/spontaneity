@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -7,12 +7,16 @@ import {
   Combobox,
   ComboboxInput,
   ComboboxPopover,
-  ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-export default function SearchLocationCombobox({ setLocationData }) {
+const initialState = "abc";
+
+export default function SearchLocationCombobox({
+  setLocationData,
+  postAddress = initialState,
+}) {
   const {
     ready,
     value,
@@ -26,19 +30,25 @@ export default function SearchLocationCombobox({ setLocationData }) {
     },
   });
 
+  useEffect(() => {
+    setValue(postAddress, false);
+  }, []);
+
   return (
     <div>
       <Combobox
         onSelect={async (address) => {
           try {
             const results = await getGeocode({ address });
-            console.log(results[0]);
             const { lat, lng } = await getLatLng(results[0]);
+            console.log(results[0]);
+            setValue(address, false);
             setLocationData({
               lat: lat,
               lng: lng,
               address: results[0].formatted_address,
             });
+            clearSuggestions();
           } catch (error) {
             console.log("error");
           }

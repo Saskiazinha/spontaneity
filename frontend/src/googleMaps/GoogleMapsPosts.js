@@ -7,18 +7,6 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-// import usePlacesAutocomplete, {
-//   getGeocode,
-//   getLatLng,
-// } from "use-places-autocomplete";
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption,
-// } from "@reach/combobox";
-// import { formatRelative } from "date-fns";
 import "@reach/combobox/styles.css";
 import mapsStyles from "./mapsStyles";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
@@ -94,7 +82,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
           {filteredPosts.map((post) => (
             <Marker
               key={post.id}
-              position={{ lat: post.location.lat, lng: post.location.lng }}
+              position={{ lat: post.lat, lng: post.lng }}
               icon={renderMarker(post.statusLocation)}
               onClick={() => setSelected(post)}
             />
@@ -102,8 +90,8 @@ export default function GoogleMapsPosts({ day, indexDay }) {
           {selected && (
             <InfoWindow
               position={{
-                lat: selected.location.lat,
-                lng: selected.location.lng,
+                lat: selected.lat,
+                lng: selected.lng,
               }}
               onCloseClick={() => {
                 setSelected("");

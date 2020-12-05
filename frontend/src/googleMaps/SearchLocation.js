@@ -5,7 +5,7 @@ import SearchLocationCombobox from "./SearchCombobox";
 
 const libraries = ["places"];
 
-export default function SearchLocation({ setLocationData }) {
+export default function SearchLocation({ setLocationData, postAddress }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -15,7 +15,10 @@ export default function SearchLocation({ setLocationData }) {
 
   return (
     <div>
-      <SearchLocationCombobox setLocationData={setLocationData} />
+      <SearchLocationCombobox
+        setLocationData={setLocationData}
+        postAddress={postAddress}
+      />
     </div>
   );
 }
