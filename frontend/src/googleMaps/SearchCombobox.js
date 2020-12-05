@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import styled from "styled-components/macro";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -33,6 +32,7 @@ export default function SearchLocationCombobox({
 
   useEffect(() => {
     setValue(postAddress, false);
+    // eslint-disable-next-line
   }, []);
 
   return (
