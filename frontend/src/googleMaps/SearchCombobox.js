@@ -11,7 +11,7 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-const initialState = "abc";
+const initialState = "";
 
 export default function SearchLocationCombobox({
   setLocationData,
