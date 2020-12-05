@@ -32,7 +32,8 @@ export default function PostForm({ onSave, post = initialState }) {
         value={postData.title}
         onChange={handleChange}
         type="text"
-        placeholder="Enter a short title"
+        placeholder="max. 20 characters"
+        maxLength="20"
         required
       />
       <Date htmlFor="localDate">Date</Date>
@@ -121,7 +122,12 @@ export default function PostForm({ onSave, post = initialState }) {
       </StatusCategory>
       <Notes>
         Notes
-        <textarea name="notes" value={postData.notes} onChange={handleChange} />
+        <textarea
+          name="notes"
+          value={postData.notes}
+          onChange={handleChange}
+          maxLength="300"
+        />
       </Notes>
       <Button>Save</Button>
     </FormStyling>
