@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import styled from "styled-components/macro";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import NavigationHeader from "../commons/navigation/NavigationHeader";
 import PostContext from "../contexts/PostContext";
@@ -6,8 +7,8 @@ import PostList from "../commons/PostList";
 import { getDate } from "../utils/DateUtils";
 import Footer from "../commons/navigation/Footer";
 import { IconButtonStyled } from "../buttons/IconButtonStyled";
-import { MdFilterList } from "react-icons/md";
 import { SiGooglemaps } from "react-icons/si";
+import { MdGroup } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 
 export default function FriendsPosts({ day, indexDay }) {
@@ -48,7 +49,7 @@ export default function FriendsPosts({ day, indexDay }) {
         onClick={() => setFilterActive(!filterActive)}
         active={filterActive}
       >
-        <MdFilterList size={34} />
+        <IconClock src="/images/clocks.png" alt="clocks" />
       </IconButtonStyled>,
       <IconButtonStyled
         key="maps"
@@ -61,3 +62,7 @@ export default function FriendsPosts({ day, indexDay }) {
     ];
   }
 }
+
+const IconClock = styled.img`
+  width: 45px;
+`;

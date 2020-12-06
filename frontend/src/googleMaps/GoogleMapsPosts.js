@@ -132,7 +132,8 @@ export default function GoogleMapsPosts({ day, indexDay }) {
 
 const NavStyling = styled.div`
   grid-row: 2/2;
-  position: absolute;
+  grid-column: 1;
+  justify-self: center;
   top: 50px;
   left: 0;
   right: 0;
@@ -141,6 +142,7 @@ const NavStyling = styled.div`
 
 const MapsStyling = styled.div`
   grid-row: 2/4;
+  grid-column: 1;
   overflow: scroll;
   position: relative;
 `;
