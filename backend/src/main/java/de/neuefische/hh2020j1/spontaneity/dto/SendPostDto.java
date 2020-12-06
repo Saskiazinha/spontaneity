@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -30,6 +31,6 @@ public class SendPostDto {
     private EnumCategory category;
     private EnumStatus statusCategory;
     private String notes;
-    private Instant timestamp;
+    private LocalDateTime timestamp;
 }
 

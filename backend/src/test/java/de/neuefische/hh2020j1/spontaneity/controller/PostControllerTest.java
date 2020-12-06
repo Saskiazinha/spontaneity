@@ -171,7 +171,7 @@ public class PostControllerTest {
 
         //When
         HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
-        ResponseEntity <SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,SendPostDto.class);
+        ResponseEntity <Void> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,Void.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.FORBIDDEN));
@@ -187,7 +187,7 @@ public class PostControllerTest {
 
         //When
         HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
-        ResponseEntity <SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,SendPostDto.class);
+        ResponseEntity <Void> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,Void.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.BAD_REQUEST));
@@ -203,7 +203,7 @@ public class PostControllerTest {
 
         //When
         HttpEntity <UpdatePostDto> entity=getValidAuthorizationEntity(updatePostDto);
-        ResponseEntity <SendPostDto> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,SendPostDto.class);
+        ResponseEntity <Void> response=testRestTemplate.exchange(url,HttpMethod.PUT,entity,Void.class);
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.NOT_FOUND));
