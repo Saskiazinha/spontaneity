@@ -1,5 +1,4 @@
-// eslint-disable-next-line
-export default [
+export const mapsStyles = [
   {
     featureType: "all",
     elementType: "geometry.fill",
