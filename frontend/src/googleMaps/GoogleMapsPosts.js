@@ -116,7 +116,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
         onClick={() => setFilterActive(!filterActive)}
         active={filterActive}
       >
-        <MdFilterList size={34} />
+        <IconClock src="/images/peopleClock.png" alt="clocks" />
       </IconButtonStyled>,
       <IconButtonStyled
         key="list"
@@ -156,4 +156,8 @@ const NameStyled = styled.p`
   font-size: 1.1em;
   color: var(--turquoise-green);
   margin: 0 0 2px 0;
+`;
+
+const IconClock = styled.img`
+  width: 33px;
 `;
