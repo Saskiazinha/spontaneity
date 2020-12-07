@@ -8,7 +8,6 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import "@reach/combobox/styles.css";
-import mapsStyles from "./mapsStyles";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import NavigationHeader from "../commons/navigation/NavigationHeader";
 import Footer from "../commons/navigation/Footer";
@@ -18,6 +17,7 @@ import { IconButtonStyled } from "../buttons/IconButtonStyled";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { getDate } from "../utils/DateUtils";
 import PostContent from "../commons/PostContent";
+import { mapsStyles } from "./mapsStyles";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -56,6 +56,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    version: "3.42.9",
     libraries,
   });
   if (loadError) return "Error loading maps";

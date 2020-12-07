@@ -75,7 +75,7 @@ export default function PostContent({ post, renderLocation }) {
     if (post.category === "Party") {
       return <GiPartyFlags color={color} />;
     }
-    if (post.category === "Party") {
+    if (post.category === "Hangout") {
       return <GiSofa color={color} />;
     }
   }
