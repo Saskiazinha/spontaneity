@@ -3,10 +3,7 @@ package de.neuefische.hh2020j1.spontaneity.utils;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +29,7 @@ public class ParseUtils {
                         post.getCategory(),
                         post.getStatusCategory(),
                         post.getNotes(),
-                        post.getTimestamp()))
+                        LocalDateTime.ofInstant(post.getTimestamp(),ZoneId.of("Europe/Berlin"))))
                         .collect(Collectors.toList());
 
 
@@ -58,7 +55,7 @@ public class ParseUtils {
                         sendPost.getCategory(),
                         sendPost.getStatusCategory(),
                         sendPost.getNotes(),
-                        sendPost.getTimestamp()))
+                        sendPost.getTimestamp().atZone(ZoneId.of("Europe/Berlin")).toInstant()))
                         .collect(Collectors.toList());
     }
 
@@ -79,7 +76,7 @@ public class ParseUtils {
                 post.getCategory(),
                 post.getStatusCategory(),
                 post.getNotes(),
-                post.getTimestamp());
+                LocalDateTime.ofInstant(post.getTimestamp(),ZoneId.of("Europe/Berlin")));
 
     }
 
@@ -99,7 +96,7 @@ public class ParseUtils {
                 sendPost.getCategory(),
                 sendPost.getStatusCategory(),
                 sendPost.getNotes(),
-                sendPost.getTimestamp());
+                sendPost.getTimestamp().atZone(ZoneId.of("Europe/Berlin")).toInstant());
     }
 }
 

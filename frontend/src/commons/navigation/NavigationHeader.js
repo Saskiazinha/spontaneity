@@ -60,7 +60,7 @@ const NavigationStyled = styled.div`
   display: grid;
   grid-template-columns: 50px 212px 50px;
   margin: var(--size-s) var(--size-xl);
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
 
   h2,
