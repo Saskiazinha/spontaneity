@@ -49,7 +49,7 @@ export default function FriendsPosts({ day, indexDay }) {
         onClick={() => setFilterActive(!filterActive)}
         active={filterActive}
       >
-        <IconClock src="/images/clocks.png" alt="clocks" />
+        <IconClock src="/images/peopleClock.png" alt="clocks" />
       </IconButtonStyled>,
       <IconButtonStyled
         key="maps"
@@ -64,5 +64,5 @@ export default function FriendsPosts({ day, indexDay }) {
 }
 
 const IconClock = styled.img`
-  width: 45px;
+  width: 33px;
 `;
