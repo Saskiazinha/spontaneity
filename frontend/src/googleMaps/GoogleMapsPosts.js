@@ -15,7 +15,6 @@ import Footer from "../commons/navigation/Footer";
 import PostContext from "../contexts/PostContext";
 import { renderMarker } from "./Marker";
 import { IconButtonStyled } from "../buttons/IconButtonStyled";
-import { MdFilterList } from "react-icons/md";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { getDate } from "../utils/DateUtils";
 import PostContent from "../commons/PostContent";

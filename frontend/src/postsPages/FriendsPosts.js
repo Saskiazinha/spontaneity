@@ -8,7 +8,6 @@ import { getDate } from "../utils/DateUtils";
 import Footer from "../commons/navigation/Footer";
 import { IconButtonStyled } from "../buttons/IconButtonStyled";
 import { SiGooglemaps } from "react-icons/si";
-import { MdGroup } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 
 export default function FriendsPosts({ day, indexDay }) {
