@@ -1,5 +1,6 @@
 package de.neuefische.hh2020j1.spontaneity.security;
 
+import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

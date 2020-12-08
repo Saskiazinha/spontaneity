@@ -1,5 +1,6 @@
 package de.neuefische.hh2020j1.spontaneity.service;
 
+import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
