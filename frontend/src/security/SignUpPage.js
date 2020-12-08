@@ -4,8 +4,16 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 import LoginButton from "../buttons/LoginButton";
 
+const initialState = {
+  username: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  password: "",
+};
+
 export default function SignUpPage() {
-  const [username, setUsername] = useState("");
+  const [signUpData, setSignUpData] = useState(initialState);
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [errorFrontend, setErrorFrontend] = useState("");
@@ -20,9 +28,33 @@ export default function SignUpPage() {
         <LabelStyled>
           <input
             name={"username"}
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={signUpData.username}
+            onChange={handleChange}
             placeholder="Set username"
+          />
+        </LabelStyled>
+        <LabelStyled>
+          <input
+            name={"email"}
+            value={signUpData.email}
+            onChange={handleChange}
+            placeholder="Enter email address"
+          />
+        </LabelStyled>
+        <LabelStyled>
+          <input
+            name={"firstName"}
+            value={signUpData.firstName}
+            onChange={handleChange}
+            placeholder="Enter first name"
+          />
+        </LabelStyled>
+        <LabelStyled>
+          <input
+            name={"lastName"}
+            value={signUpData.lastName}
+            onChange={handleChange}
+            placeholder="Enter last name"
           />
         </LabelStyled>
         <LabelStyled>
@@ -61,12 +93,16 @@ export default function SignUpPage() {
     </SignUpStyling>
   );
 
+  function handleChange(event) {
+    setSignUpData({ ...signUpData, [event.target.name]: event.target.value });
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     try {
       checkIfPasswordMatch();
       validatePassword();
-      const signUpData = { username: username, password: password1 };
+      setSignUpData({ ...signUpData, password: password1 });
 
       postSignUp(signUpData)
         .then(() => history.push("/login"))
@@ -79,7 +115,7 @@ export default function SignUpPage() {
   function clearForm() {
     setPassword1("");
     setPassword2("");
-    setUsername("");
+    setSignUpData(initialState);
   }
 
   function checkIfPasswordMatch() {
@@ -130,10 +166,9 @@ const SignUpStyling = styled.div`
 
 const FormStyling = styled.form`
   display: grid;
-  //grid-template-rows: 50px 50px 50px 50px 50px 70px;
-  grid-template-rows: 12.5% 12.5% 12.5% 12.5% 12.5% 1fr;
+  grid-template-rows: repeat(7, 30px) 1fr;
   justify-items: center;
-  padding: var(--size-xxxl);
+  padding: var(--size-m) var(--size-xxxl);
   gap: var(--size-xl);
 `;
 
