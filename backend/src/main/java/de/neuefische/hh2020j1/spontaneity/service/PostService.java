@@ -40,17 +40,17 @@ public class PostService {
 
     public List<Post> getFriendsPosts(String principalName) {
         Query querySortForTime = new Query();
-        querySortForTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        querySortForTime.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
         return posts.stream()
-                .filter(post->(!Objects.equals(principalName,post.getCreator())))
-                        .collect(Collectors.toList());
+                .filter(post -> (!Objects.equals(principalName, post.getCreator())))
+                .collect(Collectors.toList());
     }
 
-    public List<Post> getPostsOfUser(String principalName){
+    public List<Post> getPostsOfUser(String principalName) {
         Query queryPostsForUser = new Query();
-        queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        queryPostsForUser.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
 
         return mongoTemplate.find(queryPostsForUser, Post.class);
@@ -58,12 +58,12 @@ public class PostService {
     }
 
     public List<Post> getMatchingPosts(String principalName) {
-        List<Post>userPosts=getPostsOfUser(principalName);
-        List<Post>friendsPosts= getFriendsPosts(principalName);
+        List<Post> userPosts = getPostsOfUser(principalName);
+        List<Post> friendsPosts = getFriendsPosts(principalName);
 
-        List<Post>matchingPosts=new ArrayList<>();
+        List<Post> matchingPosts = new ArrayList<>();
 
-        userPosts.forEach(((userPost)-> {
+        userPosts.forEach(((userPost) -> {
             matchingPosts.addAll(friendsPosts.stream().
                     filter(post -> (post.getStartPoint().isBefore(userPost.getEndPoint()) && post.getEndPoint().isAfter(userPost.getStartPoint())))
                     .collect(Collectors.toList()));
@@ -98,13 +98,13 @@ public class PostService {
 
 
     public SendPostDto updatePost(String principalName, UpdatePostDto postUpdate) {
-        Post postToBeUpdated =postDao.findById(postUpdate.getId()).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Post postToBeUpdated = postDao.findById(postUpdate.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (!Objects.equals(principalName,postToBeUpdated.getCreator())){
+        if (!Objects.equals(principalName, postToBeUpdated.getCreator())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
-        Post updatedPost= Post.builder()
+        Post updatedPost = Post.builder()
                 .id(postUpdate.getId())
                 .creator(principalName)
                 .title(postUpdate.getTitle())
@@ -127,14 +127,15 @@ public class PostService {
     }
 
     public void deletePost(String principalName, String postId) {
-        Post postToDelete=postDao.findById(postId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Post postToDelete = postDao.findById(postId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if(!Objects.equals(principalName,postToDelete.getCreator())){
+        if (!Objects.equals(principalName, postToDelete.getCreator())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         postDao.deleteById(postId);
     }
 
-
 }
+
+
