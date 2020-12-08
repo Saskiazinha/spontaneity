@@ -62,7 +62,9 @@ export default function SignUpPage() {
             name={"password1"}
             value={password1}
             type={"password"}
-            onChange={(event) => setPassword1(event.target.value)}
+            onChange={(event) => {
+              setPassword1(event.target.value);
+            }}
             placeholder="Set password"
           />
         </LabelStyled>
@@ -109,21 +111,19 @@ export default function SignUpPage() {
         .catch((error) => setErrorBackend(error.response.status));
     } catch (e) {
       setErrorFrontend(e.message);
+      clearPasswords();
     }
   }
 
-  function clearForm() {
+  function clearPasswords() {
     setPassword1("");
     setPassword2("");
-    setSignUpData(initialState);
   }
 
   function checkIfPasswordMatch() {
     if (password1 !== password2) {
-      clearForm();
       throw new Error("Passwords are not matching!");
     }
-    clearForm();
   }
 
   function validatePassword() {
