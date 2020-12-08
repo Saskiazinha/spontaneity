@@ -1,7 +1,6 @@
 package de.neuefische.hh2020j1.spontaneity.controller;
 
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
-import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.dto.AddPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.UpdatePostDto;

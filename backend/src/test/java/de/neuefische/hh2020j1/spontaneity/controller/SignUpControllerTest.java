@@ -1,6 +1,5 @@
 package de.neuefische.hh2020j1.spontaneity.controller;
 
-import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
