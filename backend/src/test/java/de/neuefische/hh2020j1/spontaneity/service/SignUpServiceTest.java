@@ -23,7 +23,7 @@ public class SignUpServiceTest {
     void signUpTest() {
         //Given
         when(userDao.findById("Fiene")).thenReturn(Optional.empty());
-        SpontaneityUser fiene= new SpontaneityUser("Fiene","1234");
+        SpontaneityUser fiene= SpontaneityUser.builder().username("Fiene").password("1234").build();
 
         // When
        Optional<String> user= signUpService.signUp(fiene);
@@ -36,7 +36,7 @@ public class SignUpServiceTest {
     @DisplayName("The \"signUp\" method with an already excisting user should return HttpStatus.FORBIDDEN")
     void signUpWithExistingUserDetailsTest() {
         //Given
-        SpontaneityUser fiene = new SpontaneityUser("Fiene", "1234");
+        SpontaneityUser fiene = SpontaneityUser.builder().username("Fiene").password("1234").build();
         when(userDao.findById("Fiene")).thenReturn(Optional.of(fiene));
 
         // When

@@ -42,7 +42,7 @@ public class LoginControllerTest {
     public void setupUser(){
         userDao.deleteAll();
         String password=new BCryptPasswordEncoder().encode("a-password");
-        userDao.save(new SpontaneityUser("saskia", password));
+        userDao.save(SpontaneityUser.builder().username("saskia").password(password).build());
     }
 
     @Test

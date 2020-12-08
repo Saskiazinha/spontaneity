@@ -4,8 +4,16 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 import LoginButton from "../buttons/LoginButton";
 
+const initialState = {
+  username: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  password: "",
+};
+
 export default function SignUpPage() {
-  const [username, setUsername] = useState("");
+  const [signUpData, setSignUpData] = useState(initialState);
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [errorFrontend, setErrorFrontend] = useState("");
@@ -20,9 +28,37 @@ export default function SignUpPage() {
         <LabelStyled>
           <input
             name={"username"}
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={signUpData.username}
+            onChange={handleChange}
             placeholder="Set username"
+            required
+          />
+        </LabelStyled>
+        <LabelStyled>
+          <input
+            name={"email"}
+            value={signUpData.email}
+            onChange={handleChange}
+            placeholder="Enter email address"
+            required
+          />
+        </LabelStyled>
+        <LabelStyled>
+          <input
+            name={"firstName"}
+            value={signUpData.firstName}
+            onChange={handleChange}
+            placeholder="Enter first name"
+            required
+          />
+        </LabelStyled>
+        <LabelStyled>
+          <input
+            name={"lastName"}
+            value={signUpData.lastName}
+            onChange={handleChange}
+            placeholder="Enter last name"
+            required
           />
         </LabelStyled>
         <LabelStyled>
@@ -32,6 +68,7 @@ export default function SignUpPage() {
             type={"password"}
             onChange={(event) => setPassword1(event.target.value)}
             placeholder="Set password"
+            required
           />
         </LabelStyled>
         <LabelStyled>
@@ -41,13 +78,14 @@ export default function SignUpPage() {
             type={"password"}
             onChange={(event) => setPassword2(event.target.value)}
             placeholder="Repeat password"
+            required
           />
         </LabelStyled>
         <LoginButton type="submit">Sign Up</LoginButton>
         <ErrorStyling>
           {errorFrontend ?? <p>{errorFrontend}</p>}
-          {errorBackend === 400 && <p>Username already exists</p>}
-          {errorBackend === 403 && <p> Password is not valid</p>}
+          {errorBackend === 400 && <p>Username already exists.</p>}
+          {errorBackend === 403 && <p> Password is not valid.</p>}
         </ErrorStyling>
         <TextStyled>
           <h4>Please note:</h4>
@@ -61,33 +99,35 @@ export default function SignUpPage() {
     </SignUpStyling>
   );
 
+  function handleChange(event) {
+    setSignUpData({ ...signUpData, [event.target.name]: event.target.value });
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     try {
       checkIfPasswordMatch();
       validatePassword();
-      const signUpData = { username: username, password: password1 };
+      const signUpDataWithPassword = { ...signUpData, password: password1 };
 
-      postSignUp(signUpData)
+      postSignUp(signUpDataWithPassword)
         .then(() => history.push("/login"))
         .catch((error) => setErrorBackend(error.response.status));
     } catch (e) {
       setErrorFrontend(e.message);
+      clearPasswords();
     }
   }
 
-  function clearForm() {
+  function clearPasswords() {
     setPassword1("");
     setPassword2("");
-    setUsername("");
   }
 
   function checkIfPasswordMatch() {
     if (password1 !== password2) {
-      clearForm();
       throw new Error("Passwords are not matching!");
     }
-    clearForm();
   }
 
   function validatePassword() {
@@ -130,10 +170,9 @@ const SignUpStyling = styled.div`
 
 const FormStyling = styled.form`
   display: grid;
-  //grid-template-rows: 50px 50px 50px 50px 50px 70px;
-  grid-template-rows: 12.5% 12.5% 12.5% 12.5% 12.5% 1fr;
+  grid-template-rows: repeat(7, 30px) 1fr;
   justify-items: center;
-  padding: var(--size-xxxl);
+  padding: var(--size-l) var(--size-xxxl);
   gap: var(--size-xl);
 `;
 
@@ -154,6 +193,10 @@ const TextStyled = styled.div`
   font-size: 0.8em;
   letter-spacing: 1px;
   margin-top: -20px;
+
+  h4 {
+    margin: 0;
+  }
 `;
 
 const ErrorStyling = styled.div`
