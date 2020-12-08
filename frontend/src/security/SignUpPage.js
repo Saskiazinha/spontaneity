@@ -31,6 +31,7 @@ export default function SignUpPage() {
             value={signUpData.username}
             onChange={handleChange}
             placeholder="Set username"
+            required
           />
         </LabelStyled>
         <LabelStyled>
@@ -39,6 +40,7 @@ export default function SignUpPage() {
             value={signUpData.email}
             onChange={handleChange}
             placeholder="Enter email address"
+            required
           />
         </LabelStyled>
         <LabelStyled>
@@ -47,6 +49,7 @@ export default function SignUpPage() {
             value={signUpData.firstName}
             onChange={handleChange}
             placeholder="Enter first name"
+            required
           />
         </LabelStyled>
         <LabelStyled>
@@ -55,6 +58,7 @@ export default function SignUpPage() {
             value={signUpData.lastName}
             onChange={handleChange}
             placeholder="Enter last name"
+            required
           />
         </LabelStyled>
         <LabelStyled>
@@ -62,10 +66,9 @@ export default function SignUpPage() {
             name={"password1"}
             value={password1}
             type={"password"}
-            onChange={(event) => {
-              setPassword1(event.target.value);
-            }}
+            onChange={(event) => setPassword1(event.target.value)}
             placeholder="Set password"
+            required
           />
         </LabelStyled>
         <LabelStyled>
@@ -75,13 +78,14 @@ export default function SignUpPage() {
             type={"password"}
             onChange={(event) => setPassword2(event.target.value)}
             placeholder="Repeat password"
+            required
           />
         </LabelStyled>
         <LoginButton type="submit">Sign Up</LoginButton>
         <ErrorStyling>
           {errorFrontend ?? <p>{errorFrontend}</p>}
-          {errorBackend === 400 && <p>Username already exists</p>}
-          {errorBackend === 403 && <p> Password is not valid</p>}
+          {errorBackend === 400 && <p>Username already exists.</p>}
+          {errorBackend === 403 && <p> Password is not valid.</p>}
         </ErrorStyling>
         <TextStyled>
           <h4>Please note:</h4>
@@ -104,9 +108,9 @@ export default function SignUpPage() {
     try {
       checkIfPasswordMatch();
       validatePassword();
-      setSignUpData({ ...signUpData, password: password1 });
+      const signUpDataWithPassword = { ...signUpData, password: password1 };
 
-      postSignUp(signUpData)
+      postSignUp(signUpDataWithPassword)
         .then(() => history.push("/login"))
         .catch((error) => setErrorBackend(error.response.status));
     } catch (e) {
@@ -189,6 +193,10 @@ const TextStyled = styled.div`
   font-size: 0.8em;
   letter-spacing: 1px;
   margin-top: -20px;
+
+  h4 {
+    margin: 0;
+  }
 `;
 
 const ErrorStyling = styled.div`
