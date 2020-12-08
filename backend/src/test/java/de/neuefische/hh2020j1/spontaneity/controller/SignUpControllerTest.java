@@ -37,7 +37,7 @@ public class SignUpControllerTest {
     public void setupDb(){
         userDao.deleteAll();
         String password= new BCryptPasswordEncoder().encode("1234ZabC");
-        SpontaneityUser fiene= new SpontaneityUser("Fiene",password);
+        SpontaneityUser fiene= SpontaneityUser.builder().username("Fiene").password(password).build();
         userDao.save(fiene);
     }
     private String getSignUpUrl(){
@@ -48,7 +48,7 @@ public class SignUpControllerTest {
     public void signUpWithNewUserTestAndValidPassword(){
         //Given
         String url=getSignUpUrl();
-        SpontaneityUser newUser= new SpontaneityUser("NewUser","aZ2345g");
+        SpontaneityUser newUser= SpontaneityUser.builder().username("NewUser").password("aZ2345g").build();
 
         //When
         ResponseEntity <String> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),String.class);
@@ -62,7 +62,7 @@ public class SignUpControllerTest {
     public void signUpWithAlreadyExistingUserTest(){
         //Given
         String url=getSignUpUrl();
-        SpontaneityUser newUser= new SpontaneityUser("Fiene","1234ZabC");
+        SpontaneityUser newUser= SpontaneityUser.builder().username("Fiene").password("1234ZabC").build();
 
         //When
         ResponseEntity <Void> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),Void.class);
@@ -75,7 +75,7 @@ public class SignUpControllerTest {
     public void signUpWithNewUserButInvalidPassword(){
         //Given
         String url=getSignUpUrl();
-        SpontaneityUser newUser= new SpontaneityUser("New User","1234");
+        SpontaneityUser newUser= SpontaneityUser.builder().username("NewUser").password("1234").build();
 
         //When
         ResponseEntity <String> response = testRestTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(newUser),String.class);

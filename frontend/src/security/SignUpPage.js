@@ -168,7 +168,7 @@ const FormStyling = styled.form`
   display: grid;
   grid-template-rows: repeat(7, 30px) 1fr;
   justify-items: center;
-  padding: var(--size-m) var(--size-xxxl);
+  padding: var(--size-l) var(--size-xxxl);
   gap: var(--size-xl);
 `;
 

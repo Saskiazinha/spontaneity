@@ -58,7 +58,7 @@ public class PostControllerTest {
 
     userDao.deleteAll();
     String password=new BCryptPasswordEncoder().encode("a-password");
-    userDao.save(new SpontaneityUser("Franzi",password));
+    userDao.save(SpontaneityUser.builder().username("Franzi").password(password).build());
     }
 
     private String getPostsUrl(){

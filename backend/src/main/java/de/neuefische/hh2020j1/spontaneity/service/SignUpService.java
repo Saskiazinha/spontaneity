@@ -26,7 +26,13 @@ public class SignUpService {
             return Optional.empty();
         }
         String hashPassword= new BCryptPasswordEncoder().encode(spontaneityUser.getPassword());
-        SpontaneityUser spontaneityUserWithHashPW= new SpontaneityUser(spontaneityUser.getUsername(), hashPassword);
+        SpontaneityUser spontaneityUserWithHashPW=SpontaneityUser.builder()
+                .username(spontaneityUser.getUsername())
+                .email(spontaneityUser.getEmail())
+                .firstName(spontaneityUser.getFirstName())
+                .lastName(spontaneityUser.getLastName())
+                .password(hashPassword).build();
+
         userDao.save(spontaneityUserWithHashPW);
         return Optional.of(spontaneityUser.getUsername());
     }
