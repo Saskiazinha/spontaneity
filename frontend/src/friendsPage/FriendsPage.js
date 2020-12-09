@@ -3,8 +3,10 @@ import styled from "styled-components/macro";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import Footer from "../commons/navigation/Footer";
 import Header from "../commons/Header";
+import useFriends from "../hooks/FriendsHook";
 
 export default function FriendsPage() {
+  const [friends, addNewFriend, deleteFriend] = useFriends();
   return (
     <>
       <SpontaneityHeader />

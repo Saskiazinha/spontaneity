@@ -11,7 +11,7 @@ export default function useFriends() {
       getFriends(token)
         .then((friends) => setFriends(friends))
         .catch(console.log);
-  });
+  }, [token, tokenIsValid]);
 
   const addNewFriend = (friendUsername) =>
     addFriend(token, friendUsername)
