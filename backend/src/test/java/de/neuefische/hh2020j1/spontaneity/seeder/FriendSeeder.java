@@ -13,7 +13,8 @@ public class FriendSeeder {
         return new ArrayList<>(List.of(
                 new FriendDto("janosch123","Janosch","Nachname"),
                 new FriendDto("eva123", "Eva","Nachname"),
-                new FriendDto("rebekka123", "Rebekka", "Nachname")
+                new FriendDto("rebekka123", "Rebekka", "Nachname"),
+                new FriendDto("leonie123","Leonie","Nachname")
         ));
     }
 
@@ -22,7 +23,8 @@ public class FriendSeeder {
                 new FriendDto("janosch123","Janosch","Nachname"),
                 new FriendDto("eva123", "Eva","Nachname"),
                 new FriendDto("rebekka123", "Rebekka", "Nachname"),
-                new FriendDto("carsten123", "Carsten", "Nachname")
+                new FriendDto("carsten123", "Carsten", "Nachname"),
+                new FriendDto("leonie123","Leonie","Nachname")
         ));
     }
 
@@ -36,6 +38,11 @@ public class FriendSeeder {
         return new SpontaneityUser("franzi123", "franzi@email.de", "Franzi", "Nachname", password, getStockFriends());
     }
 
+    public static SpontaneityUser getThirdStockSpontaneityUser(){
+        String password=new BCryptPasswordEncoder().encode("a-password");
+        return new SpontaneityUser("leonie123", "leonie@email.de", "Leonie", "Nachname", password, List.of());
+    }
+
     public static FriendDto getStockFriendDto(){
         return new FriendDto("carsten123", "Carsten", "Nachname");
     }
@@ -47,4 +54,5 @@ public class FriendSeeder {
     public static FriendDto getThirdStockFriendDto(){
         return new FriendDto("rebekka123", "Rebekka", "Nachname");
     }
+
 }

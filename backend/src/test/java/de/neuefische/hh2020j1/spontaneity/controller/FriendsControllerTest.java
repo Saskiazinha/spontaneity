@@ -34,6 +34,7 @@ public class FriendsControllerTest {
         userDao.deleteAll();
         userDao.save(FriendSeeder.getStockSpontaneityUser());
         userDao.save(FriendSeeder.getSecondStockSpontaneityUser());
+        userDao.save(FriendSeeder.getThirdStockSpontaneityUser());
     }
 
     private String getFriendsUrl(){
@@ -92,6 +93,19 @@ public class FriendsControllerTest {
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
+    }
+
+    @Test
+    public void addAlreadyExistingFriendTest(){
+        //Given
+        String url=getFriendsUrl()+"/leonie123";
+
+        //When
+        HttpEntity<String> entity=getValidAuthorizationEntity(null);
+        ResponseEntity <FriendDto> response=testRestTemplate.exchange(url, HttpMethod.POST,entity, FriendDto.class);
+
+        //Then
+        assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 
     @Test
