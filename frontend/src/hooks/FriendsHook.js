@@ -19,9 +19,13 @@ export default function useFriends() {
       .catch(console.log);
 
   const deleteFriend = (friendUsername) =>
-    removeFriend(token, friendUsername).then(() =>
-      setFriends(friends.filter((friend) => friend.username !== friendUsername))
-    );
+    removeFriend(token, friendUsername)
+      .then(() =>
+        setFriends(
+          friends.filter((friend) => friend.username !== friendUsername)
+        )
+      )
+      .catch(console.log);
 
   return [friends, addNewFriend, deleteFriend];
 }
