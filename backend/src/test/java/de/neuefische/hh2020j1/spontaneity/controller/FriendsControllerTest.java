@@ -97,10 +97,10 @@ public class FriendsControllerTest {
     @Test
     public void deleteFriendTest(){
         //Given
-        String url=getFriendsUrl();
+        String url=getFriendsUrl()+"/rebekka123";
 
         //When
-        HttpEntity<String> entity=getValidAuthorizationEntity("rebekka123");
+        HttpEntity<Void> entity=getValidAuthorizationEntity(null);
         ResponseEntity <Void> response=testRestTemplate.exchange(url, HttpMethod.DELETE,entity, Void.class);
 
         //Then

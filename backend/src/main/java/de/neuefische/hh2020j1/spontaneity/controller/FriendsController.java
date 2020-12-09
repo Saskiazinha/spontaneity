@@ -28,8 +28,8 @@ public class FriendsController {
         return friendsService.addFriend(principal.getName(), friendUsername);
     }
 
-    @DeleteMapping
-    public void deleteFriend (@RequestBody String friendUsername, Principal principal){
+    @DeleteMapping("{friendUsername}")
+    public void deleteFriend (@PathVariable String friendUsername, Principal principal){
         friendsService.deleteFriend(principal.getName(),friendUsername);
     }
 
