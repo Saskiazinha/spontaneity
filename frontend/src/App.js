@@ -12,6 +12,7 @@ import MyPosts from "./postsPages/MyPosts";
 import AddPostPage from "./postModification/AddPostPage";
 import UpdatePostPage from "./postModification/UpdatePostPage";
 import GoogleMapsPosts from "./googleMaps/GoogleMapsPosts";
+import FriendsPage from "./friendsPage/FriendsPage";
 
 function App() {
   return (
@@ -50,6 +51,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/maps/dayaftertomorrow">
               <GoogleMapsPosts day={"Day After Tomorrow"} indexDay={2} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/friends">
+              <FriendsPage />
             </ProtectedRoute>
             <Route path="/">
               <Redirect to="/posts/today" />
