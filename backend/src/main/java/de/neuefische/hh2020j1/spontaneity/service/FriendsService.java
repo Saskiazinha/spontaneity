@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -29,7 +30,11 @@ public class FriendsService {
     }
 
     public List<FriendDto> getFriends(String principalName) {
-        return userDao.findById(principalName).get().getFriends();
+        Optional<SpontaneityUser> user= userDao.findById(principalName);
+        if(user.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+            return user.get().getFriends();
     }
 
     public FriendDto addFriend(String principalName, String friendUsername) {

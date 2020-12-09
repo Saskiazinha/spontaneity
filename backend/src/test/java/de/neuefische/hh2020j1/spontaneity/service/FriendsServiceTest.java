@@ -7,9 +7,6 @@ import de.neuefische.hh2020j1.spontaneity.seeder.FriendSeeder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -46,6 +43,7 @@ public class FriendsServiceTest {
     void addFriendTest(){
         //Given
         when(userDao.findById("carsten123")).thenReturn(Optional.of(FriendSeeder.getStockSpontaneityUser()));
+        when(userDao.findById("Franzi")).thenReturn(Optional.of(FriendSeeder.getSecondStockSpontaneityUser()));
 
         //When
         FriendDto friend= friendsService.addFriend("Franzi", "carsten123");
