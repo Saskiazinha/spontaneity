@@ -70,10 +70,10 @@ public class FriendsControllerTest {
     @Test
     public void addFriendTest(){
         //Given
-        String url=getFriendsUrl();
+        String url=getFriendsUrl()+"/franzi123";
 
         //When
-        HttpEntity<String> entity=getValidAuthorizationEntity("franzi123");
+        HttpEntity<String> entity=getValidAuthorizationEntity(null);
         ResponseEntity <FriendDto> response=testRestTemplate.exchange(url, HttpMethod.POST,entity, FriendDto.class);
 
         //Then
@@ -84,10 +84,10 @@ public class FriendsControllerTest {
     @Test
     public void addNotExistingFriendTest(){
         //Given
-        String url=getFriendsUrl();
+        String url=getFriendsUrl()+"/notExistingUser";
 
         //When
-        HttpEntity<String> entity=getValidAuthorizationEntity("notExistingUser");
+        HttpEntity<String> entity=getValidAuthorizationEntity(null);
         ResponseEntity <FriendDto> response=testRestTemplate.exchange(url, HttpMethod.POST,entity, FriendDto.class);
 
         //Then

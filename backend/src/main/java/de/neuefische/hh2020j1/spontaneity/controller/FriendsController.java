@@ -23,8 +23,8 @@ public class FriendsController {
         return friendsService.getFriends(principal.getName());
     }
 
-    @PostMapping
-    public FriendDto addFriend (@RequestBody String friendUsername, Principal principal){
+    @PostMapping("{friendUsername}")
+    public FriendDto addFriend (@PathVariable String friendUsername, Principal principal){
         return friendsService.addFriend(principal.getName(), friendUsername);
     }
 
