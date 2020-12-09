@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function Friend({ friend, deleteFriend }) {
   return (
@@ -8,7 +9,9 @@ export default function Friend({ friend, deleteFriend }) {
         {friend.firstName} {friend.lastName}
       </p>
       <p>{friend.username}</p>
-      <button onClick={handleDelete}>delete</button>
+      <Button onClick={handleDelete}>
+        <RiDeleteBin6Line />
+      </Button>
     </FriendStyled>
   );
   function handleDelete() {
@@ -17,3 +20,8 @@ export default function Friend({ friend, deleteFriend }) {
 }
 
 const FriendStyled = styled.div``;
+
+const Button = styled.button`
+  height: 25px;
+  width: 25px;
+`;

@@ -2,6 +2,7 @@ package de.neuefische.hh2020j1.spontaneity.controller;
 
 
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
+import de.neuefische.hh2020j1.spontaneity.dto.AddFriendDto;
 import de.neuefische.hh2020j1.spontaneity.dto.FriendDto;
 import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
 import de.neuefische.hh2020j1.spontaneity.seeder.FriendSeeder;
@@ -72,9 +73,10 @@ public class FriendsControllerTest {
     public void addFriendTest(){
         //Given
         String url=getFriendsUrl();
+        AddFriendDto addFriendDto= new AddFriendDto("franzi123");
 
         //When
-        HttpEntity<String> entity=getValidAuthorizationEntity("franzi123");
+        HttpEntity<AddFriendDto> entity=getValidAuthorizationEntity(addFriendDto);
         ResponseEntity <FriendDto> response=testRestTemplate.exchange(url, HttpMethod.POST,entity, FriendDto.class);
 
         //Then
@@ -98,10 +100,11 @@ public class FriendsControllerTest {
     @Test
     public void addAlreadyExistingFriendTest(){
         //Given
+        AddFriendDto addFriendDto= new AddFriendDto("leonie123");
         String url=getFriendsUrl();
 
         //When
-        HttpEntity<String> entity=getValidAuthorizationEntity("leonie123");
+        HttpEntity<AddFriendDto> entity=getValidAuthorizationEntity(addFriendDto);
         ResponseEntity <FriendDto> response=testRestTemplate.exchange(url, HttpMethod.POST,entity, FriendDto.class);
 
         //Then

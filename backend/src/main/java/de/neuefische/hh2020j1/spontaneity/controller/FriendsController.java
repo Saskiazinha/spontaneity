@@ -1,6 +1,7 @@
 package de.neuefische.hh2020j1.spontaneity.controller;
 
 
+import de.neuefische.hh2020j1.spontaneity.dto.AddFriendDto;
 import de.neuefische.hh2020j1.spontaneity.dto.FriendDto;
 import de.neuefische.hh2020j1.spontaneity.service.FriendsService;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public class FriendsController {
     }
 
     @PostMapping
-    public FriendDto addFriend (@RequestBody String friendUsername, Principal principal){
-        return friendsService.addFriend(principal.getName(), friendUsername);
+    public FriendDto addFriend (@RequestBody AddFriendDto addFriendDto, Principal principal){
+        return friendsService.addFriend(principal.getName(), addFriendDto.getUsername());
     }
 
     @DeleteMapping("{friendUsername}")

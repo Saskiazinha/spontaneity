@@ -11,7 +11,7 @@ export const getFriends = (token) =>
 
 export const addFriend = (token, username) =>
   axios
-    .post("/api/friends/", username, header(token))
+    .post("/api/friends/", { username }, header(token))
     .then((response) => response.data);
 
 export const removeFriend = (token, username) =>
