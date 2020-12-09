@@ -15,4 +15,4 @@ export const addFriend = (token, username) =>
     .then((response) => response.data);
 
 export const removeFriend = (token, username) =>
-  axios.delete("/api/friends" + username, header(token));
+  axios.delete("/api/friends/" + username, header(token));
