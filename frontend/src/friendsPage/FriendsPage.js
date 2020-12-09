@@ -4,6 +4,7 @@ import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import Footer from "../commons/navigation/Footer";
 import Header from "../commons/Header";
 import useFriends from "../hooks/FriendsHook";
+import FriendsList from "./FriendsList";
 
 export default function FriendsPage() {
   const [friends, addNewFriend, deleteFriend] = useFriends();
@@ -12,13 +13,11 @@ export default function FriendsPage() {
       <SpontaneityHeader />
       <Header title="Your friends" />
       <FriendsLayout>
-        <div>
-          <label>
-            Add friend
-            <input />
-          </label>
-        </div>
-        <div>friends</div>
+        <label>
+          Add friend
+          <input />
+        </label>
+        <FriendsList friends={friends} />
       </FriendsLayout>
       <Footer />
     </>
