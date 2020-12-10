@@ -42,7 +42,7 @@ public class FriendsServiceTest {
     @DisplayName("The \"addFriendTest\" method should return the friend that the user wants to add")
     void addFriendTest(){
         //Given
-        when(userDao.findById("carsten123")).thenReturn(Optional.of(FriendSeeder.getStockSpontaneityUser()));
+        when(userDao.findById("carsten123")).thenReturn(Optional.of(FriendSeeder.getFirstStockSpontaneityUser()));
         when(userDao.findById("Franzi")).thenReturn(Optional.of(FriendSeeder.getSecondStockSpontaneityUser()));
 
         //When
@@ -56,7 +56,7 @@ public class FriendsServiceTest {
     @DisplayName("The \"addFriend\" method with not existing user should throw Not Found")
     void addFriendUserNotFoundTest(){
         //Given
-        when(userDao.findById("carsten123")).thenReturn(Optional.of(FriendSeeder.getStockSpontaneityUser()));
+        when(userDao.findById("carsten123")).thenReturn(Optional.of(FriendSeeder.getFirstStockSpontaneityUser()));
 
         //When
         try{

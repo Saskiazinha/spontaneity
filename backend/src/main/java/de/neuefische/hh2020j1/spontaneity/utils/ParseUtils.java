@@ -16,6 +16,7 @@ public class ParseUtils {
                 .map(post->new SendPostDto(
                         post.getId(),
                         post.getCreator(),
+                        post.getFirstName(),
                         post.getTitle(),
                         LocalDate.ofInstant(post.getStartPoint(), ZoneId.of("Europe/Berlin")),
                         LocalTime.ofInstant(post.getStartPoint(),ZoneId.of("Europe/Berlin")),
@@ -35,34 +36,12 @@ public class ParseUtils {
 
     }
 
-    public static List<Post> parseToPosts(List<SendPostDto>sendPosts){
-
-        Instant instant=Instant.now();
-
-        return sendPosts.stream()
-                .map(sendPost->new Post(
-                        sendPost.getId(),
-                        sendPost.getCreator(),
-                        sendPost.getTitle(),
-                        sendPost.getLocalDate().atTime(sendPost.getStartPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
-                        sendPost.getLocalDate().atTime(sendPost.getEndPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
-                        sendPost.getStatusTime(),
-                        sendPost.getAddress(),
-                        sendPost.getDistrict(),
-                        sendPost.getLat(),
-                        sendPost.getLng(),
-                        sendPost.getStatusLocation(),
-                        sendPost.getCategory(),
-                        sendPost.getStatusCategory(),
-                        sendPost.getNotes(),
-                        sendPost.getTimestamp().atZone(ZoneId.of("Europe/Berlin")).toInstant()))
-                        .collect(Collectors.toList());
-    }
 
     public static SendPostDto parseToSendPostDto(Post post){
         return new SendPostDto(
                 post.getId(),
                 post.getCreator(),
+                post.getFirstName(),
                 post.getTitle(),
                 LocalDate.ofInstant(post.getStartPoint(), ZoneId.of("Europe/Berlin")),
                 LocalTime.ofInstant(post.getStartPoint(),ZoneId.of("Europe/Berlin")),
@@ -80,23 +59,6 @@ public class ParseUtils {
 
     }
 
-    public static Post parseToPost(SendPostDto sendPost){
-        return new Post(
-                sendPost.getId(),
-                sendPost.getCreator(),
-                sendPost.getTitle(),
-                sendPost.getLocalDate().atTime(sendPost.getStartPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
-                sendPost.getLocalDate().atTime(sendPost.getEndPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant(),
-                sendPost.getStatusTime(),
-                sendPost.getAddress(),
-                sendPost.getDistrict(),
-                sendPost.getLat(),
-                sendPost.getLng(),
-                sendPost.getStatusLocation(),
-                sendPost.getCategory(),
-                sendPost.getStatusCategory(),
-                sendPost.getNotes(),
-                sendPost.getTimestamp().atZone(ZoneId.of("Europe/Berlin")).toInstant());
-    }
+
 }
 

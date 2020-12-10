@@ -33,7 +33,7 @@ public class FriendsControllerTest {
     @BeforeEach
     public void setupDb(){
         userDao.deleteAll();
-        userDao.save(FriendSeeder.getStockSpontaneityUser());
+        userDao.save(FriendSeeder.getFirstStockSpontaneityUser());
         userDao.save(FriendSeeder.getSecondStockSpontaneityUser());
         userDao.save(FriendSeeder.getThirdStockSpontaneityUser());
     }

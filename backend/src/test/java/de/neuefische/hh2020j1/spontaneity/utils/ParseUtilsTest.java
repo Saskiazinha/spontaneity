@@ -19,11 +19,4 @@ class ParseUtilsTest {
         assertThat(sendPosts,is(PostSeeder.getStockSendPostsDtoSorted()));
     }
 
-    @Test
-    void parseToPostTest() {
-        //When
-        List<Post> posts= ParseUtils.parseToPosts(PostSeeder.getStockSendPostsDtoSorted());
-        //Then
-        assertThat(posts,is(PostSeeder.getStockPostsSorted()));
-    }
 }

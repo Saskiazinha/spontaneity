@@ -19,6 +19,7 @@ public class Post {
     @Id
     private String id;
     private String creator;
+    private String firstName;
     private String title;
     private Instant startPoint;
     private Instant endPoint;

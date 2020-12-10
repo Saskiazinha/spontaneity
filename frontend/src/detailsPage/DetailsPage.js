@@ -38,7 +38,7 @@ export default function DetailsPage() {
       <Header title="Details" />
       <DetailsStyling>
         <TitleStyling>„{post.title}“</TitleStyling>
-        <NameStyling>{renderName && <p>{post.creator}</p>}</NameStyling>
+        <NameStyling>{renderName && <p>{post.firstName}</p>}</NameStyling>
         <Content>
           <PostContent post={post} renderLocation={true} />
         </Content>
@@ -57,7 +57,9 @@ export default function DetailsPage() {
             <GiPlainCircle color="#0074B6" /> not flexible
           </p>
         </ColorCode>
-        <StampStyling>Last updated: {post.timestamp}</StampStyling>
+        <StampStyling>
+          Username: {post.creator} <br /> Last updated: {post.timestamp}
+        </StampStyling>
       </DetailsStyling>
       <Footer actions={getDeleteUpdateButtons()} />
     </>

@@ -37,7 +37,7 @@ export default function SpontaneityHeader() {
         <h1>Spontaneity</h1>
       </HeaderStyled>
       <Menu ref={dropdownRef} active={isActive}>
-        <NavLink to="/posts/today">Home</NavLink>
+        <NavLink to="/posts/today">Friend's posts</NavLink>
         <NavLink to="/myposts/today">My posts</NavLink>
         <NavLink to="/friends">Friends</NavLink>
         <NavLink to="/myposts/today">Info</NavLink>
@@ -80,7 +80,7 @@ const Menu = styled.nav`
   grid-template-rows: repeat(5, 50px);
   padding: var(--size-m) 0 0 var(--size-xl);
   background: var(--turquoise-main);
-  width: 135px;
+  width: 140px;
   height: 83vh;
   opacity: 0;
   visibility: hidden;
