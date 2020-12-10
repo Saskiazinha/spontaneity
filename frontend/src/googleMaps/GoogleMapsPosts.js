@@ -98,7 +98,7 @@ export default function GoogleMapsPosts({ day, indexDay }) {
               }}
             >
               <WindowStyling>
-                <NameStyled> {selected.creator}</NameStyled>
+                <NameStyled> {selected.firstName}</NameStyled>
                 <PostContent post={selected} />
               </WindowStyling>
             </InfoWindow>
