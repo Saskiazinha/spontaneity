@@ -56,6 +56,7 @@ const LabelStyled = styled.label`
   display: grid;
   justify-items: center;
   font-weight: bold;
+  font-size: 1.05em;
 
   input {
     margin-top: 1px;

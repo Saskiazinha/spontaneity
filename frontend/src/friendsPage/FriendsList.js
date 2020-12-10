@@ -17,4 +17,8 @@ export default function FriendsList({ friends, deleteFriend }) {
 const StyledList = styled.div`
   list-style: none;
   overflow: scroll;
+
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: var(--size-m);
 `;
