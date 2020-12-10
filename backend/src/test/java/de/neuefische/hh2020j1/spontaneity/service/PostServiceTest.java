@@ -37,7 +37,7 @@ class PostServiceTest {
 
     private final PostDao postDao=mock(PostDao.class);
     private final MongoTemplate mongoTemplate=mock(MongoTemplate.class);
-    private final PostService postService=new PostService(postDao, mongoTemplate, idUtils, timestampUtils);
+    private final PostService postService=new PostService(postDao, friendsService, mongoTemplate, idUtils, timestampUtils);
 
     @Test
     @DisplayName("The \"getFriendsPostsTest\" method should return posts in the order of their startPoint excluding posts of logged in user")

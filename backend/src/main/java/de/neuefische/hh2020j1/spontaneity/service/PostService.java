@@ -2,6 +2,7 @@ package de.neuefische.hh2020j1.spontaneity.service;
 
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
 import de.neuefische.hh2020j1.spontaneity.dto.AddPostDto;
+import de.neuefische.hh2020j1.spontaneity.dto.FriendDto;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.UpdatePostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
@@ -26,13 +27,15 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
     private final PostDao postDao;
+    private final FriendsService friendsService;
     private final MongoTemplate mongoTemplate;
     private final IdUtils idUtils;
     private final TimestampUtils timestampUtils;
 
     @Autowired
-    public PostService(PostDao postDao, MongoTemplate mongoTemplate, IdUtils idUtils, TimestampUtils timestampUtils) {
+    public PostService(PostDao postDao, FriendsService friendsService, MongoTemplate mongoTemplate, IdUtils idUtils, TimestampUtils timestampUtils) {
         this.postDao = postDao;
+        this.friendsService = friendsService;
         this.mongoTemplate = mongoTemplate;
         this.idUtils = idUtils;
         this.timestampUtils = timestampUtils;
@@ -43,9 +46,13 @@ public class PostService {
         querySortForTime.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
+        List <FriendDto> friends=friendsService.getFriends(principalName);
+
         return posts.stream()
-                .filter(post -> (!Objects.equals(principalName, post.getCreator())))
-                .collect(Collectors.toList());
+                .filter((post)->friends.)
+//        return posts.stream()
+//                .filter(post -> (!Objects.equals(principalName, post.getCreator())))
+//                .collect(Collectors.toList());
     }
 
     public List<Post> getPostsOfUser(String principalName) {
