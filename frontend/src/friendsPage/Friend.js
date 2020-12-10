@@ -24,7 +24,8 @@ const FriendStyled = styled.div`
   align-items: center;
   border-radius: 15px;
   box-shadow: 3px 3px 3px #95b0b4;
-  background-color: var(--turquoise-bright);
+  //border: var(--turquoise-main) solid 1px;
+  background-color: rgb(76, 155, 166, 0.08);
   padding: var(--size-s) var(--size-l);
 `;
 
