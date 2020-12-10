@@ -40,7 +40,6 @@ export default function UserContextProvider({ children }) {
     token && userData?.exp > new Date().getTime() / 1000;
 
   function postSignUp(signUpData) {
-    console.log(signUpData);
     return axios
       .post("/auth/signup", signUpData)
       .then((response) => response.data);

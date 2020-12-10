@@ -19,6 +19,7 @@ export default function LoginPage() {
             value={loginData.username}
             onChange={handleChange}
             placeholder="Username"
+            autoComplete="username"
           />
         </LabelStyled>
         <LabelStyled>
@@ -28,6 +29,7 @@ export default function LoginPage() {
             onChange={handleChange}
             type="password"
             placeholder="Password"
+            autoComplete="current-password"
           />
         </LabelStyled>
         <LoginButton type="submit">Login</LoginButton>

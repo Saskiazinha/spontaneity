@@ -1,14 +1,14 @@
 package de.neuefische.hh2020j1.spontaneity.service;
 
+
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
+import de.neuefische.hh2020j1.spontaneity.dto.FriendDto;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +31,9 @@ public class SignUpService {
                 .email(spontaneityUser.getEmail())
                 .firstName(spontaneityUser.getFirstName())
                 .lastName(spontaneityUser.getLastName())
-                .password(hashPassword).build();
+                .password(hashPassword)
+                .friends(new ArrayList<>(List.of()))
+                        .build();
 
         userDao.save(spontaneityUserWithHashPW);
         return Optional.of(spontaneityUser.getUsername());

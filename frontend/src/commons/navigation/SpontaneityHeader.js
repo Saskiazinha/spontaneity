@@ -39,6 +39,7 @@ export default function SpontaneityHeader() {
       <Menu ref={dropdownRef} active={isActive}>
         <NavLink to="/posts/today">Home</NavLink>
         <NavLink to="/myposts/today">My posts</NavLink>
+        <NavLink to="/friends">Friends</NavLink>
         <NavLink to="/myposts/today">Info</NavLink>
         <ButtonStyling onClick={handleLogout}>Logout</ButtonStyling>
       </Menu>
