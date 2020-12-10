@@ -40,6 +40,7 @@ export default function FriendsPage() {
     addNewFriend(friendUsername).catch((error) =>
       setError(error.response.status)
     );
+    setFriendUsername("");
   }
 }
 

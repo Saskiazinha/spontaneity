@@ -58,6 +58,7 @@ export default function SignUpPage() {
             value={signUpData.lastName}
             onChange={handleChange}
             placeholder="Enter last name"
+            autoComplete="username"
             required
           />
         </LabelStyled>
@@ -68,6 +69,7 @@ export default function SignUpPage() {
             type={"password"}
             onChange={(event) => setPassword1(event.target.value)}
             placeholder="Set password"
+            autoComplete="new-password"
             required
           />
         </LabelStyled>
@@ -78,6 +80,7 @@ export default function SignUpPage() {
             type={"password"}
             onChange={(event) => setPassword2(event.target.value)}
             placeholder="Repeat password"
+            autoComplete="new-password"
             required
           />
         </LabelStyled>
