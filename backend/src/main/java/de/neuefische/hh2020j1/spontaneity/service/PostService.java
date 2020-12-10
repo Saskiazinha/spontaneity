@@ -1,6 +1,6 @@
 package de.neuefische.hh2020j1.spontaneity.service;
-
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
+import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.dto.AddPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.FriendDto;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
@@ -27,14 +27,16 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
     private final PostDao postDao;
+    private final UserDao userDao;
     private final FriendsService friendsService;
     private final MongoTemplate mongoTemplate;
     private final IdUtils idUtils;
     private final TimestampUtils timestampUtils;
 
     @Autowired
-    public PostService(PostDao postDao, FriendsService friendsService, MongoTemplate mongoTemplate, IdUtils idUtils, TimestampUtils timestampUtils) {
+    public PostService(PostDao postDao, UserDao userDao, FriendsService friendsService, MongoTemplate mongoTemplate, IdUtils idUtils, TimestampUtils timestampUtils) {
         this.postDao = postDao;
+        this.userDao = userDao;
         this.friendsService = friendsService;
         this.mongoTemplate = mongoTemplate;
         this.idUtils = idUtils;
@@ -46,13 +48,10 @@ public class PostService {
         querySortForTime.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
-        List <FriendDto> friends=friendsService.getFriends(principalName);
-
+        List <String> friendsUsernames=friendsService.getFriends(principalName).stream().map(FriendDto::getUsername).collect(Collectors.toList());
         return posts.stream()
-                .filter((post)->friends.)
-//        return posts.stream()
-//                .filter(post -> (!Objects.equals(principalName, post.getCreator())))
-//                .collect(Collectors.toList());
+                .filter((post)->friendsUsernames.contains(post.getCreator()))
+                .collect(Collectors.toList());
     }
 
     public List<Post> getPostsOfUser(String principalName) {
@@ -84,6 +83,7 @@ public class PostService {
         Post postToSave = Post.builder()
                 .id(idUtils.generateId())
                 .creator(principalName)
+                .firstName(getUserName(principalName))
                 .title(postToBeAdded.getTitle())
                 .startPoint(postToBeAdded.getLocalDate().atTime(postToBeAdded.getStartPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant())
                 .endPoint(postToBeAdded.getLocalDate().atTime(postToBeAdded.getEndPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant())
@@ -103,6 +103,10 @@ public class PostService {
         return ParseUtils.parseToSendPostDto(postToSave);
     }
 
+    public String getUserName(String principalName){
+        return userDao.findById(principalName).get().getFirstName();
+    }
+
 
     public SendPostDto updatePost(String principalName, UpdatePostDto postUpdate) {
         Post postToBeUpdated = postDao.findById(postUpdate.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -114,6 +118,7 @@ public class PostService {
         Post updatedPost = Post.builder()
                 .id(postUpdate.getId())
                 .creator(principalName)
+                .firstName(getUserName(principalName))
                 .title(postUpdate.getTitle())
                 .startPoint(postUpdate.getLocalDate().atTime(postUpdate.getStartPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant())
                 .endPoint(postUpdate.getLocalDate().atTime(postUpdate.getEndPoint()).atZone(ZoneId.of("Europe/Berlin")).toInstant())

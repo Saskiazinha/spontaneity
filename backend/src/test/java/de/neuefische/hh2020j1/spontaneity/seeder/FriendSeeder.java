@@ -18,6 +18,13 @@ public class FriendSeeder {
         ));
     }
 
+    public static List<FriendDto> getReducedStockFriends(){
+        return new ArrayList<>(List.of(
+                new FriendDto("janosch123","Janosch","Nachname"),
+                new FriendDto("rebekka123", "Rebekka", "Nachname")
+        ));
+    }
+
     public static List<FriendDto> getStockFriendsWithAdded(){
         return new ArrayList<>(List.of(
                 new FriendDto("janosch123","Janosch","Nachname"),
@@ -28,7 +35,16 @@ public class FriendSeeder {
         ));
     }
 
-    public static SpontaneityUser getStockSpontaneityUser(){
+    public static List <SpontaneityUser> getStockSpontaneityUser(){
+        String password=new BCryptPasswordEncoder().encode("a-password");
+        return new ArrayList<>(List.of(
+                new SpontaneityUser("leonie123", "leonie@email.de", "Leonie", "Nachname", password, List.of()),
+                new SpontaneityUser("rebekka123", "rebekka@email.de", "Rebekka", "Nachname", password, List.of()),
+                new SpontaneityUser("janosch123", "janosch@email.de", "Janosch", "Nachname", password, List.of()),
+                new SpontaneityUser("eva123", "eva@email.de", "Eva", "Nachname", password, List.of())));
+    }
+
+    public static SpontaneityUser getFirstStockSpontaneityUser(){
         String password=new BCryptPasswordEncoder().encode("a-password");
         return new SpontaneityUser("carsten123", "carsten@email.de", "Carsten", "Nachname", password, getStockFriends());
     }

@@ -6,6 +6,7 @@ import de.neuefische.hh2020j1.spontaneity.dto.AddPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.dto.UpdatePostDto;
 import de.neuefische.hh2020j1.spontaneity.model.*;
+import de.neuefische.hh2020j1.spontaneity.seeder.FriendSeeder;
 import de.neuefische.hh2020j1.spontaneity.seeder.PostSeeder;
 import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
 import de.neuefische.hh2020j1.spontaneity.utils.*;
@@ -58,7 +59,8 @@ public class PostControllerTest {
 
     userDao.deleteAll();
     String password=new BCryptPasswordEncoder().encode("a-password");
-    userDao.save(SpontaneityUser.builder().username("Franzi").password(password).build());
+    userDao.save(SpontaneityUser.builder().username("franzi123").firstName("Franzi").password(password).friends(FriendSeeder.getStockFriends()).build());
+    userDao.saveAll(FriendSeeder.getStockSpontaneityUser());
     }
 
     private String getPostsUrl(){
@@ -66,7 +68,7 @@ public class PostControllerTest {
     }
 
     private String login(){
-        ResponseEntity<String>response=testRestTemplate.postForEntity("http://localhost:"+port+"/auth/login",new LoginDto ("Franzi","a-password"),String.class);
+        ResponseEntity<String>response=testRestTemplate.postForEntity("http://localhost:"+port+"/auth/login",new LoginDto ("franzi123","a-password"),String.class);
         return response.getBody();
     }
 
@@ -89,7 +91,7 @@ public class PostControllerTest {
 
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsDtoSortedWithoutPrincipal().toArray()));
+        assertThat(response.getBody(),is(PostSeeder.getStockSendPostsSortedAccordingFriends().toArray()));
     }
 
     @Test
@@ -128,7 +130,7 @@ public class PostControllerTest {
 
         String url=getPostsUrl();
         AddPostDto addPostDto= new AddPostDto("Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
-        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post(id, "Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432 , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant));
+        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post(id, "franzi123","Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432 , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant));
 
         when(mockedIdUtils.generateId()).thenReturn(id);
         when(mockedTimeStampUtils.generateTimestampInstant()).thenReturn(instant);
@@ -148,7 +150,7 @@ public class PostControllerTest {
         String url=getPostsUrl()+"/555";
         Instant instant= Instant.parse("2020-11-26T10:00:00Z");
         UpdatePostDto updatePostDto= new UpdatePostDto("555","Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
-        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post("555", "Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432 , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", instant));
+        SendPostDto sendPostExpected=ParseUtils.parseToSendPostDto(new Post("555", "franzi123","Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432 , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", instant));
 
         when(mockedTimeStampUtils.generateTimestampInstant()).thenReturn(instant);
 
