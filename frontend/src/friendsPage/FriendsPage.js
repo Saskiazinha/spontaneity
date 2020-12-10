@@ -9,6 +9,7 @@ import FriendsList from "./FriendsList";
 export default function FriendsPage() {
   const [friends, addNewFriend, deleteFriend] = useFriends();
   const [friendUsername, setFriendUsername] = useState("");
+  const [error, setError] = useState(0);
   return (
     <>
       <SpontaneityHeader />
@@ -24,6 +25,10 @@ export default function FriendsPage() {
             />
           </LabelStyled>
         </form>
+        <ErrorStyling>
+          {error === 400 && <p>Friend is already in your list!</p>}
+          {error === 404 && <p>Username doesn't exist!</p>}
+        </ErrorStyling>
         <FriendsList friends={friends} deleteFriend={deleteFriend} />
       </FriendsLayout>
       <Footer />
@@ -32,14 +37,15 @@ export default function FriendsPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    addNewFriend(friendUsername);
-    console.log("submit");
+    addNewFriend(friendUsername).catch((error) =>
+      setError(error.response.status)
+    );
   }
 }
 
 const FriendsLayout = styled.div`
   display: grid;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: min-content min-content 1fr;
   grid-template-columns: 1fr;
   grid-row-gap: var(--size-m);
   justify-items: center;
@@ -58,5 +64,12 @@ const LabelStyled = styled.label`
     height: 25px;
     border-radius: 5px;
     border: var(--turquoise-main) solid 1px;
+  }
+`;
+
+const ErrorStyling = styled.div`
+  font-size: 0.89em;
+  p {
+    margin: 0;
   }
 `;

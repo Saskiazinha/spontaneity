@@ -32,7 +32,7 @@ public class FriendsService {
     public List<FriendDto> getFriends(String principalName) {
         Optional<SpontaneityUser> user= userDao.findById(principalName);
         if(user.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
             return user.get().getFriends();
     }
