@@ -40,8 +40,8 @@ export default function SpontaneityHeader() {
         <NavLink to="/posts/today">Friend's posts</NavLink>
         <NavLink to="/myposts/today">My posts</NavLink>
         <NavLink to="/friends">Friends</NavLink>
-        <NavLink to="/myposts/today">Info</NavLink>
         <ButtonStyling onClick={handleLogout}>Logout</ButtonStyling>
+        <NavLink to="/myposts/today">Impressum</NavLink>
       </Menu>
     </div>
   );
@@ -80,7 +80,7 @@ const Menu = styled.nav`
   grid-template-rows: repeat(5, 50px);
   padding: var(--size-m) 0 0 var(--size-xl);
   background: var(--turquoise-main);
-  width: 140px;
+  width: 145px;
   height: 83vh;
   opacity: 0;
   visibility: hidden;

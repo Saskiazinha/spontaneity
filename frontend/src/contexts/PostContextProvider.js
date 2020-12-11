@@ -175,6 +175,7 @@ export default function PostContextProvider({ children }) {
         createPost,
         editPost,
         deletePost,
+        setPostsWithoutSeconds,
       }}
     >
       {children}
