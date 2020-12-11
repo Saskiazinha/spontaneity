@@ -51,6 +51,7 @@ const FriendsLayout = styled.div`
   grid-row-gap: var(--size-m);
   justify-items: center;
   padding: var(--size-m) var(size-xxl);
+  overflow: scroll;
 `;
 
 const LabelStyled = styled.label`

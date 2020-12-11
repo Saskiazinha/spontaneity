@@ -20,13 +20,14 @@ export default function Friend({ friend, deleteFriend }) {
 const FriendStyled = styled.div`
   display: grid;
   grid-template-rows: min-content min-content;
-  grid-template-columns: 280px min-content;
+  grid-template-columns: 1fr min-content;
   align-items: center;
+  justify-self: center;
   border-radius: 15px;
   box-shadow: 3px 3px 3px #95b0b4;
-  //border: var(--turquoise-main) solid 1px;
   background-color: rgb(76, 155, 166, 0.08);
   padding: var(--size-s) var(--size-l);
+  margin: 0 var(--size-xl);
 `;
 
 const Name = styled.p`
