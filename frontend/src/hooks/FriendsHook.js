@@ -21,6 +21,7 @@ export default function useFriends() {
       getPosts(token)
         .then((posts) => setPostsWithoutSeconds(posts, "posts"))
         .catch(console.log);
+    // eslint-disable-next-line
   }, [token, tokenIsValid, friends]);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function useFriends() {
           setPostsWithoutSeconds(matchingPosts, "matchingPosts")
         )
         .catch(console.log);
+    // eslint-disable-next-line
   }, [token, tokenIsValid, friends]);
 
   const addNewFriend = (friendUsername) =>
