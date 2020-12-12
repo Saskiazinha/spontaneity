@@ -1,8 +1,5 @@
 package de.neuefische.hh2020j1.spontaneity.security;
-
-
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
-import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

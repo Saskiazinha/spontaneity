@@ -4,7 +4,6 @@ import de.neuefische.hh2020j1.spontaneity.dto.SendPostDto;
 import de.neuefische.hh2020j1.spontaneity.model.Post;
 
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
