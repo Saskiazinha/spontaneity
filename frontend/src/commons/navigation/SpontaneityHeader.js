@@ -41,7 +41,7 @@ export default function SpontaneityHeader() {
         <NavLink to="/myposts/today">My posts</NavLink>
         <NavLink to="/friends">Friends</NavLink>
         <ButtonStyling onClick={handleLogout}>Logout</ButtonStyling>
-        <NavLink to="/myposts/today">Impressum</NavLink>
+        <NavLink to="/imprint">Impressum</NavLink>
       </Menu>
     </div>
   );

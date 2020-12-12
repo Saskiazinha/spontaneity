@@ -13,6 +13,7 @@ import AddPostPage from "./postModification/AddPostPage";
 import UpdatePostPage from "./postModification/UpdatePostPage";
 import GoogleMapsPosts from "./googleMaps/GoogleMapsPosts";
 import FriendsPage from "./friendsPage/FriendsPage";
+import Imprint from "./imprint/Imprint";
 
 function App() {
   return (
@@ -52,9 +53,8 @@ function App() {
             <ProtectedRoute path="/maps/dayaftertomorrow">
               <GoogleMapsPosts day={"Day After Tomorrow"} indexDay={2} />
             </ProtectedRoute>
-            <ProtectedRoute path="/friends">
-              <FriendsPage />
-            </ProtectedRoute>
+            <ProtectedRoute path="/friends" component={FriendsPage} />
+            <ProtectedRoute path="/imprint" component={Imprint} />
             <Route path="/">
               <Redirect to="/posts/today" />
             </Route>
