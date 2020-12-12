@@ -41,7 +41,7 @@ export default function SpontaneityHeader() {
         <NavLink to="/myposts/today">My posts</NavLink>
         <NavLink to="/friends">Friends</NavLink>
         <ButtonStyling onClick={handleLogout}>Logout</ButtonStyling>
-        <NavLink to="/imprint">Impressum</NavLink>
+        <NavLink to="/imprint">Imprint</NavLink>
       </Menu>
     </div>
   );
@@ -81,7 +81,7 @@ const Menu = styled.nav`
   padding: var(--size-m) 0 0 var(--size-xl);
   background: var(--turquoise-main);
   width: 145px;
-  height: 83vh;
+  height: 100vh;
   opacity: 0;
   visibility: hidden;
   transform: translateX(-20px);

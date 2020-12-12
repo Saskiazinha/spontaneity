@@ -424,7 +424,4 @@ export default function Imprint() {
 
 const Main = styled.main`
   padding: var(--size-s) var(--size-l);
-  h2 {
-    text-align: center;
-  }
 `;
