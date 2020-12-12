@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
-import Header from "../commons/Header";
 
 export default function Imprint() {
   return (
