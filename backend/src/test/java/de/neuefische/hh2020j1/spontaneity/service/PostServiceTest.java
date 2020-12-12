@@ -34,86 +34,84 @@ import static org.mockito.Mockito.*;
 
 class PostServiceTest {
 
-    private final IdUtils idUtils=mock(IdUtils.class);
-    private final TimestampUtils timestampUtils=mock(TimestampUtils.class);
-    private final FriendsService friendsService=mock(FriendsService.class);
-    private final PostDao postDao=mock(PostDao.class);
-    private final UserDao userDao=mock(UserDao.class);
-    private final MongoTemplate mongoTemplate=mock(MongoTemplate.class);
-    private final PostService postService=new PostService(postDao, userDao, friendsService, mongoTemplate, idUtils, timestampUtils);
+    private final IdUtils idUtils = mock(IdUtils.class);
+    private final TimestampUtils timestampUtils = mock(TimestampUtils.class);
+    private final FriendsService friendsService = mock(FriendsService.class);
+    private final PostDao postDao = mock(PostDao.class);
+    private final UserDao userDao = mock(UserDao.class);
+    private final MongoTemplate mongoTemplate = mock(MongoTemplate.class);
+    private final PostService postService = new PostService(postDao, userDao, friendsService, mongoTemplate, idUtils, timestampUtils);
 
     @Test
     @DisplayName("The \"getFriendsPostsTest\" method should return friends posts in the order of their startPoint excluding posts of logged in user")
-    void getFriendsPostsTest(){
+    void getFriendsPostsTest() {
         //Given
-        String principleName="franzi123";
+        String principleName = "franzi123";
         Query querySortByTime = new Query();
-        querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        querySortByTime.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
         when(friendsService.getFriends(principleName)).thenReturn(FriendSeeder.getReducedStockFriends());
 
 
         //When
-        List<Post> allPosts= postService.getFriendsPosts(principleName);
+        List<Post> allPosts = postService.getFriendsPosts(principleName);
 
         //Then
-        assertThat(allPosts,is(PostSeeder.getStockPostsSortedAccordingFriends()));
+        assertThat(allPosts, is(PostSeeder.getStockPostsSortedAccordingFriends()));
     }
 
     @Test
     @DisplayName("The \"getPostsOfUser\" method should return sorted posts of logged in user")
-    void getPostsOfUserTest(){
+    void getPostsOfUserTest() {
         //Given
-        String principalName="franzi123";
+        String principalName = "franzi123";
         Query queryPostsForUser = new Query();
-        queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        queryPostsForUser.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
         when(mongoTemplate.find(queryPostsForUser, Post.class)).thenReturn(PostSeeder.getStockPostsSortedForPrincipal());
 
 
         //When
-        List<Post> userPosts= postService.getPostsOfUser(principalName);
+        List<Post> userPosts = postService.getPostsOfUser(principalName);
 
         //Then
-        assertThat(userPosts,is(PostSeeder.getStockPostsSortedForPrincipal()));
+        assertThat(userPosts, is(PostSeeder.getStockPostsSortedForPrincipal()));
     }
 
     @Test
     @DisplayName("The \"getMatchingPostsTest\" method should return a List of friends posts that timewise overlap with users posts")
-    void getMatchingPostsTest(){
+    void getMatchingPostsTest() {
         //Given
-        String principalName="Franzi";
+        String principalName = "Franzi";
         Query querySortByTime = new Query();
-        querySortByTime.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        querySortByTime.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         when(mongoTemplate.find(querySortByTime, Post.class)).thenReturn(PostSeeder.getStockPostsSorted());
         Query queryPostsForUser = new Query();
-        queryPostsForUser.with(Sort.by(Sort.Direction.ASC,"startPoint"));
+        queryPostsForUser.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         queryPostsForUser.addCriteria(Criteria.where("creator").is(principalName));
         when(mongoTemplate.find(queryPostsForUser, Post.class)).thenReturn(PostSeeder.getStockPostsSortedForPrincipal());
         when(friendsService.getFriends(principalName)).thenReturn(FriendSeeder.getReducedStockFriends());
 
         //When
-        List<Post> matchingPosts= postService.getMatchingPosts(principalName);
+        List<Post> matchingPosts = postService.getMatchingPosts(principalName);
 
         //Then
-        assertThat(matchingPosts,is(PostSeeder.getStockFilteredPosts()));
+        assertThat(matchingPosts, is(PostSeeder.getStockFilteredPosts()));
     }
-
-
 
 
     @Test
     @DisplayName("The \"addPost\" method should return the added Post")
-    void addPostTest(){
+    void addPostTest() {
         //Given
-        String idExpected="expectedId";
-        Instant instantExpected= Instant.parse("2020-11-26T10:00:00Z");
-        String principalName="franzi123";
+        String idExpected = "expectedId";
+        Instant instantExpected = Instant.parse("2020-11-26T10:00:00Z");
+        String principalName = "franzi123";
 
-        AddPostDto addPostDto= new AddPostDto("Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.GREEN, "I would like to have a dinner out");
+        AddPostDto addPostDto = new AddPostDto("Dinner out", LocalDate.of(2020, 11, 25), LocalTime.of(14, 00), LocalTime.of(16, 00), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.GREEN, "I would like to have a dinner out");
 
-        Post post=new Post("expectedId", principalName,"Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW, "Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instantExpected);
-        SendPostDto sendPost=ParseUtils.parseToSendPostDto(post);
+        Post post = new Post("expectedId", principalName, "Franzi", "Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.GREEN, "I would like to have a dinner out", instantExpected);
+        SendPostDto sendPost = ParseUtils.parseToSendPostDto(post);
 
         when(idUtils.generateId()).thenReturn(idExpected);
         when(timestampUtils.generateTimestampInstant()).thenReturn(instantExpected);
@@ -121,28 +119,28 @@ class PostServiceTest {
         when(userDao.findById(principalName)).thenReturn(Optional.of(FriendSeeder.getSecondStockSpontaneityUser()));
 
         //When
-        SendPostDto newPost=postService.addPost(principalName,addPostDto);
+        SendPostDto newPost = postService.addPost(principalName, addPostDto);
 
         //Then
-        assertThat(newPost,is(sendPost));
+        assertThat(newPost, is(sendPost));
         verify(postDao).save(post);
     }
 
     @Test
     @DisplayName("The \"updatePost\" method should return the updated Post")
-    void updatePostTest(){
+    void updatePostTest() {
         //Given
-        String id="someId";
-        Instant instant= Instant.parse("2020-11-26T10:00:00Z");
-        Instant newInstant= Instant.parse("2020-11-26T11:00:00Z");
-        String principalName="franzi123";
+        String id = "someId";
+        Instant instant = Instant.parse("2020-11-26T10:00:00Z");
+        Instant newInstant = Instant.parse("2020-11-26T11:00:00Z");
+        String principalName = "franzi123";
 
-        UpdatePostDto updatePostDto= new UpdatePostDto(id,"Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto = new UpdatePostDto(id, "Dinner out", LocalDate.of(2020, 11, 25), LocalTime.of(14, 00), LocalTime.of(16, 00), EnumStatus.GREEN, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.BLUE, "I would like to have a dinner out");
 
-        Post oldPost=new Post(id, principalName,"Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post oldPost = new Post(id, principalName, "Franzi", "Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
-        Post updatedPost=new Post(id, principalName,"Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.BLUE, "I would like to have a dinner out", newInstant);
-        SendPostDto sendUpdatedPost =ParseUtils.parseToSendPostDto(updatedPost);
+        Post updatedPost = new Post(id, principalName, "Franzi", "Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"), EnumStatus.GREEN, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.BLUE, "I would like to have a dinner out", newInstant);
+        SendPostDto sendUpdatedPost = ParseUtils.parseToSendPostDto(updatedPost);
 
         when(timestampUtils.generateTimestampInstant()).thenReturn(newInstant);
         when(postDao.findById(id)).thenReturn(Optional.of(oldPost));
@@ -150,51 +148,51 @@ class PostServiceTest {
         when(userDao.findById(principalName)).thenReturn(Optional.of(FriendSeeder.getSecondStockSpontaneityUser()));
 
         //When
-        SendPostDto result=postService.updatePost(principalName,updatePostDto);
+        SendPostDto result = postService.updatePost(principalName, updatePostDto);
 
         //Then
-        assertThat(result,is(sendUpdatedPost));
+        assertThat(result, is(sendUpdatedPost));
         verify(postDao).save(updatedPost);
     }
 
 
     @Test
     @DisplayName("The \"updatePost\" method should return Forbidden when user tries to update post of other user")
-    void updatePostOfOtherUserTest(){
+    void updatePostOfOtherUserTest() {
         //Given
-        String id="someId";
-        Instant instant= Instant.parse("2020-11-26T10:00:00Z");
-        String principalName="franzi123";
+        String id = "someId";
+        Instant instant = Instant.parse("2020-11-26T10:00:00Z");
+        String principalName = "franzi123";
 
-        UpdatePostDto updatePostDto= new UpdatePostDto(id,"Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto = new UpdatePostDto(id, "Dinner out", LocalDate.of(2020, 11, 25), LocalTime.of(14, 00), LocalTime.of(16, 00), EnumStatus.GREEN, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.BLUE, "I would like to have a dinner out");
 
-        Post oldPost=new Post(id, principalName,"Franzi", "Dinner out",Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432 , EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post oldPost = new Post(id, principalName, "Franzi", "Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
         when(postDao.findById(id)).thenReturn(Optional.of(oldPost));
 
         //When
-        try{
-            postService.updatePost("eva123",updatePostDto);
-        } catch (ResponseStatusException e){
+        try {
+            postService.updatePost("eva123", updatePostDto);
+        } catch (ResponseStatusException e) {
             assertThat(e.getStatus(), is(HttpStatus.FORBIDDEN));
         }
     }
 
     @Test
     @DisplayName("The \"updatePost\" method should return Not Found when user tries to update not existing idea")
-    void updateNotExistingPostTest(){
+    void updateNotExistingPostTest() {
         //Given
-        String id="someId";
-        String principalName="franzi123";
+        String id = "someId";
+        String principalName = "franzi123";
 
-        UpdatePostDto updatePostDto= new UpdatePostDto(id,"Dinner out",LocalDate.of(2020,11,25), LocalTime.of(14,00),LocalTime.of(16,00), EnumStatus.GREEN,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal ,EnumStatus.BLUE, "I would like to have a dinner out");
+        UpdatePostDto updatePostDto = new UpdatePostDto(id, "Dinner out", LocalDate.of(2020, 11, 25), LocalTime.of(14, 00), LocalTime.of(16, 00), EnumStatus.GREEN, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.BLUE, "I would like to have a dinner out");
 
         when(postDao.findById(id)).thenReturn(Optional.empty());
 
         //When
-        try{
-            postService.updatePost(principalName,updatePostDto);
-        } catch (ResponseStatusException e){
+        try {
+            postService.updatePost(principalName, updatePostDto);
+        } catch (ResponseStatusException e) {
             assertThat(e.getStatus(), is(HttpStatus.NOT_FOUND));
         }
 
@@ -202,18 +200,18 @@ class PostServiceTest {
 
     @Test
     @DisplayName("The \"deletePost\" method should delete post")
-    void deletePostTest(){
+    void deletePostTest() {
         //Given
-        String id="someId";
-        String principalName="franzi123";
-        Instant instant= Instant.parse("2020-11-26T10:00:00Z");
+        String id = "someId";
+        String principalName = "franzi123";
+        Instant instant = Instant.parse("2020-11-26T10:00:00Z");
 
-        Post post=new Post(id, principalName,"Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post post = new Post(id, principalName, "Franzi", "Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
         when(postDao.findById(id)).thenReturn(Optional.of(post));
 
         //When
-        postService.deletePost(principalName,id);
+        postService.deletePost(principalName, id);
 
         //Then
         verify(postDao).deleteById(id);
@@ -221,41 +219,40 @@ class PostServiceTest {
 
     @Test
     @DisplayName("The \"deletePost\" method should return Not Found when user tries to delete not existing idea")
-    void deleteNotExistingPostTest(){
+    void deleteNotExistingPostTest() {
         //Given
-        String id="someId";
-        String principalName="franzi123";
+        String id = "someId";
+        String principalName = "franzi123";
 
         when(postDao.findById(id)).thenReturn(Optional.empty());
 
         //When
-        try{
-            postService.deletePost(principalName,id);
-        } catch(ResponseStatusException e){
-            assertThat(e.getStatus(),is(HttpStatus.NOT_FOUND));
+        try {
+            postService.deletePost(principalName, id);
+        } catch (ResponseStatusException e) {
+            assertThat(e.getStatus(), is(HttpStatus.NOT_FOUND));
         }
     }
 
     @Test
     @DisplayName("The \"deletePost\" method should return Forbidden when user tries to delete idea of other user")
-    void deletePostOfOtherUserTest(){
+    void deletePostOfOtherUserTest() {
         //Given
-        String id="someId";
-        String principalName="franzi123";
-        Instant instant= Instant.parse("2020-11-26T10:00:00Z");
+        String id = "someId";
+        String principalName = "franzi123";
+        Instant instant = Instant.parse("2020-11-26T10:00:00Z");
 
-        Post post=new Post(id, principalName,"Franzi","Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"),EnumStatus.YELLOW,"Musterstraße,22055 Hamburg","Altona",53.5530,9.9432, EnumStatus.BLUE, EnumCategory.Meal,EnumStatus.GREEN, "I would like to have a dinner out", instant);
+        Post post = new Post(id, principalName, "Franzi", "Dinner out", Instant.parse("2020-11-25T13:00:00Z"), Instant.parse("2020-11-25T15:00:00Z"), EnumStatus.YELLOW, "Musterstraße,22055 Hamburg", "Altona", 53.5530, 9.9432, EnumStatus.BLUE, EnumCategory.Meal, EnumStatus.GREEN, "I would like to have a dinner out", instant);
 
         when(postDao.findById(id)).thenReturn(Optional.of(post));
 
         //When
-        try{
-            postService.deletePost("eva123",id);
-        } catch(ResponseStatusException e){
-            assertThat(e.getStatus(),is(HttpStatus.FORBIDDEN));
+        try {
+            postService.deletePost("eva123", id);
+        } catch (ResponseStatusException e) {
+            assertThat(e.getStatus(), is(HttpStatus.FORBIDDEN));
         }
     }
-
 
 
 }

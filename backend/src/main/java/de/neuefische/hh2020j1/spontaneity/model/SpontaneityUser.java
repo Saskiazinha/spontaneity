@@ -1,4 +1,5 @@
 package de.neuefische.hh2020j1.spontaneity.model;
+
 import de.neuefische.hh2020j1.spontaneity.dto.FriendDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection="user")
+@Document(collection = "user")
 public class SpontaneityUser {
 
     @Id

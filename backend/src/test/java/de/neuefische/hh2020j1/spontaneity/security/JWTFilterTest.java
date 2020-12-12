@@ -1,4 +1,5 @@
 package de.neuefische.hh2020j1.spontaneity.security;
+
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import io.jsonwebtoken.Jwts;
@@ -35,19 +36,19 @@ class JWTFilterTest {
     @Autowired
     private UserDao userDao;
 
-    private final String secretKey="a-secrettoken";
+    private final String secretKey = "a-secrettoken";
 
     @BeforeEach
-    public void setupUser(){
+    public void setupUser() {
         userDao.deleteAll();
-        String password=new BCryptPasswordEncoder().encode("a-password");
+        String password = new BCryptPasswordEncoder().encode("a-password");
         userDao.save(SpontaneityUser.builder().username("saskia").friends(List.of()).password(password).build());
     }
 
     @Test
-    public void getFriendsPostsWithValidTokenShouldReturnOK(){
+    public void getFriendsPostsWithValidTokenShouldReturnOK() {
         //Given
-        String token= Jwts.builder()
+        String token = Jwts.builder()
                 .setClaims(new HashMap<>())
                 .setSubject("saskia")
                 .setIssuedAt(Date.from(Instant.now()))
@@ -55,22 +56,22 @@ class JWTFilterTest {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
         //When
-        String url="http://localhost:"+port+"/api/posts";
+        String url = "http://localhost:" + port + "/api/posts";
 
-        HttpHeaders headers=new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
-        HttpEntity<Void> entity=new HttpEntity<>(headers);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<String>response=testRestTemplate.exchange(url,HttpMethod.GET,entity,String.class);
+        ResponseEntity<String> response = testRestTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
     @Test
-    public void getFriendsPostsShouldReturnForbiddenWhenTokenIsExpired(){
+    public void getFriendsPostsShouldReturnForbiddenWhenTokenIsExpired() {
         //Given
-        String token= Jwts.builder()
+        String token = Jwts.builder()
                 .setClaims(new HashMap<>())
                 .setSubject("saskia")
                 .setIssuedAt(Date.from(Instant.now()))
@@ -78,13 +79,13 @@ class JWTFilterTest {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
         //When
-        String url="http://localhost:"+port+"/api/posts";
+        String url = "http://localhost:" + port + "/api/posts";
 
-        HttpHeaders headers=new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
-        HttpEntity<Void> entity=new HttpEntity<>(headers);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<String>response=testRestTemplate.exchange(url,HttpMethod.GET,entity,String.class);
+        ResponseEntity<String> response = testRestTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
@@ -92,9 +93,9 @@ class JWTFilterTest {
     }
 
     @Test
-    public void getFriendsPostsShouldReturnForbiddenWhenSecretKeyNoMatch(){
+    public void getFriendsPostsShouldReturnForbiddenWhenSecretKeyNoMatch() {
         //Given
-        String token= Jwts.builder()
+        String token = Jwts.builder()
                 .setClaims(new HashMap<>())
                 .setSubject("saskia")
                 .setIssuedAt(Date.from(Instant.now()))
@@ -102,19 +103,18 @@ class JWTFilterTest {
                 .signWith(SignatureAlgorithm.HS256, "otherKey")
                 .compact();
         //When
-        String url="http://localhost:"+port+"/api/posts";
+        String url = "http://localhost:" + port + "/api/posts";
 
-        HttpHeaders headers=new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
-        HttpEntity<Void> entity=new HttpEntity<>(headers);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<String>response=testRestTemplate.exchange(url,HttpMethod.GET,entity,String.class);
+        ResponseEntity<String> response = testRestTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
 
     }
-
 
 
 }

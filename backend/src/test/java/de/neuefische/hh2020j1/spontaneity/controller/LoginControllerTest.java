@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = "jwt.secretkey=a-secrettoken")
 public class LoginControllerTest {
 
@@ -36,12 +36,12 @@ public class LoginControllerTest {
     @Autowired
     private UserDao userDao;
 
-    private final String secretKey="a-secrettoken";
+    private final String secretKey = "a-secrettoken";
 
     @BeforeEach
-    public void setupUser(){
+    public void setupUser() {
         userDao.deleteAll();
-        String password=new BCryptPasswordEncoder().encode("a-password");
+        String password = new BCryptPasswordEncoder().encode("a-password");
         userDao.save(SpontaneityUser.builder().username("saskia").password(password).build());
     }
 
@@ -57,27 +57,26 @@ public class LoginControllerTest {
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
 
-        String token= response.getBody();
+        String token = response.getBody();
         Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
 
-        assertThat(claims.getSubject(),is("saskia"));
-        assertThat(claims.getExpiration().after(new Date()),is(true));
+        assertThat(claims.getSubject(), is("saskia"));
+        assertThat(claims.getExpiration().after(new Date()), is(true));
     }
 
     @Test
-    public void loginWithInvalidCredentialsShouldReturnForbidden(){
+    public void loginWithInvalidCredentialsShouldReturnForbidden() {
 
         //Given
-        LoginDto loginDto = new LoginDto("saskia","a-wrong-password");
+        LoginDto loginDto = new LoginDto("saskia", "a-wrong-password");
 
         //When
-        ResponseEntity <String> response=testRestTemplate.postForEntity("http://localhost:" + port + "/auth/login", loginDto, String.class);
+        ResponseEntity<String> response = testRestTemplate.postForEntity("http://localhost:" + port + "/auth/login", loginDto, String.class);
 
         //Then
         assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
 
     }
-
 
 
 }

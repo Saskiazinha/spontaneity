@@ -30,40 +30,40 @@ public class FriendsService {
     }
 
     public List<FriendDto> getFriends(String principalName) {
-        Optional<SpontaneityUser> user= userDao.findById(principalName);
-        if(user.isEmpty()){
+        Optional<SpontaneityUser> user = userDao.findById(principalName);
+        if (user.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
-            return user.get().getFriends();
+        return user.get().getFriends();
     }
 
     public FriendDto addFriend(String principalName, String friendUsername) {
-        SpontaneityUser userToAdd=userDao.findById(friendUsername).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
-        FriendDto friendToAdd= new FriendDto(userToAdd.getUsername(),userToAdd.getFirstName(),userToAdd.getLastName());
+        SpontaneityUser userToAdd = userDao.findById(friendUsername).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        FriendDto friendToAdd = new FriendDto(userToAdd.getUsername(), userToAdd.getFirstName(), userToAdd.getLastName());
 
-        if (getFriends(principalName).contains(friendToAdd)){
+        if (getFriends(principalName).contains(friendToAdd)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         Query query = new Query();
         query.addCriteria(Criteria.where("username").is(principalName));
 
-        Update update=new Update();
-        update.addToSet("friends",friendToAdd);
+        Update update = new Update();
+        update.addToSet("friends", friendToAdd);
 
-        mongoTemplate.updateFirst(query, update,SpontaneityUser.class);
+        mongoTemplate.updateFirst(query, update, SpontaneityUser.class);
 
         return friendToAdd;
     }
 
     public void deleteFriend(String principalName, String friendUsername) {
-        Query query = new Query (new Criteria().andOperator(
+        Query query = new Query(new Criteria().andOperator(
                 Criteria.where("username").is(principalName),
                 Criteria.where("friends").elemMatch(Criteria.where("username").is(friendUsername))
         ));
 
-        Update update=new Update();
-        update.pull("friends", new BasicDBObject("username",friendUsername));
+        Update update = new Update();
+        update.pull("friends", new BasicDBObject("username", friendUsername));
 
         mongoTemplate.updateFirst(query, update, SpontaneityUser.class);
     }
