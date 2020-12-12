@@ -20,18 +20,18 @@ public class FriendsController {
     }
 
     @GetMapping
-    public List<FriendDto> getFriends (Principal principal){
+    public List<FriendDto> getFriends(Principal principal) {
         return friendsService.getFriends(principal.getName());
     }
 
     @PostMapping
-    public FriendDto addFriend (@RequestBody AddFriendDto addFriendDto, Principal principal){
+    public FriendDto addFriend(@RequestBody AddFriendDto addFriendDto, Principal principal) {
         return friendsService.addFriend(principal.getName(), addFriendDto.getUsername());
     }
 
     @DeleteMapping("{friendUsername}")
-    public void deleteFriend (@PathVariable String friendUsername, Principal principal){
-        friendsService.deleteFriend(principal.getName(),friendUsername);
+    public void deleteFriend(@PathVariable String friendUsername, Principal principal) {
+        friendsService.deleteFriend(principal.getName(), friendUsername);
     }
 
 }

@@ -27,39 +27,39 @@ public class PostController {
     }
 
     @GetMapping
-    public List<SendPostDto> getFriendsPosts(Principal principal){
-        List<Post> friendsPosts= postService.getFriendsPosts(principal.getName());
+    public List<SendPostDto> getFriendsPosts(Principal principal) {
+        List<Post> friendsPosts = postService.getFriendsPosts(principal.getName());
         return ParseUtils.parseToSendPostDtos(friendsPosts);
     }
 
     @GetMapping("myposts")
-    public List<SendPostDto> getPostsOfUser(Principal principal){
-         List<Post>userPosts=postService.getPostsOfUser(principal.getName());
+    public List<SendPostDto> getPostsOfUser(Principal principal) {
+        List<Post> userPosts = postService.getPostsOfUser(principal.getName());
         return ParseUtils.parseToSendPostDtos(userPosts);
     }
 
     @GetMapping("matching")
-    public List<SendPostDto> getMatchingPosts(Principal principal){
+    public List<SendPostDto> getMatchingPosts(Principal principal) {
         List<Post> matchingPosts = postService.getMatchingPosts(principal.getName());
         return ParseUtils.parseToSendPostDtos(matchingPosts);
     }
 
     @PostMapping
-    public SendPostDto addPost (@RequestBody AddPostDto dto, Principal principal){
-        return postService.addPost(principal.getName(),dto);
+    public SendPostDto addPost(@RequestBody AddPostDto dto, Principal principal) {
+        return postService.addPost(principal.getName(), dto);
     }
 
-    @PutMapping ("{postId}")
-    public SendPostDto updatePost (@RequestBody UpdatePostDto dto, @PathVariable String postId, Principal principal){
-        if(!postId.equals(dto.getId())){
+    @PutMapping("{postId}")
+    public SendPostDto updatePost(@RequestBody UpdatePostDto dto, @PathVariable String postId, Principal principal) {
+        if (!postId.equals(dto.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        return postService.updatePost(principal.getName(),dto);
+        return postService.updatePost(principal.getName(), dto);
     }
 
-    @DeleteMapping ("{postId}")
-    public void deletePost (@PathVariable String postId, Principal principal){
-        postService.deletePost(principal.getName(),postId);
+    @DeleteMapping("{postId}")
+    public void deletePost(@PathVariable String postId, Principal principal) {
+        postService.deletePost(principal.getName(), postId);
     }
 }

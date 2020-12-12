@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,19 +17,19 @@ import static org.mockito.Mockito.*;
 public class SignUpServiceTest {
 
     final UserDao userDao = mock(UserDao.class);
-    final SignUpService signUpService= new SignUpService(userDao);
+    final SignUpService signUpService = new SignUpService(userDao);
 
     @Test
     @DisplayName("The \"signUp\" method with a new user should return new user")
     void signUpTest() {
         //Given
         when(userDao.findById("Fiene")).thenReturn(Optional.empty());
-        SpontaneityUser fiene= SpontaneityUser.builder().username("Fiene").password("1234").build();
+        SpontaneityUser fiene = SpontaneityUser.builder().username("Fiene").password("1234").build();
 
         // When
-       Optional<String> user= signUpService.signUp(fiene);
+        Optional<String> user = signUpService.signUp(fiene);
 
-       // Then
+        // Then
         assertThat(user.get(), is(fiene.getUsername()));
     }
 
@@ -46,7 +47,7 @@ public class SignUpServiceTest {
         assertThat(user, is(Optional.empty()));
     }
 
-    @ParameterizedTest(name="when {0}, dann {1}")
+    @ParameterizedTest(name = "when {0}, dann {1}")
     @DisplayName("The \"isLongEnough\" method should return true, when password has min 6 digits")
     @CsvSource({
             "123456, true",
@@ -61,7 +62,7 @@ public class SignUpServiceTest {
         assertEquals(expected, response);
     }
 
-    @ParameterizedTest(name="when {0}, dann {1}")
+    @ParameterizedTest(name = "when {0}, dann {1}")
     @DisplayName("The \"containsLowerCases\" method should return true, when password contains lower cases")
     @CsvSource({
             "123a456, true",
@@ -77,7 +78,7 @@ public class SignUpServiceTest {
         assertEquals(expected, response);
     }
 
-    @ParameterizedTest(name="when {0}, dann {1}")
+    @ParameterizedTest(name = "when {0}, dann {1}")
     @DisplayName("The \"containsUpperCases\" method should return true, when password contains upper cases")
     @CsvSource({
             "123a456, false",
@@ -93,7 +94,7 @@ public class SignUpServiceTest {
         assertEquals(expected, response);
     }
 
-    @ParameterizedTest(name="when {0}, dann {1}")
+    @ParameterizedTest(name = "when {0}, dann {1}")
     @DisplayName("The \"containsNumbers\" method should return true, when password contains numbers")
     @CsvSource({
             "123a456, true",
@@ -109,7 +110,7 @@ public class SignUpServiceTest {
         assertEquals(expected, response);
     }
 
-    @ParameterizedTest(name="when {0}, dann {1}")
+    @ParameterizedTest(name = "when {0}, dann {1}")
     @DisplayName("The \"validatePassword\" method should return true, when password contains numbers")
     @CsvSource({
             "12A3a456, true",

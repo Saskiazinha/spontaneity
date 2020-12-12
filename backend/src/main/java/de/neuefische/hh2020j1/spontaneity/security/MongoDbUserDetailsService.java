@@ -22,8 +22,8 @@ public class MongoDbUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional <SpontaneityUser> userById= userDao.findById(username);
-        if (userById.isEmpty()){
+        Optional<SpontaneityUser> userById = userDao.findById(username);
+        if (userById.isEmpty()) {
             throw new UsernameNotFoundException("user not found");
         }
         return new User(username, userById.get().getPassword(), List.of());

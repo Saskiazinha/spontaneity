@@ -1,4 +1,5 @@
 package de.neuefische.hh2020j1.spontaneity.service;
+
 import de.neuefische.hh2020j1.spontaneity.dao.PostDao;
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
 import de.neuefische.hh2020j1.spontaneity.dto.AddPostDto;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -48,9 +48,9 @@ public class PostService {
         querySortForTime.with(Sort.by(Sort.Direction.ASC, "startPoint"));
         List<Post> posts = mongoTemplate.find(querySortForTime, Post.class);
 
-        List <String> friendsUsernames=friendsService.getFriends(principalName).stream().map(FriendDto::getUsername).collect(Collectors.toList());
+        List<String> friendsUsernames = friendsService.getFriends(principalName).stream().map(FriendDto::getUsername).collect(Collectors.toList());
         return posts.stream()
-                .filter((post)->friendsUsernames.contains(post.getCreator()))
+                .filter((post) -> friendsUsernames.contains(post.getCreator()))
                 .collect(Collectors.toList());
     }
 
@@ -64,18 +64,15 @@ public class PostService {
     }
 
     public List<Post> getMatchingPosts(String principalName) {
-        List<Post> userPosts = getPostsOfUser(principalName);
-        List<Post> friendsPosts = getFriendsPosts(principalName);
+        List<Post>userPosts=getPostsOfUser(principalName);
+        List<Post>friendsPosts= getFriendsPosts(principalName);
 
-        List<Post> matchingPosts = new ArrayList<>();
+        return friendsPosts.stream().filter(friendPost-> postTimewiseMatchesAnyUserPost(friendPost, userPosts)).collect(Collectors.toList());
+    }
 
-        userPosts.forEach(((userPost) -> {
-            matchingPosts.addAll(friendsPosts.stream().
-                    filter(post -> (post.getStartPoint().isBefore(userPost.getEndPoint()) && post.getEndPoint().isAfter(userPost.getStartPoint())))
-                    .collect(Collectors.toList()));
-        }));
 
-        return matchingPosts.stream().distinct().collect(Collectors.toList());
+    private boolean postTimewiseMatchesAnyUserPost(Post friendPost, List<Post> userPosts) {
+        return userPosts.stream().anyMatch((userPost) -> friendPost.getStartPoint().isBefore(userPost.getEndPoint()) && friendPost.getEndPoint().isAfter(userPost.getStartPoint()));
     }
 
 
@@ -103,7 +100,7 @@ public class PostService {
         return ParseUtils.parseToSendPostDto(postToSave);
     }
 
-    public String getUserName(String principalName){
+    public String getUserName(String principalName) {
         return userDao.findById(principalName).get().getFirstName();
     }
 

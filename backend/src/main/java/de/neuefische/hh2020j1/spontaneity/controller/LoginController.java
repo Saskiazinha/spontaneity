@@ -1,4 +1,5 @@
 package de.neuefische.hh2020j1.spontaneity.controller;
+
 import de.neuefische.hh2020j1.spontaneity.dto.LoginDto;
 import de.neuefische.hh2020j1.spontaneity.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import java.util.HashMap;
 
+import java.util.HashMap;
 
 
 @RestController
@@ -30,8 +31,8 @@ public class LoginController {
     }
 
     @PostMapping
-    public String login (@RequestBody LoginDto loginDto){
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword());
+    public String login(@RequestBody LoginDto loginDto) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
         try {
             authenticationManager.authenticate(authentication);
         } catch (AuthenticationException e) {

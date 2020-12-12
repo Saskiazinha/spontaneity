@@ -2,7 +2,6 @@ package de.neuefische.hh2020j1.spontaneity.service;
 
 
 import de.neuefische.hh2020j1.spontaneity.dao.UserDao;
-import de.neuefische.hh2020j1.spontaneity.dto.FriendDto;
 import de.neuefische.hh2020j1.spontaneity.model.SpontaneityUser;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,27 +19,27 @@ public class SignUpService {
         this.userDao = userDao;
     }
 
-    public Optional <String> signUp(SpontaneityUser spontaneityUser){
-        Optional<SpontaneityUser>user=userDao.findById(spontaneityUser.getUsername());
-        if(user.isPresent()){
+    public Optional<String> signUp(SpontaneityUser spontaneityUser) {
+        Optional<SpontaneityUser> user = userDao.findById(spontaneityUser.getUsername());
+        if (user.isPresent()) {
             return Optional.empty();
         }
-        String hashPassword= new BCryptPasswordEncoder().encode(spontaneityUser.getPassword());
-        SpontaneityUser spontaneityUserWithHashPW=SpontaneityUser.builder()
+        String hashPassword = new BCryptPasswordEncoder().encode(spontaneityUser.getPassword());
+        SpontaneityUser spontaneityUserWithHashPW = SpontaneityUser.builder()
                 .username(spontaneityUser.getUsername())
                 .email(spontaneityUser.getEmail())
                 .firstName(spontaneityUser.getFirstName())
                 .lastName(spontaneityUser.getLastName())
                 .password(hashPassword)
                 .friends(new ArrayList<>(List.of()))
-                        .build();
+                .build();
 
         userDao.save(spontaneityUserWithHashPW);
         return Optional.of(spontaneityUser.getUsername());
     }
 
     public boolean validatePassword(String password) {
-        return isLongEnough(password)&& containsNumbers(password) && containsUpperCases(password) && containsLowerCases(password);
+        return isLongEnough(password) && containsNumbers(password) && containsUpperCases(password) && containsLowerCases(password);
     }
 
     public boolean containsLowerCases(String password) {
@@ -56,6 +55,6 @@ public class SignUpService {
     }
 
     public boolean isLongEnough(String password) {
-        return password.length()>=6;
+        return password.length() >= 6;
     }
 }

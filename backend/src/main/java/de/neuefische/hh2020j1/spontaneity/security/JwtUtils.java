@@ -16,7 +16,7 @@ public class JwtUtils {
     @Value("${jwt.secretkey}")
     private String secretKey;
 
-    public String generateJwtToken(String username, Map<String, Object> claims){
+    public String generateJwtToken(String username, Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(Date.from(Instant.now()))
@@ -26,11 +26,11 @@ public class JwtUtils {
                 .compact();
     }
 
-    public Claims parseToken(String token){
+    public Claims parseToken(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
-    public boolean isValid(Claims claims){
+    public boolean isValid(Claims claims) {
         return claims.getExpiration().after(new Date());
     }
 }
