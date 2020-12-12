@@ -14,9 +14,7 @@ export default function AddPostPage() {
     <>
       <SpontaneityHeader />
       <Header title={"Add Post"} />
-      <Main>
-        <PostForm onSave={handleSave} />
-      </Main>
+      <PostForm onSave={handleSave} />
       <Footer />
     </>
   );
@@ -53,7 +51,3 @@ export default function AddPostPage() {
     history.goBack();
   }
 }
-
-const Main = styled.main`
-  //justify-self: center;
-`;
