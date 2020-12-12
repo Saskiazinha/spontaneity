@@ -143,17 +143,25 @@ export default function PostForm({ onSave, post = initialState }) {
 }
 
 const FormStyling = styled.form`
+  justify-self: center;
   display: grid;
-  grid-template-columns: min-content 110px 92px;
+  grid-template-columns: min-content 130px 92px;
   grid-template-rows: repeat(7, min-content) 1fr min-content;
   column-gap: var(--size-s);
-  row-gap: 16px;
+  row-gap: 20px;
   align-items: center;
   background-color: var(--turquoise-bright);
   box-shadow: 3px 3px 3px #95b0b4;
   border-radius: 20px;
   padding: var(--size-xl) var(--size-m);
   margin: 0 var(--size-xl) var(--size-l) var(--size-xl);
+
+  input,
+  select,
+  textarea {
+    background-color: white;
+    border: grey solid 1.5px;
+  }
 `;
 
 const TitleInput = styled.input`
