@@ -29,7 +29,7 @@ public class ParseUtils {
                 post.getAddress(),
                 post.getDistrict(),
                 post.getLat(),
-                post.getLat(),
+                post.getLng(),
                 post.getStatusLocation(),
                 post.getCategory(),
                 post.getStatusCategory(),
