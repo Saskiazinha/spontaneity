@@ -4,6 +4,6 @@ Spontaneity is a social platform that connects you spontaneously with friends. G
 
 Try it out on www.getspontaneity.com
 
-![](Spontaneity.gif)
+![](Spontaneity.png)
 
 
