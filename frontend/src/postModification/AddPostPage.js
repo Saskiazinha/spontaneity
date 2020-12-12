@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import styled from "styled-components/macro";
 import { useHistory } from "react-router-dom";
 import SpontaneityHeader from "../commons/navigation/SpontaneityHeader";
 import Header from "../commons/Header";
@@ -13,7 +14,9 @@ export default function AddPostPage() {
     <>
       <SpontaneityHeader />
       <Header title={"Add Post"} />
-      <PostForm onSave={handleSave} />
+      <Main>
+        <PostForm onSave={handleSave} />
+      </Main>
       <Footer />
     </>
   );
@@ -50,3 +53,7 @@ export default function AddPostPage() {
     history.goBack();
   }
 }
+
+const Main = styled.main`
+  //justify-self: center;
+`;

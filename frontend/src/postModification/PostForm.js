@@ -144,7 +144,7 @@ export default function PostForm({ onSave, post = initialState }) {
 
 const FormStyling = styled.form`
   display: grid;
-  grid-template-columns: min-content 110px 92px;
+  grid-template-columns: min-content 130px 92px;
   grid-template-rows: repeat(7, min-content) 1fr min-content;
   column-gap: var(--size-s);
   row-gap: 16px;
