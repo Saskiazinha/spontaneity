@@ -16,10 +16,6 @@ export default function FooterMyPosts() {
 }
 
 const FooterStyled = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
   display: grid;
   justify-items: center;
   background-color: var(--turquoise-main);
