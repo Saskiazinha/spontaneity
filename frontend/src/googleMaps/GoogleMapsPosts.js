@@ -143,8 +143,6 @@ const NavStyling = styled.div`
 const MapsStyling = styled.div`
   grid-row: 2/4;
   grid-column: 1;
-  overflow: scroll;
-  position: relative;
 `;
 
 const WindowStyling = styled.div`
