@@ -31,6 +31,7 @@ export default function SignUpPage() {
             value={signUpData.username}
             onChange={handleChange}
             placeholder="Set username"
+            autoComplete="username"
             required
           />
         </LabelStyled>
@@ -58,7 +59,6 @@ export default function SignUpPage() {
             value={signUpData.lastName}
             onChange={handleChange}
             placeholder="Enter last name"
-            autoComplete="username"
             required
           />
         </LabelStyled>
