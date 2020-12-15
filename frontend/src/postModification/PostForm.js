@@ -149,7 +149,7 @@ const FormStyling = styled.form`
   grid-template-columns: min-content 120px 92px;
   grid-template-rows: repeat(7, min-content) 1fr min-content;
   column-gap: var(--size-s);
-  row-gap: 20px;
+  row-gap: 17px;
   align-items: center;
   background-color: var(--turquoise-bright);
   box-shadow: 3px 3px 3px #95b0b4;
