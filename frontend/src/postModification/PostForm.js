@@ -143,6 +143,7 @@ export default function PostForm({ onSave, post = initialState }) {
 }
 
 const FormStyling = styled.form`
+  overflow: scroll;
   justify-self: center;
   display: grid;
   grid-template-columns: min-content 120px 92px;
