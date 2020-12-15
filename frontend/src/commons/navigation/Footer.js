@@ -6,6 +6,10 @@ export default function Footer({ actions }) {
 }
 
 const FooterStyled = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
   display: grid;
   grid-template-columns: 35% 1fr 35%;
   align-items: center;
